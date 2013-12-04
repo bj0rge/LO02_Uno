@@ -1,5 +1,76 @@
 package LO02_Uno;
 
+/**
+ * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
+ * <p>
+ * Une Carte est caractérisée par les informations suivantes :
+ * <ul>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>La couleur qu'elle porte (peut être nul)</li>
+ * </ul>
+ * Une Carte peut être posée sur la table pour être jouée.
+ * </p>
+ *
+ */
 public class Carte {
+	
+	/**
+	 * Le nombre de points que rapporte la Carte en fin de partie.
+	 */
+	private int points;
+	
+	/**
+	 * La couleur portée par la carte. Peut être nul pour certaines Cartes spéciales.
+	 */
+	private Couleur couleur;
+	
+	
+	/**
+	 * Constructeur de la Carte.
+	 * @param points
+	 * 			Le nombre de points que rapporte la Carte.
+	 * @param couleur
+	 * 			La couleur portée par la Carte. La valeur peut être égale à <i>null</i>.
+	 */
+	public Carte(int points, Couleur couleur){
+		this.setPoints(points);
+		this.setCouleur(couleur);
+	}
 
+	/**
+	 * Retourne le nombre de points de la Carte.
+	 * @return Le nombre de poins.
+	 */
+	public int getPoints() {
+		return points;
+	}
+
+	/**
+	 * Met à jour le nombre de points de la Carte.
+	 * @param points
+	 * 			Le nouveau nombre de points.
+	 */
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	/**
+	 * Retourne la couleur de la Carte.
+	 * @return Une instance de Couleur, qui correspond à la couleur portée par la Carte.
+	 * @see Couleur
+	 */
+	public Couleur getCouleur() {
+		return couleur;
+	}
+
+	/**
+	 * Met à jour la couleur de la Carte.
+	 * @param couleur
+	 * 			La nouvelle couleur de la Carte.
+	 * @see Couleur
+	 */
+	public void setCouleur(Couleur couleur) {
+		this.couleur = couleur;
+	}
+	
 }

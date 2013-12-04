@@ -16,4 +16,11 @@ public class Partie
 		this.mode = mode;
 		
 	}
+	
+	
+	
+	
+	public static void main(String[] args){
+		
+	}
 }

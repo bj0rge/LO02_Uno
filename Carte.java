@@ -1,7 +1,7 @@
 package LO02_Uno;
 
 /**
- * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
+ * <b>Carte est la classe représentant une Carte du jeu de UNO.</b>
  * <p>
  * Une Carte est caractérisée par les informations suivantes :
  * <ul>
@@ -52,8 +52,7 @@ public abstract class Carte {
 	 * @see Defausse
 	 */
 	public void poser(){
-		Defausse defausse = Defausse.getDefausse();
-		defausse.defausser(this);
+		Defausse.getInstance().defausser(this);
 	}
 	
 

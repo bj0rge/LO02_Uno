@@ -4,10 +4,11 @@ public class JeuDeCartes {
 
 	// Attributs
 	private static JeuDeCartes jeu;
-	private Carte[] defausse;
-	private Carte[] pioche;
+	private Defausse defausse;
+	private Pioche pioche;
 	private boolean sensHoraire;
 	private Joueur joueurActuel;
+	private Joueur[] joueurs;
 	
 	// Méthodes
 	private JeuDeCartes(){

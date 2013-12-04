@@ -12,7 +12,7 @@ package LO02_Uno;
  * </p>
  *
  */
-public class Carte {
+public abstract class Carte {
 	
 	/**
 	 * Le nombre de points que rapporte la Carte en fin de partie.
@@ -36,6 +36,26 @@ public class Carte {
 		this.setPoints(points);
 		this.setCouleur(couleur);
 	}
+	
+	
+	
+	/**
+	 * Retourne la possibilité de jouer la Carte ou non par rapport à la dernière posée dans la Défausse.
+	 * @return Vrai si la carte est jouable, faux sinon.
+	 * @see Defausse
+	 */
+	public abstract boolean estJouable();
+	
+	
+	/**
+	 * Pose la carte dans la pile de la Défausse.
+	 * @see Defausse
+	 */
+	public void poser(){
+		Defausse defausse = Defausse.getDefausse();
+		defausse.defausser(this);
+	}
+	
 
 	/**
 	 * Retourne le nombre de points de la Carte.

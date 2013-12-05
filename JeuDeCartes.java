@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * <b>JeuDeCartes est la classe représentant le Jeu de UNO. C'est aussi elle qui gère la partie en cours.</b>
+ * <b>JeuDeCartes est la classe représentant le Jeu de UNO. C'est aussi elle qui gère la manche en cours.</b>
  * <p>
  * Le JeuDeCartes est une classe unique (singleton), et est caractérisée par :
  * <ul>
@@ -12,12 +12,9 @@ import java.util.ArrayList;
  * <li>Le sens actuel du jeu (horaire par défaut)</li>
  * </ul>
  * </p>
- * @see Defausse
- * @see Pioche
  */
 public class JeuDeCartes {
 
-	// Attributs
 	
 	/**
 	 * L'instance du JeuDeCartes.
@@ -65,11 +62,11 @@ public class JeuDeCartes {
 				if (JeuDeCartes.instance == null) {
 					JeuDeCartes.instance = new JeuDeCartes();
 					JeuDeCartes.instance.setSensHoraire(true);
-					JeuDeCartes.instance.setJoueurActuel(Partie.getInstance().getJoueurs().get(0));
+					JeuDeCartes.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
 					}
 				}
 			}
-		return Defausse.instance;
+		return JeuDeCartes.instance;
 	}
 
 	

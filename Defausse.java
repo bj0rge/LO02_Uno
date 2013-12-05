@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -56,6 +57,7 @@ public class Defausse {
 			synchronized(Defausse.class) {
 				if (Defausse.instance == null) {
 					Defausse.instance = new Defausse();
+					Defausse.getInstance().setDefausse(new ArrayList<Carte>());
 					}
 				}
 			}
@@ -68,12 +70,38 @@ public class Defausse {
 	 * 			Carte à défausser.
 	 */
 	public void defausser(Carte carte){
-		Defausse.getInstance().getDefausse().add(carte);
-		
+		this.getDefausse().add(carte);
 	}
 	
+	/**
+	 * Retourne l'index de la dernière Carte posée.
+	 * @return L'index de la dernière Carte posée.
+	 */
+	public int getIndexCartePosee() {
+		return (this.getDefausse().size() -1);
+	}
 	
-
+	/**
+	 * Permet de retourner "physiquement" l'ancienne Défausse afin de constituer la nouvelle Pioche.
+	 * @return La future Pioche, sous la forme d'une instance d'une ArrayList<Carte>
+	 * @see Pioche
+	 */
+	public ArrayList<Carte> retournerDefausse() {
+		// On récupère la dernière Carte jouée
+		Carte carte_jouee = this.getDefausse().get(this.getIndexCartePosee());
+		// On l'enlève de la Défausse actuelle
+		this.getDefausse().remove(this.getIndexCartePosee());
+		// On stocke la défausse, qu'on mélange.
+		ArrayList<Carte> nouvelle_pioche = this.getDefausse();
+		Collections.shuffle(nouvelle_pioche);
+		// On met à jour la nouvelle Défausse
+		ArrayList<Carte> nouvelle_defausse = new ArrayList<Carte>();
+		nouvelle_defausse.add(carte_jouee);
+		this.setDefausse(nouvelle_defausse);
+		
+		// On retourne finalement ce qui sera la nouvelle Pioche
+		return nouvelle_pioche;
+	}
 	
 	/**
 	 * Retourne la liste des Cartes de la Défausse.

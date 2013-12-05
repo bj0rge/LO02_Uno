@@ -26,8 +26,10 @@ public class Defausse {
 	
 	/**
 	 * Les Cartes contenues dans la Défausse.
+	 * @see Carte
 	 */
 	private ArrayList<Carte> defausse;
+	
 	
 	
 	/**

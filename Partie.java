@@ -1,12 +1,14 @@
 package LO02_Uno;
 
+import java.util.ArrayList;
+
 public class Partie 
 {
 	
 	// Attributs
 	private static Partie partie;
 	private ModeDeJeu mode;
-	private Joueur[] listeJoueurs;
+	private ArrayList<Joueur> listeJoueurs;
 	private int nb_pts_max;
 	private int nb_manches_max;
 	private int manche;
@@ -18,9 +20,13 @@ public class Partie
 	}
 	
 	
-	
-	
-	public static void main(String[] args){
-		
+	public ArrayList<Joueur> getListeJoueurs(){
+		return this.listeJoueurs;
 	}
+	
+	
+	
+//	public static void main(String[] args){
+//		
+//	}
 }

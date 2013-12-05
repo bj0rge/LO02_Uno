@@ -44,16 +44,14 @@ public abstract class Carte {
 	 * @return Vrai si la carte est jouable, faux sinon.
 	 * @see Defausse
 	 */
-	public abstract boolean estJouable();
+	public abstract boolean estJouable(Carte c);
 	
 	
 	/**
-	 * Pose la carte dans la pile de la Défausse.
+	 * Applique les effets induits par la carte.
 	 * @see Defausse
 	 */
-	public void poser(){
-		Defausse.getInstance().defausser(this);
-	}
+	public abstract void appliquerEffets();
 	
 
 	/**

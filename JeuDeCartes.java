@@ -111,6 +111,13 @@ public class JeuDeCartes {
 		return joueur_suivant;		
 	}
 	
+	/**
+	 * Passe le JoueurSuivant en JoueurActuel.
+	 */
+	public void passerJoueur() {
+		this.setJoueurActuel(this.getJoueurSuivant());
+	}
+	
 	
 	
 	/**

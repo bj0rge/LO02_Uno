@@ -22,12 +22,10 @@ public class Main {
 	
 	
 	/**
-	 * Constructeur de la Main.
-	 * @param cartes
-	 * 			Les Cartes qui vont constituer la Main, sous la forme d'une instance d'ArrayList<Carte>. 
+	 * Constructeur de la Main. 
 	 */
-	public Main(ArrayList<Carte> cartes) {
-		this.setCartes(cartes);
+	public Main() {
+		this.setCartes(new ArrayList<Carte>());
 	}
 
 	
@@ -43,6 +41,15 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Permet d'enlever une Carte de la Main et de l'ajouter dans la Défausse.
+	 * @param c
+	 * 			Carte à défausser.
+	 */
+	public void defausser(Carte c) {
+		this.cartes.remove(c);
+		Defausse.getInstance().defausser(c);
+	}
 	
 
 	/**

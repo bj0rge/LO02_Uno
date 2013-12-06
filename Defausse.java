@@ -88,7 +88,7 @@ public class Defausse {
 	 */
 	public ArrayList<Carte> retournerDefausse() {
 		// On récupère la dernière Carte jouée
-		Carte carte_jouee = this.getDefausse().get(this.getIndexCartePosee());
+		Carte carte_jouee = this.getDerniereCarteJouee();
 		// On l'enlève de la Défausse actuelle
 		this.getDefausse().remove(this.getIndexCartePosee());
 		// On stocke la défausse, qu'on mélange.
@@ -101,6 +101,14 @@ public class Defausse {
 		
 		// On retourne finalement ce qui sera la nouvelle Pioche
 		return nouvelle_pioche;
+	}
+	
+	/**
+	 * Retourne la dernière Carte posée sur le haut de la Défausse.
+	 * @return La dernière Carte posée sur le haut de la Défausse, sous la forme d'une instance de Carte.
+	 */
+	public Carte getDerniereCarteJouee() {
+		return this.getDefausse().get(this.getIndexCartePosee());
 	}
 	
 	/**

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * <b>Partie est la classe représentant la Partie de UNO. Elle permettra de faire boucler les manches de Jeu.</b>
+ * <b>Partie est la classe représentant la Partie de UNO. Elle permettra de faire boucler les Manches du jeu.</b>
  * <p>
  * La Partie est une classe unique (singleton), et est caractérisée par :
  * <ul>
@@ -68,7 +68,7 @@ public class Partie
 			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
 			// multiple même par différents "threads".
 			// Il est TRES important.
-			synchronized(JeuDeCartes.class) {
+			synchronized(Manche.class) {
 				if (Partie.instance == null) {
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);

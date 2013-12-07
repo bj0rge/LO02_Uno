@@ -97,7 +97,7 @@ public class Joueur {
 	 * Met fin au tour du Joueur.
 	 */
 	public void terminerTour() {
-		JeuDeCartes.getInstance().PasserJoueur();
+		Manche.getInstance().PasserJoueur();
 	}
 	
 	/**

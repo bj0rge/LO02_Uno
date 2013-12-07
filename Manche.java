@@ -4,25 +4,26 @@ import java.util.ArrayList;
 
 
 /**
- * <b>JeuDeCartes est la classe représentant le Jeu de UNO. C'est aussi elle qui gère la manche en cours.</b>
+ * <b>Manche est la classe représentant la Manche du jeu de UNO.</b>
  * <p>
- * Le JeuDeCartes est une classe unique (singleton), et est caractérisée par :
+ * La Manche est une classe unique (singleton), et est caractérisée par :
  * <ul>
  * <li>Une instance statique d'elle-même</li>
  * <li>Le sens actuel du jeu (horaire par défaut)</li>
+ * <li>Le Joueur qui va jouer son tour</li> 
  * </ul>
  * </p>
  */
-public class JeuDeCartes {
+public class Manche {
 
 	
 	/**
-	 * L'instance du JeuDeCartes.
+	 * L'instance de la Manche.
 	 */
 	// L'utilisation du mot clé volatile permet, en Java version 5 et supérieur, 
 	// d'éviter le cas  où "Singleton.instance" est non-nul,
 	// mais pas encore "réellement" instancié.
-	private static volatile JeuDeCartes instance = null;
+	private static volatile Manche instance = null;
 	
 	/**
 	 * Le sens du Jeu en cours : horaire à true, anti-horaire à false.
@@ -36,9 +37,9 @@ public class JeuDeCartes {
 	
 
 	/**
-	 * Constructeur du JeuDeCartes.
+	 * Constructeur de la Manche.
 	 */
-	private JeuDeCartes(){
+	private Manche(){
 		super();
 	}
 
@@ -47,38 +48,38 @@ public class JeuDeCartes {
 	
 
 	/**
-	 * Retourne l'instance du JeuDeCartes, et la construit si elle n'existe pas. Par défaut, le sens horaire est à true.
-	 * @return Une instance de JeuDeCartes, qui correspond au singleton.
+	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à true.
+	 * @return Une instance de Manche, qui correspond au singleton.
 	 */
-	public final static JeuDeCartes getInstance() {
+	public final static Manche getInstance() {
 		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
 		// d'éviter un appel coûteux à synchronized (qui est lourd), 
 		// une fois que l'instanciation est faite.
-		if (JeuDeCartes.instance == null) {
+		if (Manche.instance == null) {
 			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
 			// multiple même par différents "threads".
 			// Il est TRES important.
-			synchronized(JeuDeCartes.class) {
-				if (JeuDeCartes.instance == null) {
-					JeuDeCartes.instance = new JeuDeCartes();
-					JeuDeCartes.instance.setSensHoraire(true);
-					JeuDeCartes.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
+			synchronized(Manche.class) {
+				if (Manche.instance == null) {
+					Manche.instance = new Manche();
+					Manche.instance.setSensHoraire(true);
+					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
 					}
 				}
 			}
-		return JeuDeCartes.instance;
+		return Manche.instance;
 	}
 
 	
 	/**
-	 * Inverse le sens de la manche du Jeu en cours.
+	 * Inverse le sens de la Manche en cours.
 	 */
 	public void changerSens(){
-		JeuDeCartes.getInstance().setSensHoraire(!JeuDeCartes.getInstance().isSensHoraire());
+		Manche.getInstance().setSensHoraire(!Manche.getInstance().isSensHoraire());
 	}
 	
 	/**
-	 * Retourne le joueur qui a eu la main au tour de Jeu précédent.
+	 * Retourne le Joueur qui a eu la main au tour de jeu précédent dans la Manche.
 	 * @return Le Joueur précédent, sous la forme d'une instance Joueur.
 	 * @see Joueur
 	 */
@@ -95,7 +96,7 @@ public class JeuDeCartes {
 	}
 	
 	/**
-	 * Retourne le joueur qui va avoir la main au tour de Jeu suivant.
+	 * Retourne le Joueur qui va avoir la main au tour de jeu suivant.
 	 * @return Le Joueur suivant, sous la forme d'une instance Joueur.
 	 * @see Joueur
 	 */
@@ -121,7 +122,7 @@ public class JeuDeCartes {
 	
 	
 	/**
-	 * Retourne le sens de déroulement de la manche du Jeu.
+	 * Retourne le sens de déroulement de la Manche en cours.
 	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
 	 */
 	public boolean isSensHoraire() {
@@ -129,7 +130,7 @@ public class JeuDeCartes {
 	}
 
 	/**
-	 * Met à jour le sens de déroulement de la manche du Jeu.
+	 * Met à jour le sens de déroulement de la Manche en cours.
 	 * @param sensHoraire
 	 * 			<i>true</i> pour horaire, <i>false</i> pour anti-horaire. 
 	 */
@@ -138,7 +139,7 @@ public class JeuDeCartes {
 	}
 
 	/**
-	 * Retourne le Joueur qui a la main pour le tour actuel de la manche du Jeu.
+	 * Retourne le Joueur qui a la main pour le tour actuel de la Manche en cours.
 	 * @return Le Joueur actuel, sous la forme d'une instance Joueur.
 	 * @see Joueur
 	 */

@@ -91,15 +91,14 @@ public class Defausse {
 		Carte carte_jouee = this.getDerniereCarteJouee();
 		// On l'enlève de la Défausse actuelle
 		this.getDefausse().remove(this.getIndexCartePosee());
-		// On stocke la défausse, qu'on mélange.
+		// On stocke la défausse.
 		ArrayList<Carte> nouvelle_pioche = this.getDefausse();
-		Collections.shuffle(nouvelle_pioche);
 		// On met à jour la nouvelle Défausse
 		ArrayList<Carte> nouvelle_defausse = new ArrayList<Carte>();
 		nouvelle_defausse.add(carte_jouee);
 		this.setDefausse(nouvelle_defausse);
 		
-		// On retourne finalement ce qui sera la nouvelle Pioche
+		// On retourne finalement ce qui sera la nouvelle Pioche non mélangée
 		return nouvelle_pioche;
 	}
 	

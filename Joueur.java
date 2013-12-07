@@ -44,7 +44,7 @@ public class Joueur {
      * Constructeur du Joueur.
      * <p>
      * A la construction d'un objet Joueur, la Main est créée vide, elle sera remplie par
-     * la suite. Le score est également initialisé à 0, et la variable a_dit_uno à <i>false</i>.
+     * la suite. Le score est également initialisé à 0, et les variables a_dit_uno et a_pioche à <i>false</i>.
      * vide.
      * </p>
      */
@@ -52,6 +52,7 @@ public class Joueur {
 		this.setMain(new Main());
 		this.setScore(0);
 		this.setADitUno(false);
+		this.setAPioche(false);
 	}
 
 	
@@ -97,7 +98,7 @@ public class Joueur {
 	 * Met fin au tour du Joueur.
 	 */
 	public void terminerTour() {
-		Manche.getInstance().PasserJoueur();
+		Manche.getInstance().passerJoueur();
 	}
 	
 	/**

@@ -44,7 +44,12 @@ public abstract class Carte {
 	 * @return Vrai si la carte est jouable, faux sinon.
 	 * @see Defausse
 	 */
-	public abstract boolean estJouable(Carte c);
+	public boolean estJouable(Carte c) {
+		/* Une Carte sera jouable quoi qu'il arrive si elle a la même couleur que celle d'avant, ou si 
+		 * la Carte d'avant n'a pas de couleur (Ex: si la première carte retournée est une carte noire)
+		 */
+		return ((this.getCouleur() == c.getCouleur()) || (c.getCouleur() == null));
+	}
 	
 	
 	/**
@@ -89,5 +94,12 @@ public abstract class Carte {
 	public void setCouleur(Couleur couleur) {
 		this.couleur = couleur;
 	}
+	
+	
+	/**
+	 * Retourne une représentation de la Carte sous forme de String.
+	 * @returns Une représentation de la Carte sous forme de String. 
+	 */
+	public abstract String toString();
 	
 }

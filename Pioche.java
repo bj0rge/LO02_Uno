@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -64,7 +65,18 @@ public class Pioche {
 	private void retournerDefausse() {
 		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().retournerDefausse();
 		this.setPioche(nouvelle_pioche);
+		this.melanger();
 	}
+	
+	
+	/**
+	 * Permet de mélanger la Pioche.
+	 */
+	public void melanger() {
+		Collections.shuffle(getPioche());
+	}
+	
+	
 	
 
 	/**

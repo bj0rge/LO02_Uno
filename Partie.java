@@ -73,13 +73,53 @@ public class Partie
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
 					Partie.instance.setNb_pts_max(500);
-					Partie.instance.setManche(0);
+					Partie.instance.setManche(1);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
 			}
 		}
 		return Partie.instance;
 	}
+	
+	/**
+	 * Ajoute un Joueur à la listeJoueurs.
+	 * @param j
+	 * 			Joueur à ajouter.
+	 * @see Joueur
+	 */
+	public void ajouterJoueur(Joueur j) {
+		this.getListeJoueurs().add(j);
+	}
+	
+	
+	
+	/**
+	 * Incrémente le numéro de la manche en cours.
+	 */
+	public void incrementerManche() {
+		this.setManche(this.getManche() + 1);
+	}
+	
+	/**
+	 * Génère la Pioche en ajoutant les Cartes. 
+	 * @see Pioche
+	 */
+	public void genererPioche() {
+		for (Couleur couleur : Couleur.values()) {
+			for (int val = 1; val <= 9; val++) {
+				Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
+				Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
+			}
+			Pioche.getInstance().getPioche().add(new CarteNumerotee(0, couleur));
+			
+			Pioche.getInstance().melanger();
+		}
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * Retourne le Mode de jeu de la Partie.
@@ -171,7 +211,34 @@ public class Partie
 	
 	
 	
-//	public static void main(String[] args){
-//		
-//	}
+	public static void main(String[] args){
+		
+		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
+		Partie.getInstance();
+		
+		Partie.getInstance().genererPioche();
+		System.out.println("\nPioche générée.\n");
+		
+		// Ajout de 4 joueurs humains.
+		for (int i = 0; i<4; i++){
+			Partie.getInstance().ajouterJoueur(new Joueur());
+			System.out.println("Génération du joueur " + i);
+		}
+		
+		System.out.println("La pioche contient :");
+		System.out.println(Pioche.getInstance().getPioche().toString());
+		
+		for (int i = 0; i < 7; i++) {
+			for (Joueur j : Partie.getInstance().getListeJoueurs())
+				j.piocher();
+		}
+		System.out.println("\nLes joueurs ont pioché.\n");
+		
+		System.out.println("Voici leurs mains :");
+		for (Joueur j : Partie.getInstance().getListeJoueurs())
+			System.out.println(j.getMain().getCartes().toString());
+		
+		
+		
+	}
 }

@@ -285,6 +285,7 @@ public class Partie
 		boolean fintour = false;
 		
 		do {
+			int ret;
 			if (j.APioche())
 				System.out.println("[0] Passer son tour");
 			else
@@ -293,7 +294,15 @@ public class Partie
 			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
 				System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
 			}
-			int ret = sc.nextInt();
+			
+			while (!sc.hasNextInt())
+			{
+				sc.nextLine();
+				System.out.print("Valeur incorrecte. Entrez un entier : ");
+			}
+
+			ret = sc.nextInt();
+			
 			
 			// Si l'option choisie est 0
 			if (ret == 0)
@@ -319,7 +328,8 @@ public class Partie
 					fintour = true;
 				}
 				else
-					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.");
+					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
+							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee());
 			}
 		}
 		while(!fintour);		

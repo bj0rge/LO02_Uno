@@ -8,9 +8,10 @@ public class CartePlusDeux extends Carte {
 		
 	}
 	
-	public void appliquerEffets(){
+	public void appliquerEffets(Joueur j){
 		
-		
+		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurSuivant());
+		j.getMain().piocher(2);
 		
 	}
 	

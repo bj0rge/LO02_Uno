@@ -10,7 +10,7 @@ public class CarteChangerSens extends Carte {
 	
 	public void appliquerEffets(){
 		
-		
+		Manche.getInstance().changerSens();
 		
 	}
 	

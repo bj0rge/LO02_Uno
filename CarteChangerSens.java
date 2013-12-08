@@ -2,7 +2,7 @@ package LO02_Uno;
 
 public class CarteChangerSens extends Carte {
 
-	public CarteChangerSens(Couleur couleur){
+	public CarteChangerSens(Couleur couleur){ // Constructeur
 		
 		super(20, couleur);
 		
@@ -10,7 +10,7 @@ public class CarteChangerSens extends Carte {
 	
 	public void appliquerEffets(){
 		
-		Manche.getInstance().changerSens();
+		Manche.getInstance().changerSens(); // Change le sens avec la méthode changerSens de l'unique manche
 		
 	}
 	

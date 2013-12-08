@@ -108,10 +108,10 @@ public class Partie
 	}
 	
 	/**
-	 * Génère la Pioche en ajoutant les Cartes. 
+	 * Génère les Cartes, et les envoie dans la Pioche. 
 	 * @see Pioche
 	 */
-	public void genererPioche() {
+	public void construireCartes() {
 		for (Couleur couleur : Couleur.values()) {
 			for (int val = 1; val <= 9; val++) {
 				Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
@@ -234,9 +234,9 @@ public class Partie
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
 		Partie.getInstance();
 		
-		// On construit la pioche. Faut pas s'appeler Einstein pour le comprendre =)
-		Partie.getInstance().genererPioche();
-		System.out.println("\nPioche générée.\n");
+		// On construit les Cartes, et on les envoie dans la Pioche =)
+		Partie.getInstance().construireCartes();
+		System.out.println("\nCartes générées.\n");
 		
 		// Ajout de 4 joueurs humains.
 		for (int i = 0; i<4; i++){

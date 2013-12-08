@@ -279,80 +279,49 @@ public class Partie
 		 * et vérifier qu'il est compris dans ce qu'on attend de lui.
 		 */
 		j.raz();
-		System.out.println("\nJoueur 1, voici votre main.");
 		
-		for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-			System.out.println(j.getMain().getCartes().get(i));
-		}
+		System.out.println("\nJoueur 1, que voulez-vous faire ?\n");
 		
-		System.out.println("\n[1] Jouer ?\n[2] Piocher ?");
-		int ret = sc.nextInt(); 
+		boolean fintour = false;
 		
-		if (ret == 1){
-			System.out.println("Que jouer ?");
-			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-				System.out.println("[" + (i+1) + "] " + j.getMain().getCartes().get(i));
-			}
-			ret = sc.nextInt();
-			Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
-			System.out.println("\nVous jouez la carte " + carte_jouee + ".");
-
-			// Gérer si la carte n'est pas jouable. 
-			/*
-			 * Attention !
-			 * Tant qu'il n'y a pas de vérification, il FAUT que la carte posée soit
-			 * jouable. Peut-être utiliser un retour de fonction finalement ?
-			 * Et un do{}while();
-			 */
-			j.poser(carte_jouee);
-			System.out.println("La carte " + carte_jouee + " a été défaussée.");
-
-			// syso de la dernière carte posée, via défausse, pour confirmation
-			System.out.println(Defausse.getInstance().getDerniereCarteJouee());
-		}
-		else if (ret == 2){
-			j.piocher();
-			
-			// Trouver un moyen de retourner la carte piochée, à l'heure actuelle la fonction ne le permet pas
-			System.out.println("\nJoueur 1, voici votre main.");
+		do {
+			if (j.APioche())
+				System.out.println("[0] Passer son tour");
+			else
+				System.out.println("[0] Piocher");
 			
 			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-				System.out.println(j.getMain().getCartes().get(i));
+				System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
 			}
+			int ret = sc.nextInt();
 			
-			/*
-			 * De même qu'au dessus : il faut sécuriser le nextInt() en s'assurant qu'il s'agit bien 
-			 * d'un int et non d'autre chose (String...), et qu'il est bien compris entre 1 et 2
-			 */
-			System.out.println("\nJouer [1] ? Passer [2] ?");
-			ret = sc.nextInt(); 
-			
-			
-			if (ret == 1){
-				System.out.println("Que jouer ?");
-				for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-					System.out.println("[" + (i+1) + "] " + j.getMain().getCartes().get(i));
-				}
-				ret = sc.nextInt();
-				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
-				System.out.println("\nVous jouez la carte " + carte_jouee);
-				
-				
-				// Gérer si aucune carte n'est jouable. 
-				/*
-				 * Attention !
+			if (ret == 0)
+				if (j.APioche())
+					fintour = true;
+				else
+					j.piocher();
+			else {
+				/* Attention !
 				 * Tant qu'il n'y a pas de vérification, il FAUT que la carte posée soit
 				 * jouable. Peut-être utiliser un retour de fonction finalement ?
-				 * Et un do{}while();
 				 */
-				j.poser(carte_jouee);
-				System.out.println("La carte " + carte_jouee + " a été défaussée.");
+				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
+				System.out.println("\nVous jouez la carte " + carte_jouee + ".");
 				
-				// syso de la dernière carte posée, via défausse, pour confirmation
-				System.out.println(Defausse.getInstance().getDefausse().get(Defausse.getInstance().getIndexCartePosee()));
+				if (carte_jouee.estJouable(c)) {
+					j.poser(carte_jouee);
+					System.out.println("La carte " + carte_jouee + " a été défaussée.");
+					
+					// syso de la dernière carte posée, via défausse, pour confirmation
+					System.out.println("La première carte de la défausse est maintenant un " +Defausse.getInstance().getDerniereCarteJouee());
+				
+					fintour = true;
+				}
+				else
+					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.");
 			}
 		}
-		
+		while(!fintour);		
 
 		// Et on passe au joueur suivant !
 		Manche.getInstance().passerJoueur();

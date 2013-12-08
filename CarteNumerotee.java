@@ -54,7 +54,7 @@ public class CarteNumerotee extends Carte {
 		return this.getValeurFaciale() + " " + this.getCouleur();
 	}
 	
-	public void appliquerEffets() {	}
+	public void appliquerEffets() {	} // Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
 
 	
 	

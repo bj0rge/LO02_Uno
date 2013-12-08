@@ -295,16 +295,17 @@ public class Partie
 			}
 			int ret = sc.nextInt();
 			
+			// Si l'option choisie est 0
 			if (ret == 0)
+				// Si le joueur a déjà pioché, cela veut dire que 
+				// son choix était de finir son tour
 				if (j.APioche())
 					fintour = true;
+				// Sinon, on le fait piocher
 				else
 					j.piocher();
+			// Sinon, il choisit de poser une carte
 			else {
-				/* Attention !
-				 * Tant qu'il n'y a pas de vérification, il FAUT que la carte posée soit
-				 * jouable. Peut-être utiliser un retour de fonction finalement ?
-				 */
 				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
 				System.out.println("\nVous jouez la carte " + carte_jouee + ".");
 				

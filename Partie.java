@@ -295,12 +295,12 @@ public class Partie
 				System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
 			}
 			
+			// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
 			while (!sc.hasNextInt())
 			{
 				sc.nextLine();
 				System.out.print("Valeur incorrecte. Entrez un entier : ");
 			}
-
 			ret = sc.nextInt();
 			
 			

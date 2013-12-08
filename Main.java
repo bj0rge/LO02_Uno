@@ -84,12 +84,6 @@ public class Main {
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 		
-		/*String toto = "";
-		for (Carte c : this.getCartes())
-			toto += c.toString() + "\n";
-		if (toto != "")
-			toto = toto.substring(0, toto.length() - 1);
-		return toto;*/
 	}
 	
 	

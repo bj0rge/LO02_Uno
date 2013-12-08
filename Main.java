@@ -70,4 +70,18 @@ public class Main {
 	}
 	
 	
+	/**
+	 * Retourne une représentation de la Main sous forme de String.
+	 * @returns Une représentation de la Main sous forme de String. 
+	 */
+	public String toString() {
+		String toto = "";
+		for (Carte c : this.getCartes())
+			toto += c.toString() + "\n";
+		if (toto != "")
+			toto = toto.substring(0, toto.length() - 1);
+		return toto;
+	}
+	
+	
 }

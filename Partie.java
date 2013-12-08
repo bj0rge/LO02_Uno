@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -21,6 +22,12 @@ import java.util.ArrayList;
  */
 public class Partie 
 {
+	
+	/**
+	 * Nombre de cartes à piocher lors du début d'un tour.<br>
+	 * NB_CARTES_INITIAL = {@value}
+	 */
+	public static final int NB_CARTES_INITIAL = 7;
 	
 	/**
 	 * L'instance de la Partie.
@@ -200,6 +207,16 @@ public class Partie
 	}
 	
 	/**
+	 * Retourne un Joueur en fonction de sa position dans liste_joueurs 
+	 * @param position
+	 * 			La position du Joueur que l'on veut récupérer.
+	 * @return Le Joueur demandé.
+	 */
+	public Joueur getJoueur(int position) {
+		return this.getListeJoueurs().get(position);
+	}
+	
+	/**
 	 * Met à jour la Liste des Joueurs présents dans la Partie. 
 	 * @param listeJoueurs
 	 * 			Liste des Joueurs à mettre à jour. 
@@ -213,9 +230,11 @@ public class Partie
 	
 	public static void main(String[] args){
 		
+		Scanner sc = new Scanner(System.in);
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
 		Partie.getInstance();
 		
+		// On construit la pioche. Faut pas s'appeler Einstein pour le comprendre =)
 		Partie.getInstance().genererPioche();
 		System.out.println("\nPioche générée.\n");
 		
@@ -225,20 +244,127 @@ public class Partie
 			System.out.println("Génération du joueur " + i);
 		}
 		
-		System.out.println("La pioche contient :");
-		System.out.println(Pioche.getInstance().getPioche().toString());
+		System.out.println("\nLa pioche contient :");
+		System.out.println(Pioche.getInstance().getPioche());
 		
-		for (int i = 0; i < 7; i++) {
+		// Probablement à faire dans une méthode distribuer() de Manche
+		// Penser à rappatrier la constante
+		for (int i = 0; i < NB_CARTES_INITIAL; i++) {
 			for (Joueur j : Partie.getInstance().getListeJoueurs())
 				j.piocher();
 		}
 		System.out.println("\nLes joueurs ont pioché.\n");
 		
-		System.out.println("Voici leurs mains :");
+		// Irait dans la même méthode susnommée
+		Carte c = Pioche.getInstance().piocher();
+		Defausse.getInstance().defausser(c);
+		c.appliquerEffets();
+		
+		System.out.println("La première carte de la défausse est un " + c);
+		
+		
+		
+		System.out.println("\nVoici les mains des joueurs :");
 		for (Joueur j : Partie.getInstance().getListeJoueurs())
-			System.out.println(j.getMain().getCartes().toString());
+			System.out.println(j.getMain().getCartes());
 		
 		
+		
+		
+		Joueur j = Partie.getInstance().getJoueur(0);
+		
+		/*
+		 * Début gestion du tour. Faudra en faire une fonction (Manche probablement).
+		 * ET SURTOUT, SECURISER LE NEXTINT() : vérifier que c'est bien un int,
+		 * et vérifier qu'il est compris dans ce qu'on attend de lui.
+		 */
+		j.raz();
+		System.out.println("\nJoueur 1, voici votre main.");
+		
+		for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+			System.out.println(j.getMain().getCartes().get(i));
+		}
+		
+		System.out.println("\nJouer [1] ? Piocher [2] ?");
+		int ret = sc.nextInt(); 
+		
+		if (ret == 1){
+			System.out.println("Que jouer ?");
+			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+				System.out.println("[" + (i+1) + "] " + j.getMain().getCartes().get(i));
+			}
+			ret = sc.nextInt();
+			Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
+			System.out.println("\nVous jouez la carte " + carte_jouee);
+
+			// Gérer si la carte n'est pas jouable. 
+			/*
+			 * Attention !
+			 * Tant qu'il n'y a pas de vérification, il FAUT que la carte posée soit
+			 * jouable. Peut-être utiliser un retour de fonction finalement ?
+			 * Et un do{}while();
+			 */
+			j.poser(carte_jouee);
+			System.out.println("La carte " + carte_jouee + " a été défaussée.");
+
+			// syso de la dernière carte posée, via défausse, pour confirmation
+			System.out.println(Defausse.getInstance().getDefausse().get(Defausse.getInstance().getIndexCartePosee()));
+		}
+		else if (ret == 2){
+			j.piocher();
+			
+			// Trouver un moyen de retourner la carte piochée, à l'heure actuelle la fonction ne le permet pas
+			System.out.println("\nJoueur 1, voici votre main.");
+			
+			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+				System.out.println(j.getMain().getCartes().get(i));
+			}
+			
+			/*
+			 * De même qu'au dessus : il faut sécuriser le nextInt() en s'assurant qu'il s'agit bien 
+			 * d'un int et non d'autre chose (String...), et qu'il est bien compris entre 1 et 2
+			 */
+			System.out.println("\nJouer [1] ? Passer [2] ?");
+			ret = sc.nextInt(); 
+			
+			
+			if (ret == 1){
+				System.out.println("Que jouer ?");
+				for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+					System.out.println("[" + (i+1) + "] " + j.getMain().getCartes().get(i));
+				}
+				ret = sc.nextInt();
+				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
+				System.out.println("\nVous jouez la carte " + carte_jouee);
+				
+				
+				// Gérer si aucune carte n'est jouable. 
+				/*
+				 * Attention !
+				 * Tant qu'il n'y a pas de vérification, il FAUT que la carte posée soit
+				 * jouable. Peut-être utiliser un retour de fonction finalement ?
+				 * Et un do{}while();
+				 */
+				j.poser(carte_jouee);
+				System.out.println("La carte " + carte_jouee + " a été défaussée.");
+				
+				// syso de la dernière carte posée, via défausse, pour confirmation
+				System.out.println(Defausse.getInstance().getDefausse().get(Defausse.getInstance().getIndexCartePosee()));
+			}
+		}
+		
+
+		// Et on passe au joueur suivant !
+		Manche.getInstance().passerJoueur();
+		
+		/*
+		 * Fin de la gestion du tour.
+		 */
+		
+		
+
+		
+		sc.close();
 		
 	}
 }

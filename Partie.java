@@ -260,7 +260,7 @@ public class Partie
 		Defausse.getInstance().defausser(c);
 		c.appliquerEffets();
 		
-		System.out.println("La première carte de la défausse est un " + c);
+		System.out.println("La première carte de la défausse est un " + c + ".");
 		
 		
 		
@@ -285,7 +285,7 @@ public class Partie
 			System.out.println(j.getMain().getCartes().get(i));
 		}
 		
-		System.out.println("\nJouer [1] ? Piocher [2] ?");
+		System.out.println("\n[1] Jouer ?\n[2] Piocher ?");
 		int ret = sc.nextInt(); 
 		
 		if (ret == 1){
@@ -295,7 +295,7 @@ public class Partie
 			}
 			ret = sc.nextInt();
 			Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
-			System.out.println("\nVous jouez la carte " + carte_jouee);
+			System.out.println("\nVous jouez la carte " + carte_jouee + ".");
 
 			// Gérer si la carte n'est pas jouable. 
 			/*
@@ -308,7 +308,7 @@ public class Partie
 			System.out.println("La carte " + carte_jouee + " a été défaussée.");
 
 			// syso de la dernière carte posée, via défausse, pour confirmation
-			System.out.println(Defausse.getInstance().getDefausse().get(Defausse.getInstance().getIndexCartePosee()));
+			System.out.println(Defausse.getInstance().getDerniereCarteJouee());
 		}
 		else if (ret == 2){
 			j.piocher();

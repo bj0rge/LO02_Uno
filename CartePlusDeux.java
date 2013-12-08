@@ -10,7 +10,7 @@ public class CartePlusDeux extends Carte {
 	
 	public void appliquerEffets(Joueur j){
 		
-		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurSuivant()); // Indique à l'unique instance de manche que le joueur actuel est le joueur suivant
+		Manche.getInstance().passerJoueur(); // Indique à l'unique instance de manche que le joueur actuel est le joueur suivant
 		j.getMain().piocher(2); // Fait piocher deux cartes à la main
 		
 	}

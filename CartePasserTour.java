@@ -10,7 +10,7 @@ public class CartePasserTour extends Carte {
 	
 	public void appliquerEffets(){
 		
-		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurSuivant()); // Indique à l'unique instance de manche que le joueur actuel est le joueur suivant
+		Manche.getInstance().passerJoueur(); // Indique à l'unique instance de manche que le joueur actuel est le joueur suivant
 		
 	}
 	

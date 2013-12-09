@@ -102,10 +102,10 @@ public class Joueur {
 	}
 	
 	/**
-	 * Fait piocher une Carte. Passe également a_pioche à <i>true</i>.
+	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également a_pioche à <i>true</i>.
 	 */
 	public void piocher() {
-		this.main.piocher(1);
+		this.getMain().getCartes().add(Pioche.getInstance().piocher());
 		this.setAPioche(true);
 	}
 	
@@ -130,7 +130,8 @@ public class Joueur {
 	 */
 	public void poser(Carte carte) {
 		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-			this.main.defausser(carte);
+			this.getMain().getCartes().remove(carte);
+			Defausse.getInstance().defausser(carte);
 			carte.appliquerEffets();
 			this.terminerTour();
 		}

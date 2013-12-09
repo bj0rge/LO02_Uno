@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * <b>Main est la classe représentant la Main d'un Joueur de UNO.</b>
@@ -55,10 +56,19 @@ public class Main {
 	public String toString() {
 		
 		StringBuffer sb = new StringBuffer();
-		for (Carte c : this.getCartes()){
+		
+		Iterator<Carte> it = this.getCartes().iterator();
+		while (it.hasNext()){
+			Carte c = it.next();
 			sb.append(c.toString());
 			sb.append("\n");
 		}
+		
+		
+		/*for (Carte c : this.getCartes()){
+			sb.append(c.toString());
+			sb.append("\n");
+		}*/
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 		

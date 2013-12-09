@@ -298,7 +298,7 @@ public class Partie
 			// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
 			while (!sc.hasNextInt())
 			{
-				sc.nextLine();
+				sc.next();
 				System.out.print("Valeur incorrecte. Entrez un entier : ");
 			}
 			ret = sc.nextInt();

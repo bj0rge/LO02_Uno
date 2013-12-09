@@ -298,7 +298,7 @@ public class Partie
 			// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
 			while (!sc.hasNextInt())
 			{
-				sc.next();
+				sc.nextLine();
 				System.out.print("Valeur incorrecte. Entrez un entier : ");
 			}
 			ret = sc.nextInt();
@@ -311,8 +311,9 @@ public class Partie
 				if (j.APioche())
 					fintour = true;
 				// Sinon, on le fait piocher
-				else
-					j.piocher();
+				else {
+					System.out.println("Vous avez pioché un " + j.piocher());
+				}
 			// Sinon, il choisit de poser une carte
 			else {
 				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
@@ -327,9 +328,10 @@ public class Partie
 				
 					fintour = true;
 				}
-				else
+				else {
 					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
 							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee());
+				}
 			}
 		}
 		while(!fintour);		

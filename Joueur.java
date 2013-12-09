@@ -104,9 +104,11 @@ public class Joueur {
 	/**
 	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également a_pioche à <i>true</i>.
 	 */
-	public void piocher() {
-		this.getMain().getCartes().add(Pioche.getInstance().piocher());
+	public Carte piocher() {
+		Carte carte_piochee = Pioche.getInstance().piocher();
+		this.getMain().getCartes().add(carte_piochee);
 		this.setAPioche(true);
+		return carte_piochee;
 	}
 	
 	/**

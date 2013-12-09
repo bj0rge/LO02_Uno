@@ -16,6 +16,12 @@ import java.util.ArrayList;
  */
 public class Manche {
 
+	/**
+	 * Nombre de cartes à piocher lors du début d'un tour.<br>
+	 * NB_CARTES_INITIAL = {@value}
+	 */
+	public static final int NB_CARTES_INITIAL = 7;
+		
 	
 	/**
 	 * L'instance de la Manche.
@@ -118,6 +124,94 @@ public class Manche {
 	public void passerJoueur() {
 		this.setJoueurActuel(this.getJoueurSuivant());
 	}
+	
+	/**
+	 * Distribue les cartes à chacun des joueurs. A effectuer en début de Manche.
+	 */
+	public void distribuer() {
+		for (int i = 0; i < NB_CARTES_INITIAL; i++) {
+			for (Joueur j : Partie.getInstance().getListeJoueurs())
+				j.piocher();
+		}
+	}
+	
+	/**
+	 * Retourne la première Carte de la Défausse en début de Manche.
+	 */
+	public void retournerPremiereCarte() {
+		Carte c = Pioche.getInstance().piocher();
+		Defausse.getInstance().defausser(c);
+		c.appliquerEffets();
+	}
+	
+	
+	/**
+	 * Effectuer le déroulement d'un tour d'un Joueur
+	 * @param j
+	 * 			Joueur qui doit jouer
+	 * @see Joueur
+	 */
+	public void jouerTour(Joueur j) {
+j.raz();
+		
+		System.out.println("\nJoueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + ", que voulez-vous faire ?\n");
+		
+		boolean fintour = false;
+		
+		do {
+			int ret = -1;
+			do {
+				if (j.APioche())
+					System.out.println("[0] Passer son tour");
+				else
+					System.out.println("[0] Piocher");
+				
+				for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+					System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
+				}
+				ret = Partie.getInstance().demanderInt();
+			}
+			// Tant que ret n'est pas dans la liste 
+			while (ret < 0 || ret > j.getMain().getCartes().size());
+			
+			// Si l'option choisie est 0
+			if (ret == 0)
+				// Si le joueur a déjà pioché, cela veut dire que 
+				// son choix était de finir son tour
+				if (j.APioche())
+					fintour = true;
+				// Sinon, on le fait piocher
+				else {
+					System.out.println("Vous avez pioché un " + j.piocher());
+				}
+			// Sinon, il choisit de poser une carte
+			else {
+				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
+				System.out.println("\nVous jouez la carte " + carte_jouee + ".");
+				
+				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+					j.poser(carte_jouee);
+					System.out.println("La carte " + carte_jouee + " a été défaussée.");
+					
+					// syso de la dernière carte posée, via défausse, pour confirmation
+					System.out.println("La première carte de la défausse est maintenant un " +Defausse.getInstance().getDerniereCarteJouee());
+				
+					fintour = true;
+				}
+				else {
+					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
+							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee());
+				}
+			}
+		}
+		while(!fintour);		
+
+		// Et on passe au joueur suivant !
+		Manche.getInstance().passerJoueur();
+	}
+	
+	
+	
 	
 	
 	

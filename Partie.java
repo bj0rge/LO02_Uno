@@ -23,12 +23,8 @@ import java.util.Scanner;
 public class Partie 
 {
 	
-	/**
-	 * Nombre de cartes à piocher lors du début d'un tour.<br>
-	 * NB_CARTES_INITIAL = {@value}
-	 */
-	public static final int NB_CARTES_INITIAL = 7;
-	
+	private final static Scanner sc = new Scanner(System.in);
+
 	/**
 	 * L'instance de la Partie.
 	 */
@@ -123,8 +119,21 @@ public class Partie
 		}
 	}
 	
-	
-	
+	/**
+	 * Demande un int via l'interface et retourne la valeur.
+	 * @return Un entier, entré par le Joueur.
+	 */
+	public int demanderInt() {
+		int ret;
+		// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
+		while (!sc.hasNextInt())
+		{
+			sc.nextLine();
+			System.out.print("Valeur incorrecte. Entrez un entier : ");
+		}
+		ret = sc.nextInt();
+		return ret;
+	}
 	
 	
 	
@@ -230,7 +239,7 @@ public class Partie
 	
 	public static void main(String[] args){
 		
-		Scanner sc = new Scanner(System.in);
+		
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
 		Partie.getInstance();
 		
@@ -247,20 +256,13 @@ public class Partie
 		System.out.println("\nLa pioche contient :");
 		System.out.println(Pioche.getInstance().getPioche());
 		
-		// Probablement à faire dans une méthode distribuer() de Manche
-		// Penser à rappatrier la constante
-		for (int i = 0; i < NB_CARTES_INITIAL; i++) {
-			for (Joueur j : Partie.getInstance().getListeJoueurs())
-				j.piocher();
-		}
+		Manche.getInstance().distribuer();
 		System.out.println("\nLes joueurs ont pioché.\n");
 		
-		// Irait dans la même méthode susnommée
-		Carte c = Pioche.getInstance().piocher();
-		Defausse.getInstance().defausser(c);
-		c.appliquerEffets();
 		
-		System.out.println("La première carte de la défausse est un " + c + ".");
+		Manche.getInstance().retournerPremiereCarte();
+		
+		System.out.println("La première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 		
 		
 		
@@ -273,75 +275,10 @@ public class Partie
 		
 		Joueur j = Partie.getInstance().getJoueur(0);
 		
-		/*
-		 * Début gestion du tour. Faudra en faire une fonction (Manche probablement).
-		 * ET SURTOUT, SECURISER LE NEXTINT() : vérifier que c'est bien un int,
-		 * et vérifier qu'il est compris dans ce qu'on attend de lui.
-		 */
-		j.raz();
+		// Tour du Joueur j
+		Manche.getInstance().jouerTour(j);
 		
-		System.out.println("\nJoueur 1, que voulez-vous faire ?\n");
 		
-		boolean fintour = false;
-		
-		do {
-			int ret;
-			if (j.APioche())
-				System.out.println("[0] Passer son tour");
-			else
-				System.out.println("[0] Piocher");
-			
-			for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-				System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
-			}
-			
-			// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
-			while (!sc.hasNextInt())
-			{
-				sc.nextLine();
-				System.out.print("Valeur incorrecte. Entrez un entier : ");
-			}
-			ret = sc.nextInt();
-			
-			
-			// Si l'option choisie est 0
-			if (ret == 0)
-				// Si le joueur a déjà pioché, cela veut dire que 
-				// son choix était de finir son tour
-				if (j.APioche())
-					fintour = true;
-				// Sinon, on le fait piocher
-				else {
-					System.out.println("Vous avez pioché un " + j.piocher());
-				}
-			// Sinon, il choisit de poser une carte
-			else {
-				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
-				System.out.println("\nVous jouez la carte " + carte_jouee + ".");
-				
-				if (carte_jouee.estJouable(c)) {
-					j.poser(carte_jouee);
-					System.out.println("La carte " + carte_jouee + " a été défaussée.");
-					
-					// syso de la dernière carte posée, via défausse, pour confirmation
-					System.out.println("La première carte de la défausse est maintenant un " +Defausse.getInstance().getDerniereCarteJouee());
-				
-					fintour = true;
-				}
-				else {
-					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
-							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee());
-				}
-			}
-		}
-		while(!fintour);		
-
-		// Et on passe au joueur suivant !
-		Manche.getInstance().passerJoueur();
-		
-		/*
-		 * Fin de la gestion du tour.
-		 */
 		
 		
 

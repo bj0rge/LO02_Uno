@@ -2,6 +2,8 @@ package LO02_Uno;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Iterator;;
+
 
 
 /**
@@ -267,10 +269,16 @@ public class Partie
 		
 		
 		System.out.println("\nVoici les mains des joueurs :");
-		for (Joueur j : Partie.getInstance().getListeJoueurs())
-			System.out.println(j.getMain().getCartes());
+		
+		Iterator<Joueur> it = Partie.getInstance().listeJoueurs.iterator(); // Création d'un itérateur it de listeJoueurs
+		while (it.hasNext()){												// it.hasNext retourne true s'il reste encore des éléments à l'ensemble
+			Joueur j = (Joueur) it.next();									// it.next renvoie l'élément qui a été "sauté", le cast Joueur pour être sur du type
+			System.out.println(j.getMain().getCartes());					// syso pour renvoyer le toString
+		}
 		
 		
+		/*for (Joueur j : Partie.getInstance().getListeJoueurs())
+			System.out.println(j.getMain().getCartes());*/
 		
 		
 		Joueur j = Partie.getInstance().getJoueur(0);

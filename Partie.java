@@ -250,7 +250,7 @@ public class Partie
 		System.out.println("\nCartes générées.\n");
 		
 		// Ajout de 4 joueurs humains.
-		for (int i = 0; i<4; i++){
+		for (int i = 0; i < 4; i++){
 			Partie.getInstance().ajouterJoueur(new Joueur());
 			System.out.println("Génération du joueur " + i);
 		}
@@ -258,7 +258,7 @@ public class Partie
 		System.out.println("\nLa pioche contient :");
 		System.out.println(Pioche.getInstance().getPioche());
 		
-		Manche.getInstance().distribuer(Partie.getInstance().listeJoueurs);
+		Manche.getInstance().distribuer();
 		System.out.println("\nLes joueurs ont pioché.\n");
 		
 		

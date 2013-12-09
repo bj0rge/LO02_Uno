@@ -129,9 +129,9 @@ public class Manche {
 	/**
 	 * Distribue les cartes à chacun des joueurs. A effectuer en début de Manche.
 	 */
-	public void distribuer(ArrayList<Joueur> listeJoueurs) {
+	public void distribuer() {
 		for (int i = 0; i < NB_CARTES_INITIAL; i++) {
-			Iterator<Joueur> it = listeJoueurs.iterator(); // Création d'un itérateur it de listeJoueurs
+			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator(); // Création d'un itérateur it de listeJoueurs
 			while (it.hasNext()){						  // it.hasNext retourne true s'il reste encore des éléments à l'ensemble
 				Joueur j = (Joueur) it.next();			 // it.next renvoie l'élément qui a été "sauté", le cast Joueur pour être sur du type
 				j.piocher();

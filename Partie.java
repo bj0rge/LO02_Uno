@@ -258,7 +258,7 @@ public class Partie
 		System.out.println("\nLa pioche contient :");
 		System.out.println(Pioche.getInstance().getPioche());
 		
-		Manche.getInstance().distribuer();
+		Manche.getInstance().distribuer(Partie.getInstance().listeJoueurs);
 		System.out.println("\nLes joueurs ont pioché.\n");
 		
 		

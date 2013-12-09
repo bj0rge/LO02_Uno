@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -128,10 +129,16 @@ public class Manche {
 	/**
 	 * Distribue les cartes à chacun des joueurs. A effectuer en début de Manche.
 	 */
-	public void distribuer() {
+	public void distribuer(ArrayList<Joueur> listeJoueurs) {
 		for (int i = 0; i < NB_CARTES_INITIAL; i++) {
-			for (Joueur j : Partie.getInstance().getListeJoueurs())
+			Iterator<Joueur> it = listeJoueurs.iterator(); // Création d'un itérateur it de listeJoueurs
+			while (it.hasNext()){						  // it.hasNext retourne true s'il reste encore des éléments à l'ensemble
+				Joueur j = (Joueur) it.next();			 // it.next renvoie l'élément qui a été "sauté", le cast Joueur pour être sur du type
 				j.piocher();
+			}
+			
+			/*for (Joueur j : Partie.getInstance().getListeJoueurs())
+				j.piocher();*/
 		}
 	}
 	

@@ -2,7 +2,7 @@ package LO02_Uno;
 
 public class CartePasserTour extends Carte {
 
-	public CartePasserTour(Couleur couleur){ // Constructeur
+	public CartePasserTour(Couleur couleur){
 		
 		super(20, couleur);
 		
@@ -10,9 +10,15 @@ public class CartePasserTour extends Carte {
 	
 	public void appliquerEffets(){
 		
-		Manche.getInstance().passerJoueur(); // Indique à l'unique instance de manche que le joueur actuel est le joueur suivant
+		System.out.println("Le joueur " + Manche.getInstance().getJoueurSuivant() + "passe son tour !");
+		Manche.getInstance().passerJoueur();
 		
 	}
 	
+	public String toString(){
+		
+		return ("(/) " + this.getCouleur());
+		
+	}
 	
 }

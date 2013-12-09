@@ -149,6 +149,8 @@ public class Manche {
 		Carte c = Pioche.getInstance().piocher();
 		Defausse.getInstance().defausser(c);
 		c.appliquerEffets();
+		
+		System.out.println("La première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 	}
 	
 	
@@ -159,7 +161,7 @@ public class Manche {
 	 * @see Joueur
 	 */
 	public void jouerTour(Joueur j) {
-j.raz();
+		j.raz();
 		
 		System.out.println("\nJoueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + ", que voulez-vous faire ?\n");
 		
@@ -201,7 +203,7 @@ j.raz();
 					System.out.println("La carte " + carte_jouee + " a été défaussée.");
 					
 					// syso de la dernière carte posée, via défausse, pour confirmation
-					System.out.println("La première carte de la défausse est maintenant un " +Defausse.getInstance().getDerniereCarteJouee());
+					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee());
 				
 					fintour = true;
 				}

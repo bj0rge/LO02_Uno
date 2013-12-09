@@ -264,8 +264,6 @@ public class Partie
 		
 		Manche.getInstance().retournerPremiereCarte();
 		
-		System.out.println("La première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
-		
 		
 		
 		System.out.println("\nVoici les mains des joueurs :");

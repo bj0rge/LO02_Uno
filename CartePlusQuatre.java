@@ -4,7 +4,7 @@ public class CartePlusQuatre extends CarteJoker {
 
 	public CartePlusQuatre(Couleur couleur){
 		
-		super(couleur);
+		super(null);
 		
 	}
 	
@@ -16,9 +16,14 @@ public class CartePlusQuatre extends CarteJoker {
 	
 	public String toString(){
 		
-		return ("+4 " + this.getCouleur());
+		StringBuffer sb = new StringBuffer();
+		sb.append("+4");
+		if (this.getCouleur() != null){
+			sb.append(" " + this.getCouleur());
+		}
+		
+		return sb.toString();
 		
 	}
-	
 	
 }

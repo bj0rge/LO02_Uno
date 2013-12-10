@@ -4,7 +4,7 @@ public class CarteChangerCouleur extends CarteJoker{
 
 	public CarteChangerCouleur(Couleur couleur){
 		
-		super(couleur);
+		super(null);
 		
 	}
 	
@@ -16,7 +16,13 @@ public class CarteChangerCouleur extends CarteJoker{
 	
 	public String toString(){
 		
-		return ("J " + this.getCouleur());
+		StringBuffer sb = new StringBuffer();
+		sb.append("J");
+		if (this.getCouleur() != null){
+			sb.append(" " + this.getCouleur());
+		}
+		
+		return sb.toString();
 		
 	}
 	

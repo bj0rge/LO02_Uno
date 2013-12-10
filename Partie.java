@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Iterator;;
 
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+
 
 
 /**
@@ -135,6 +137,45 @@ public class Partie
 		}
 		ret = sc.nextInt();
 		return ret;
+	}
+	
+	/**
+	 * Retourne vrai si la Partie est terminée, en fonction du Mode de jeu
+	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
+	 */
+	public boolean isTerminee() {
+		ModeDeJeu mode = Partie.getInstance().getMode();
+		boolean est_fini = false;
+		if (mode == ModeDeJeu.STANDARD) {
+			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+			while (it.hasNext()) {
+				if ((it.next().getScore() >= Partie.getInstance().getNb_pts_max()) 
+						|| Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max() ) {
+					est_fini = true;
+				}
+			}
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Fait dérouler une Partie du début à la fin.
+	 */
+	public void deroulementPartie() {
+		do {
+			Manche.getInstance().razManche();
+			// On récupère l'index du joueur gagnant et le score gagné.
+			int resultatManche[] = new int[2];
+			resultatManche = Manche.getInstance().deroulementManche();
+			
+			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
+			Partie.getInstance().calculScore(resultatManche);
+			
+			System.out.println("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
+			sc.next();
+		}
+		while (!Partie.getInstance().isTerminee());
 	}
 	
 	
@@ -275,12 +316,8 @@ public class Partie
 		// Le mode de jeu sera STANDARD
 		Partie.getInstance().setMode(ModeDeJeu.STANDARD);
 		
-		// Tour du Joueur j
-		int resultatManche[] = new int[2];
-		resultatManche = Manche.getInstance().deroulementManche();
-		System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 
-		Partie.getInstance().calculScore(resultatManche);		
+		Partie.getInstance().deroulementPartie();
 		
 		sc.close();
 				

@@ -237,14 +237,16 @@ public class Manche {
 	 * @return Un tableau d'entiers. En index [0], on a l'index du Joueur gagnant dans listeJoueurs, en index [1], le nombre de points gagnés. 
 	 */
 	public int[] deroulementManche() {
-		// On commence par distribuer les cartes à chacun des joueurs
+		
+		
+		// On donne pour premier joueur le JoueurDebut
+		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
+		
+		// On distribue les cartes à chacun des joueurs
 		Manche.getInstance().distribuer();
 		
 		// On retourne la première carte de la Pioche
 		Manche.getInstance().retournerPremiereCarte();
-		
-		// On donne pour premier joueur le JoueurDebut
-		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
 		
 		// Tant que le JoueurActuel a encore au moins une Carte dans la Main
 		while(!Manche.getInstance().finManche()) {

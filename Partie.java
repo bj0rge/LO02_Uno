@@ -80,7 +80,7 @@ public class Partie
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
 					Partie.instance.setNb_pts_max(100);
-					Partie.instance.setManche(0);
+					Partie.instance.setManche(1);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
 			}
@@ -151,8 +151,8 @@ public class Partie
 			while (it.hasNext()) {
 				Joueur j = it.next();
 				if ((j.getScore() >= Partie.getInstance().getNb_pts_max()) 
-						|| (Partie.getInstance().getNb_manches_max() != 0)
-						&& (Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max()) ) {
+						|| ((Partie.getInstance().getNb_manches_max() != 0)
+						&& (Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max())) ) {
 					est_fini = true;	
 				}
 			}
@@ -172,15 +172,17 @@ public class Partie
 			resultatManche = Manche.getInstance().deroulementManche();
 			
 			Partie.getInstance().calculScore(resultatManche);
+			Partie.getInstance().setManche(Partie.getInstance().getManche() + 1);
 			
-			System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
-			
-			// Try - Catch qui permet de passer à la manche suivante.
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (!Partie.getInstance().isTerminee()) {
+				System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
+				// Try - Catch qui permet de passer à la manche suivante.
+				try {
+					System.in.read();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		while (!Partie.getInstance().isTerminee());

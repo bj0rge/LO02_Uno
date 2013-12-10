@@ -202,12 +202,12 @@ public class Manche {
 				if (j.APioche()){
 					fintour = true;
 					j.passerTour();
-					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+					System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 				}
 				// Sinon, on le fait piocher
 				else {
 					System.out.println(" \nVous avez pioché un " + j.piocher() + ".");
-					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
+					System.out.println("Dernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				}
 			// Sinon, il choisit de poser une carte
 			else {

@@ -147,7 +147,7 @@ public class Manche {
 		Defausse.getInstance().defausser(c);
 		c.appliquerEffets();
 		
-		System.out.println("La première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 	}
 	
 	
@@ -192,7 +192,7 @@ public class Manche {
 					fintour = true;
 				// Sinon, on le fait piocher
 				else {
-					System.out.println("Vous avez pioché un " + j.piocher());
+					System.out.println("Vous avez pioché un " + j.piocher() + ".");
 				}
 			// Sinon, il choisit de poser une carte
 			else {
@@ -204,13 +204,13 @@ public class Manche {
 					System.out.println("La carte " + carte_jouee + " a été défaussée.");
 					
 					// syso de la dernière carte posée, via défausse, pour confirmation
-					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee());
+					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 				
 					fintour = true;
 				}
 				else {
 					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
-							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee());
+							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				}
 			}
 		}

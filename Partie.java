@@ -236,14 +236,7 @@ public class Partie
 		this.listeJoueurs = listeJoueurs;
 	}
 
-	
-	
-	
-	public static void main(String[] args){
-		
-		
-		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
-		Partie.getInstance();
+	public void debuterPartie(){
 		
 		// On construit les Cartes, et on les envoie dans la Pioche =)
 		Partie.getInstance().construireCartes();
@@ -255,15 +248,23 @@ public class Partie
 			System.out.println("Génération du joueur " + i);
 		}
 		
+	}
+	
+	
+	public static void main(String[] args){
+		
+		
+		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
+		Partie.getInstance();
+		
+		// Génération des cartes et ajout des joueurs
+		Partie.getInstance().debuterPartie();
+		
 		System.out.println("\nLa pioche contient :");
 		System.out.println(Pioche.getInstance().getPioche());
 		
 		Manche.getInstance().distribuer();
-		System.out.println("\nLes joueurs ont pioché.\n");
-		
-		
-		Manche.getInstance().retournerPremiereCarte();
-		
+		System.out.println("\nLes joueurs ont pioché.");		
 		
 		System.out.println("\nVoici les mains des joueurs :");
 		
@@ -273,6 +274,7 @@ public class Partie
 			System.out.println(j.getMain().getCartes());					// syso pour renvoyer le toString
 		}
 		
+		Manche.getInstance().retournerPremiereCarte();
 		
 		Joueur j = Partie.getInstance().getJoueur(0);
 				

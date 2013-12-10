@@ -76,6 +76,7 @@ public class Manche {
 					Manche.instance = new Manche();
 					Manche.instance.setSensHoraire(true);
 					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
+					Manche.instance.setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
 					}
 				}
 			}
@@ -165,7 +166,7 @@ public class Manche {
 	public void jouerTour(Joueur j) {
 		j.raz();
 		
-		System.out.println("\nJoueur " + Partie.getInstance().getListeJoueurs().indexOf(j) + ", que voulez-vous faire ?\n");
+		System.out.println("\nJoueur " + (Partie.getInstance().getListeJoueurs().indexOf(j)+1) + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
 		
@@ -235,9 +236,6 @@ public class Manche {
 		
 		// On retourne la première carte de la Pioche
 		Manche.getInstance().retournerPremiereCarte();
-		
-		// On indique qui est le joueur de début
-		Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
 		
 		// On donne pour premier joueur le JoueurDebut
 		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());

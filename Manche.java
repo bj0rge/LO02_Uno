@@ -361,5 +361,19 @@ public class Manche {
 		this.joueurDebut = joueurDebut;
 	}
 	
+	public void razManche(){
+		
+		this.sensHoraire = true;
+		this.joueurActuel = null;
+		
+		
+		
+		// boucle iterator pour parcourir joueur puis iterator pour défausser toutes les cartes de la main des joueurs (sans appliquer effets) et les add dans les défausse
+		// aller dans défausse.retournerDefausse, créer méthode pour ré-initialiser les couleurs de Carte Jokers
+		// faire tourner cette fonction dans la défausse
+		// add la défausse à la pioche (fonction addAll de collections ? à vérifier)
+		// shuffle la nouvelle pioche
+		
+	}
 	
 }

@@ -175,9 +175,18 @@ public class Manche {
 				else
 					System.out.println("[0] Piocher");
 				
-				for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-					System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
+				int i = 0;
+				Iterator<Carte> it = j.getMain().getCartes().iterator();
+				while (it.hasNext()){
+					System.out.println("[" + (i+1) + "] Jouer le " + it.next());
+					i += 1;
 				}
+				
+				
+				/*for (int i = 0; i < j.getMain().getCartes().size(); i++) {
+					System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
+				}*/
+				
 				ret = Partie.getInstance().demanderInt();
 			}
 			// Tant que ret n'est pas dans la liste 

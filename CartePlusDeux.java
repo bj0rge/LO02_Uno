@@ -9,15 +9,26 @@ public class CartePlusDeux extends Carte {
 	}
 	
 	public void appliquerEffets(){
-		
-		System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurSuivant()) + 1) + " pioche :");
-		
-		for (int i = 0; i < 2; i++) {
-			System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+		if (Manche.getInstance().isPremierTour()) {
+			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
+					+ "Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurActuel()) + 1) + " pioche :");
+			for (int i = 0; i < 2; i++) {
+				System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+			}
+			Manche.getInstance().passerJoueur();
+	
+			System.out.println("et il passe son tour.");
 		}
-		Manche.getInstance().passerJoueur();
-
-		System.out.println("et il passe son tour.");
+		else {
+			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurSuivant()) + 1) + " pioche :");
+			
+			for (int i = 0; i < 2; i++) {
+				System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+			}
+			Manche.getInstance().passerJoueur();
+	
+			System.out.println("et il passe son tour.");
+		}
 	}
 	
 	public boolean estJouable(Carte c) {

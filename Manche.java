@@ -47,6 +47,11 @@ public class Manche {
 	 */
 	private Joueur joueurDebut;
 	
+	/**
+	 * Indique s'il sagit du premier tour. <i>true</i> quand c'est le cas, <i>false</i> sinon.
+	 */
+	private boolean premierTour;
+	
 
 	/**
 	 * Constructeur de la Manche.
@@ -247,6 +252,7 @@ public class Manche {
 		
 		// On retourne la première carte de la Pioche
 		Manche.getInstance().retournerPremiereCarte();
+		Manche.getInstance().setPremierTour(false);
 		
 		// Tant que le JoueurActuel a encore au moins une Carte dans la Main
 		while(!Manche.getInstance().finManche()) {
@@ -363,10 +369,37 @@ public class Manche {
 		this.joueurDebut = joueurDebut;
 	}
 	
+	/**
+	 * Retourne s'il s'agit du premier tour de la Manche en cours.
+	 * @return <i>true</i> si oui, <i>false</i> sinon.
+	 */
+	public boolean isPremierTour() {
+		return premierTour;
+	}
+
+
+
+
+	/**
+	 * Met à jour la valeur premierTour.
+	 * @param premierTour
+	 * 			<i>true</i> pour oui, <i>false</i> pour non. 
+	 */
+	public void setPremierTour(boolean premierTour) {
+		this.premierTour = premierTour;
+	}
+
+
+
+
+	/**
+	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
+	 */
 	public void razManche(){
 		
-		this.sensHoraire = true;
-		this.joueurActuel = null;
+		Manche.getInstance().setSensHoraire(true);
+		Manche.getInstance().setJoueurActuel(null);
+		Manche.getInstance().setPremierTour(true);
 		
 		if (Manche.getInstance().getJoueurDebut() == null) {
 			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Iterator;
 
-import javax.jws.soap.SOAPBinding.ParameterStyle;
 
 
 
@@ -155,7 +154,7 @@ public class Partie
 				}
 			}
 		}
-		return true;
+		return est_fini;
 	}
 	
 	

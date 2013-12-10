@@ -366,14 +366,20 @@ public class Manche {
 		this.sensHoraire = true;
 		this.joueurActuel = null;
 		
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 		
+		Iterator<Joueur> itj = joueurs.iterator();
+		while (itj.hasNext()){
+			Joueur j = itj.next();
+			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
+			j.getMain().getCartes().clear();			
+		}
 		
-		// boucle iterator pour parcourir joueur puis iterator pour défausser toutes les cartes de la main des joueurs (sans appliquer effets) et les add dans les défausse
-		// aller dans défausse.retournerDefausse, créer méthode pour ré-initialiser les couleurs de Carte Jokers
-		// faire tourner cette fonction dans la défausse
-		// add la défausse à la pioche (fonction addAll de collections ? à vérifier)
-		// shuffle la nouvelle pioche
+		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
+		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
 		
+		Pioche.getInstance().melanger();
+
 	}
 	
 }

@@ -79,7 +79,7 @@ public class Partie
 				if (Partie.instance == null) {
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
-					Partie.instance.setNb_pts_max(100);
+					Partie.instance.setNb_pts_max(500);
 					Partie.instance.setManche(0);
 					Partie.instance.setNb_manches_max(0);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
@@ -115,13 +115,16 @@ public class Partie
 	public void construireCartes() {
 		for (Couleur couleur : Couleur.values()) {
 			for (int val = 1; val <= 9; val++) {
-				Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
-				Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
+				for (int i = 0; i < 2; i++) {
+					Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
+				}
 			}
 			Pioche.getInstance().getPioche().add(new CarteNumerotee(0, couleur));
-			
-			Pioche.getInstance().melanger();
+			for (int i = 0; i < 2; i++) {
+				Pioche.getInstance().getPioche().add(new CartePlusDeux(couleur));
+			}
 		}
+		Pioche.getInstance().melanger();
 	}
 	
 	/**

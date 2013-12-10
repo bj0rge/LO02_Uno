@@ -21,7 +21,7 @@ public class Manche {
 	 * Nombre de cartes à piocher lors du début d'un tour.<br>
 	 * NB_CARTES_INITIAL = {@value}
 	 */
-	public static final int NB_CARTES_INITIAL = 1;
+	public static final int NB_CARTES_INITIAL = 7;
 		
 	
 	/**

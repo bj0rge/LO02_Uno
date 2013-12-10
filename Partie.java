@@ -247,9 +247,22 @@ public class Partie
 			Partie.getInstance().ajouterJoueur(new Joueur());
 			System.out.println("Génération du joueur " + i);
 		}
-		
 	}
 	
+	public void calculScore(int[] resultatManche){
+		
+		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
+			
+			Partie.getInstance().getJoueur(resultatManche[0]).setScore(resultatManche[1]);
+			
+			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			
+			Iterator<Joueur> itj = joueurs.iterator();
+			while (itj.hasNext()){
+				System.out.println("Score de Joueur " + joueurs.indexOf(itj.next()) + ": " + Partie.getInstance().getJoueur(joueurs.indexOf(itj.next())).getScore() + " points.");
+			}
+		}
+	}
 	
 	public static void main(String[] args){
 		
@@ -259,11 +272,16 @@ public class Partie
 		// Génération des cartes et ajout des joueurs
 		Partie.getInstance().debuterPartie();
 		
+		// Le mode de jeu sera STANDARD
+		Partie.getInstance().setMode(ModeDeJeu.STANDARD);
+		
 		// Tour du Joueur j
-		int tab[] = new int[2];
-		tab = Manche.getInstance().deroulementManche();
-		System.out.println("Le joueur " + (tab[0] + 1) + " a gagné la manche. Il empoche " + tab[1] + " points.");
+		int resultatManche[] = new int[2];
+		resultatManche = Manche.getInstance().deroulementManche();
+		System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 
+		Partie.getInstance().calculScore(resultatManche);		
+		
 		sc.close();
 				
 	}

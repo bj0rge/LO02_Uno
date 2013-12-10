@@ -21,7 +21,7 @@ public class Manche {
 	 * Nombre de cartes à piocher lors du début d'un tour.<br>
 	 * NB_CARTES_INITIAL = {@value}
 	 */
-	public static final int NB_CARTES_INITIAL = 7;
+	public static final int NB_CARTES_INITIAL = 3;
 		
 	
 	/**
@@ -118,7 +118,7 @@ public class Manche {
 		int index = joueurs.indexOf(getJoueurActuel());
 		
 		Joueur joueur_suivant;
-		if (index == joueurs.size())
+		if (index == joueurs.size() - 1)
 			joueur_suivant = joueurs.get(0);
 		else
 			joueur_suivant = joueurs.get(index + 1);
@@ -186,6 +186,11 @@ public class Manche {
 				}
 				
 				ret = Partie.getInstance().demanderInt();
+				
+				if (ret < 0 || ret > j.getMain().getCartes().size()){
+					System.out.println("Valeur incorrecte : veuillez entrer un choix possible.");
+				}
+				
 			}
 			// Tant que ret n'est pas dans la liste 
 			while (ret < 0 || ret > j.getMain().getCartes().size());
@@ -197,10 +202,12 @@ public class Manche {
 				if (j.APioche()){
 					fintour = true;
 					j.passerTour();
+					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 				}
 				// Sinon, on le fait piocher
 				else {
-					System.out.println("Vous avez pioché un " + j.piocher() + ".");
+					System.out.println(" \nVous avez pioché un " + j.piocher() + ".");
+					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				}
 			// Sinon, il choisit de poser une carte
 			else {
@@ -209,7 +216,7 @@ public class Manche {
 				
 				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
 					j.poser(carte_jouee);
-					System.out.println("La carte " + carte_jouee + " a été défaussée.");
+					System.out.println("La carte " + carte_jouee + " a été défaussée de votre main.\n");
 					
 					// syso de la dernière carte posée, via défausse, pour confirmation
 					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");

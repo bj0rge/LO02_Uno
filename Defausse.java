@@ -1,6 +1,7 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -96,6 +97,17 @@ public class Defausse {
 		ArrayList<Carte> nouvelle_defausse = new ArrayList<Carte>();
 		nouvelle_defausse.add(carte_jouee);
 		this.setDefausse(nouvelle_defausse);
+		
+		// On repasse la couleur des cartes +4 et changer couleur à null
+		// Faudrait pas que le joueur en pioche une et ne puisse pas choisir la couleur =) 
+		Iterator<Carte> it = nouvelle_pioche.iterator();
+		while (it.hasNext()){
+			Carte c = it.next();
+			if (c instanceof CarteJoker) {
+				c.setCouleur(null);
+			}
+		}
+
 		
 		// On retourne finalement ce qui sera la nouvelle Pioche non mélangée
 		return nouvelle_pioche;

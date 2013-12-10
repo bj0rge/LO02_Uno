@@ -80,7 +80,8 @@ public class Partie
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
 					Partie.instance.setNb_pts_max(100);
-					Partie.instance.setManche(1);
+					Partie.instance.setManche(0);
+					Partie.instance.setNb_manches_max(1);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
 			}
@@ -186,7 +187,7 @@ public class Partie
 			}
 		}
 		while (!Partie.getInstance().isTerminee());
-		System.out.println("\nLe jeu est terminé ! Voici les scores :");
+		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
 
 		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
 		while (it.hasNext()) {

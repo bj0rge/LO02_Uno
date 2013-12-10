@@ -281,11 +281,6 @@ public class Partie
 		// Tour du Joueur j
 		Manche.getInstance().jouerTour(j);
 		
-		
-		
-		
-
-		
 		sc.close();
 		
 	}

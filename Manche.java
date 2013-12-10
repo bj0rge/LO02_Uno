@@ -202,12 +202,12 @@ public class Manche {
 				if (j.APioche()){
 					fintour = true;
 					j.passerTour();
-					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+					System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 				}
 				// Sinon, on le fait piocher
 				else {
 					System.out.println(" \nVous avez pioché un " + j.piocher() + ".");
-					System.out.println("Dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
+					System.out.println("Dernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				}
 			// Sinon, il choisit de poser une carte
 			else {
@@ -361,5 +361,25 @@ public class Manche {
 		this.joueurDebut = joueurDebut;
 	}
 	
+	public void razManche(){
+		
+		this.sensHoraire = true;
+		this.joueurActuel = null;
+		
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+		
+		Iterator<Joueur> itj = joueurs.iterator();
+		while (itj.hasNext()){
+			Joueur j = itj.next();
+			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
+			j.getMain().getCartes().clear();			
+		}
+		
+		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
+		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
+		
+		Pioche.getInstance().melanger();
+
+	}
 	
 }

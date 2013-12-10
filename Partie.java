@@ -2,7 +2,7 @@ package LO02_Uno;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Iterator;;
+import java.util.Iterator;
 
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 
@@ -286,7 +286,7 @@ public class Partie
 		// Ajout de 4 joueurs humains.
 		for (int i = 0; i < 4; i++){
 			Partie.getInstance().ajouterJoueur(new Joueur());
-			System.out.println("Génération du joueur " + i);
+			System.out.println("Génération du joueur " + (i+1));
 		}
 	}
 	
@@ -294,13 +294,31 @@ public class Partie
 		
 		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
 			
-			Partie.getInstance().getJoueur(resultatManche[0]).setScore(resultatManche[1]);
+			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 			
 			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 			
 			Iterator<Joueur> itj = joueurs.iterator();
 			while (itj.hasNext()){
-				System.out.println("Score de Joueur " + joueurs.indexOf(itj.next()) + ": " + Partie.getInstance().getJoueur(joueurs.indexOf(itj.next())).getScore() + " points.");
+				Joueur j = itj.next();
+				StringBuffer sb = new StringBuffer();
+				sb.append("Score de Joueur ");
+				sb.append(joueurs.indexOf(j)+1);
+				sb.append(" : ");
+				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
+				sb.append(" + ");
+				
+				if (joueurs.indexOf(j) == resultatManche[0]){
+					sb.append(resultatManche[1]);
+					j.setScore(j.getScore() + resultatManche[1]);
+				}
+				else
+					sb.append("0");
+				
+				sb.append(" = ");
+				sb.append(j.getScore());
+				sb.append(" points");
+				System.out.println(sb.toString());
 			}
 		}
 	}

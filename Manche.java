@@ -136,9 +136,6 @@ public class Manche {
 				Joueur j = (Joueur) it.next();			 // it.next renvoie l'élément qui a été "sauté", le cast Joueur pour être sur du type
 				j.piocher();
 			}
-			
-			/*for (Joueur j : Partie.getInstance().getListeJoueurs())
-				j.piocher();*/
 		}
 	}
 	
@@ -181,11 +178,6 @@ public class Manche {
 					System.out.println("[" + (i+1) + "] Jouer le " + it.next());
 					i += 1;
 				}
-				
-				
-				/*for (int i = 0; i < j.getMain().getCartes().size(); i++) {
-					System.out.println("[" + (i+1) + "] Jouer le " + j.getMain().getCartes().get(i));
-				}*/
 				
 				ret = Partie.getInstance().demanderInt();
 			}

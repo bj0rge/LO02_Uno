@@ -265,7 +265,6 @@ public class Partie
 		Manche.getInstance().retournerPremiereCarte();
 		
 		
-		
 		System.out.println("\nVoici les mains des joueurs :");
 		
 		Iterator<Joueur> it = Partie.getInstance().listeJoueurs.iterator(); // Création d'un itérateur it de listeJoueurs
@@ -275,12 +274,8 @@ public class Partie
 		}
 		
 		
-		/*for (Joueur j : Partie.getInstance().getListeJoueurs())
-			System.out.println(j.getMain().getCartes());*/
-		
-		
 		Joueur j = Partie.getInstance().getJoueur(0);
-		
+				
 		// Tour du Joueur j
 		Manche.getInstance().jouerTour(j);
 		

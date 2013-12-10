@@ -10,7 +10,7 @@ public class CarteChangerCouleur extends CarteJoker{
 	
 	public void appliquerEffets(){
 		
-		System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer ?");
+		System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer ?\n");
 		int i = 0;
 		for (Couleur couleur : Couleur.values()){
 			System.out.println("[" + i + "] " + couleur);

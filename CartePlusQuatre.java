@@ -16,7 +16,7 @@ public class CartePlusQuatre extends CarteJoker {
 			Manche.getInstance().getJoueurSuivant().piocher();
 		}
 		
-		System.out.println("Joueur " + Manche.getInstance().getJoueurActuel() + "! Quelle couleur voulez-vous jouer ?");
+		System.out.println("Joueur " + Manche.getInstance().getJoueurActuel() + "! Quelle couleur voulez-vous jouer ?\n");
 		
 		int i = 0;
 		for (Couleur couleur : Couleur.values()){

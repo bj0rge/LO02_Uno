@@ -63,12 +63,6 @@ public class Main {
 			sb.append(c.toString());
 			sb.append("\n");
 		}
-		
-		
-		/*for (Carte c : this.getCartes()){
-			sb.append(c.toString());
-			sb.append("\n");
-		}*/
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 		

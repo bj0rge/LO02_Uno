@@ -194,8 +194,10 @@ public class Manche {
 			if (ret == 0)
 				// Si le joueur a déjà pioché, cela veut dire que 
 				// son choix était de finir son tour
-				if (j.APioche())
+				if (j.APioche()){
 					fintour = true;
+					j.passerTour();
+				}
 				// Sinon, on le fait piocher
 				else {
 					System.out.println("Vous avez pioché un " + j.piocher() + ".");
@@ -220,10 +222,7 @@ public class Manche {
 				}
 			}
 		}
-		while(!fintour);		
-
-		// Et on passe au joueur suivant !
-		Manche.getInstance().passerJoueur();
+		while(!fintour);
 	}
 	
 	/**

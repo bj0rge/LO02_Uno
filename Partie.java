@@ -265,30 +265,6 @@ public class Partie
 		System.out.println("Le joueur " + (tab[0] + 1) + " a gagné la manche. Il empoche " + tab[1] + " points.");
 
 		sc.close();
-		
-		/*System.out.println("\nLa pioche contient :");
-		System.out.println(Pioche.getInstance().getPioche());
-		
-		Manche.getInstance().distribuer();
-		System.out.println("\nLes joueurs ont pioché.");		
-		
-		System.out.println("\nVoici les mains des joueurs :");
-		
-		Iterator<Joueur> it = Partie.getInstance().listeJoueurs.iterator(); // Création d'un itérateur it de listeJoueurs
-		while (it.hasNext()){												// it.hasNext retourne true s'il reste encore des éléments à l'ensemble
-			Joueur j = (Joueur) it.next();									// it.next renvoie l'élément qui a été "sauté", le cast Joueur pour être sur du type
-			System.out.println(j.getMain().getCartes());					// syso pour renvoyer le toString
-		}
-		
-		Manche.getInstance().retournerPremiereCarte();
-		
-		Joueur j = Partie.getInstance().getJoueur(0);
 				
-		// Tour du Joueur j
-		Manche.getInstance().jouerTour(j);*/
-		
-		
-
-		
 	}
 }

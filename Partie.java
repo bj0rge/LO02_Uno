@@ -1,5 +1,6 @@
 package LO02_Uno;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Iterator;
@@ -78,8 +79,8 @@ public class Partie
 				if (Partie.instance == null) {
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
-					Partie.instance.setNb_pts_max(500);
-					Partie.instance.setManche(1);
+					Partie.instance.setNb_pts_max(100);
+					Partie.instance.setManche(0);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
 			}
@@ -148,9 +149,11 @@ public class Partie
 		if (mode == ModeDeJeu.STANDARD) {
 			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
 			while (it.hasNext()) {
-				if ((it.next().getScore() >= Partie.getInstance().getNb_pts_max()) 
-						|| Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max() ) {
-					est_fini = true;
+				Joueur j = it.next();
+				if ((j.getScore() >= Partie.getInstance().getNb_pts_max()) 
+						|| (Partie.getInstance().getNb_manches_max() != 0)
+						&& (Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max()) ) {
+					est_fini = true;	
 				}
 			}
 		}
@@ -168,13 +171,26 @@ public class Partie
 			int resultatManche[] = new int[2];
 			resultatManche = Manche.getInstance().deroulementManche();
 			
-			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 			Partie.getInstance().calculScore(resultatManche);
 			
-			System.out.println("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
-			sc.next();
+			System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
+			
+			// Try - Catch qui permet de passer à la manche suivante.
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		while (!Partie.getInstance().isTerminee());
+		System.out.println("\nLe jeu est terminé ! Voici les scores :");
+
+		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		while (it.hasNext()) {
+			Joueur j = it.next();
+			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + "points.");
+		}
 	}
 	
 	
@@ -311,8 +327,9 @@ public class Partie
 					sb.append(resultatManche[1]);
 					j.setScore(j.getScore() + resultatManche[1]);
 				}
-				else
+				else {
 					sb.append("0");
+				}
 				
 				sb.append(" = ");
 				sb.append(j.getScore());

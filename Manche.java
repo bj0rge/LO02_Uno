@@ -76,7 +76,7 @@ public class Manche {
 					Manche.instance = new Manche();
 					Manche.instance.setSensHoraire(true);
 					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
-					Manche.instance.setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
+					Manche.instance.setJoueurDebut(null);
 					}
 				}
 			}
@@ -367,6 +367,22 @@ public class Manche {
 		
 		this.sensHoraire = true;
 		this.joueurActuel = null;
+		
+		if (Manche.getInstance().getJoueurDebut() == null) {
+			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
+		}
+		else {
+			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
+			
+			Joueur joueur_suivant;
+			if (index == joueurs.size() - 1)
+				joueur_suivant = joueurs.get(0);
+			else
+				joueur_suivant = joueurs.get(index + 1);
+			Manche.getInstance().setJoueurDebut(joueur_suivant);
+			
+		}
 		
 		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 		

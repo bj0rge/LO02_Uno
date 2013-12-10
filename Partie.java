@@ -81,7 +81,7 @@ public class Partie
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
 					Partie.instance.setNb_pts_max(100);
 					Partie.instance.setManche(0);
-					Partie.instance.setNb_manches_max(1);
+					Partie.instance.setNb_manches_max(0);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
 			}
@@ -192,7 +192,7 @@ public class Partie
 		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
 		while (it.hasNext()) {
 			Joueur j = it.next();
-			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + "points.");
+			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + " points.");
 		}
 	}
 	

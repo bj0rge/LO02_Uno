@@ -255,14 +255,29 @@ public class Partie
 			
 			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 			
-			Partie.getInstance().getJoueur(resultatManche[0]).setScore(resultatManche[1]);
-			
 			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 			
 			Iterator<Joueur> itj = joueurs.iterator();
 			while (itj.hasNext()){
 				Joueur j = itj.next();
-				System.out.println("Score de Joueur " + (joueurs.indexOf(j)+1) + ": " + Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore() + " points.");
+				StringBuffer sb = new StringBuffer();
+				sb.append("Score de Joueur ");
+				sb.append(joueurs.indexOf(j)+1);
+				sb.append(" : ");
+				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
+				sb.append(" + ");
+				
+				if (joueurs.indexOf(j) == resultatManche[0]){
+					sb.append(resultatManche[1]);
+					j.setScore(j.getScore() + resultatManche[1]);
+				}
+				else
+					sb.append("0");
+				
+				sb.append(" = ");
+				sb.append(j.getScore());
+				sb.append(" points");
+				System.out.println(sb.toString());
 			}
 		}
 	}

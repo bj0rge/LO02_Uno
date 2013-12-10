@@ -253,14 +253,20 @@ public class Partie
 	
 	public static void main(String[] args){
 		
-		
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
 		Partie.getInstance();
 		
 		// Génération des cartes et ajout des joueurs
 		Partie.getInstance().debuterPartie();
 		
-		System.out.println("\nLa pioche contient :");
+		// Tour du Joueur j
+		int tab[] = new int[2];
+		tab = Manche.getInstance().deroulementManche();
+		System.out.println("Le joueur " + (tab[0] + 1) + " a gagné la manche. Il empoche " + tab[1] + " points.");
+
+		sc.close();
+		
+		/*System.out.println("\nLa pioche contient :");
 		System.out.println(Pioche.getInstance().getPioche());
 		
 		Manche.getInstance().distribuer();
@@ -279,9 +285,10 @@ public class Partie
 		Joueur j = Partie.getInstance().getJoueur(0);
 				
 		// Tour du Joueur j
-		Manche.getInstance().jouerTour(j);
+		Manche.getInstance().jouerTour(j);*/
 		
-		sc.close();
+		
+
 		
 	}
 }

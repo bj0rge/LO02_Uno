@@ -121,7 +121,7 @@ public class Manche {
 			joueur_suivant = joueurs.get(0);
 		else
 			joueur_suivant = joueurs.get(index + 1);
-		return joueur_suivant;		
+		return joueur_suivant;
 	}
 	
 	/**
@@ -165,7 +165,7 @@ public class Manche {
 	public void jouerTour(Joueur j) {
 		j.raz();
 		
-		System.out.println("\nJoueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + ", que voulez-vous faire ?\n");
+		System.out.println("\nJoueur " + Partie.getInstance().getListeJoueurs().indexOf(j) + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
 		
@@ -235,6 +235,9 @@ public class Manche {
 		
 		// On retourne la première carte de la Pioche
 		Manche.getInstance().retournerPremiereCarte();
+		
+		// On indique qui est le joueur de début
+		Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
 		
 		// On donne pour premier joueur le JoueurDebut
 		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());

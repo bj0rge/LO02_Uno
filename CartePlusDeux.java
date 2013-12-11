@@ -33,11 +33,11 @@ public class CartePlusDeux extends Carte {
 	
 	public boolean estJouable(Carte c) {
 		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
-				boolean retour = super.estJouable(c);
-				if ((this.getClass() == c.getClass())) {
-					retour = true;
-				}
-				return retour;
+		boolean retour = super.estJouable(c);
+		if ((this.getClass() == c.getClass())) {
+			retour = true;
+		}
+		return retour;
 	}
 	
 	

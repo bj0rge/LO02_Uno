@@ -90,6 +90,7 @@ public class Partie
 	/**
 	 * Construit les Cartes et ajoute les Joueurs
 	 */
+
 	public void debuterPartie(){
 		
 		// On construit les Cartes, et on les envoie dans la Pioche =)

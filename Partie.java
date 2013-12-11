@@ -113,6 +113,9 @@ public class Partie
 				Pioche.getInstance().getPioche().add(new CartePasserTour(couleur));
 			}
 		}
+		for (int i = 0; i < 4; i++) {
+			Pioche.getInstance().getPioche().add(new CarteChangerCouleur());
+		}
 		Pioche.getInstance().melanger();
 	}
 	

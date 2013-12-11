@@ -72,6 +72,7 @@ public class Partie
 		}
 		for (int i = 0; i < 4; i++) {
 			Pioche.getInstance().getPioche().add(new CarteChangerCouleur());
+			Pioche.getInstance().getPioche().add(new CartePlusQuatre());
 		}
 		Pioche.getInstance().melanger();
 	}

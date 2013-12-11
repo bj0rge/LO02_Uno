@@ -44,7 +44,7 @@ public abstract class Carte {
 	 * @return Vrai si la carte est jouable, faux sinon.
 	 * @see Defausse
 	 */
-	protected boolean estJouable(Carte c) {
+	public boolean estJouable(Carte c) {
 		/* Une Carte sera jouable quoi qu'il arrive si elle a la même couleur que celle d'avant, ou si 
 		 * la Carte d'avant n'a pas de couleur (Ex: si la première carte retournée est une carte noire)
 		 */
@@ -56,7 +56,7 @@ public abstract class Carte {
 	 * Applique les effets induits par la carte.
 	 * @see Defausse
 	 */
-	protected abstract void appliquerEffets(boolean premier_tour);
+	public abstract void appliquerEffets(boolean premier_tour);
 	
 
 	/**

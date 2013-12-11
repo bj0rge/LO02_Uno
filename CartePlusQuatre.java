@@ -4,7 +4,7 @@ public class CartePlusQuatre extends CarteJoker {
 
 	public CartePlusQuatre(){
 		
-		super(null);
+		super();
 		
 	}
 	

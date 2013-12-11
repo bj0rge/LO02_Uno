@@ -3,7 +3,7 @@ package LO02_Uno;
 public class CarteChangerCouleur extends CarteJoker{
 
 	public CarteChangerCouleur() {	
-		super(null);
+		super();
 	}
 	
 	public void appliquerEffets(boolean premier_tour){

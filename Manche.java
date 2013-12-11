@@ -106,10 +106,22 @@ public class Manche {
 		int index = joueurs.indexOf(getJoueurActuel());
 		
 		Joueur joueur_precedent;
-		if (index == 0)
-			joueur_precedent = joueurs.get((joueurs.size())-1);
-		else
-			joueur_precedent = joueurs.get(index - 1);
+		if (Manche.getInstance().isSensHoraire()) {
+			if (index == 0) {
+				joueur_precedent = joueurs.get((joueurs.size())-1);
+			}
+			else {
+				joueur_precedent = joueurs.get(index - 1);
+			}
+		}
+		else {
+			if (index == joueurs.size() - 1) {
+				joueur_precedent = joueurs.get(0);
+			}
+			else {
+				joueur_precedent = joueurs.get(index + 1);
+			}
+		}
 		return joueur_precedent;		
 	}
 	
@@ -123,10 +135,22 @@ public class Manche {
 		int index = joueurs.indexOf(getJoueurActuel());
 		
 		Joueur joueur_suivant;
-		if (index == joueurs.size() - 1)
-			joueur_suivant = joueurs.get(0);
-		else
-			joueur_suivant = joueurs.get(index + 1);
+		if (Manche.getInstance().isSensHoraire()) {
+			if (index == joueurs.size() - 1) {
+				joueur_suivant = joueurs.get(0);
+			}
+			else {
+				joueur_suivant = joueurs.get(index + 1);
+			}
+		}
+		else {
+			if (index == 0) {
+				joueur_suivant = joueurs.get((joueurs.size()-1));
+			}
+			else  {
+				joueur_suivant = joueurs.get(index-1);
+			}
+		}
 		return joueur_suivant;
 	}
 	

@@ -115,9 +115,24 @@ public class Manche {
 	 * Retourne la première Carte de la Défausse en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
-		Carte c = Pioche.getInstance().piocher();
-		Defausse.getInstance().defausser(c);
-		c.appliquerEffets(true);
+		// Carte c1 = Pioche.getInstance().piocher();
+		Carte c1 = new CartePlusQuatre();
+		Defausse.getInstance().defausser(c1);
+		
+		while (c instanceof CartePlusQuatre){
+			
+			
+		}
+		
+		
+		if (c1 instanceof CartePlusQuatre){
+			System.out.println("\nLa première carte tirée est un +4. On tire donc une nouvelle carte.");
+			while (c1 )
+			Carte c2 = Pioche.getInstance().piocher();
+			Defausse.getInstance().defausser(c2);
+		} else { 
+			c1.appliquerEffets(true);
+		}
 		
 		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 	}

@@ -135,8 +135,6 @@ public class Manche {
 	 * Effectuer le déroulement d'un tour d'un Joueur
 	 * @param j
 	 * 			Joueur qui doit jouer
-	 * @param premier_tour
-	 * 			Indique s'il s'agit du premier tour à jouer
 	 * @see Joueur
 	 */
 	public void jouerTour(Joueur j) {

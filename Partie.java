@@ -55,10 +55,6 @@ public class Partie
 	 */
 	private int nb_manches_max;
 	
-	/**
-	 * Le nombre de manches écoulées depuis le début de la partie.
-	 */
-	private int manche;
 	
 	
 	
@@ -80,7 +76,6 @@ public class Partie
 					Partie.instance = new Partie();
 					Partie.instance.setMode(ModeDeJeu.STANDARD);
 					Partie.instance.setNb_pts_max(500);
-					Partie.instance.setManche(0);
 					Partie.instance.setNb_manches_max(0);
 					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
 				}
@@ -99,14 +94,6 @@ public class Partie
 		this.getListeJoueurs().add(j);
 	}
 	
-	
-	
-	/**
-	 * Incrémente le numéro de la manche en cours.
-	 */
-	public void incrementerManche() {
-		this.setManche(this.getManche() + 1);
-	}
 	
 	/**
 	 * Génère les Cartes, et les envoie dans la Pioche. 
@@ -146,9 +133,11 @@ public class Partie
 	
 	/**
 	 * Retourne vrai si la Partie est terminée, en fonction du Mode de jeu
+	 * @param num_tour
+	 * 			Numéro de la manche en cours.
 	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
 	 */
-	public boolean isTerminee() {
+	public boolean isTerminee(int num_tour) {
 		ModeDeJeu mode = Partie.getInstance().getMode();
 		boolean est_fini = false;
 		if (mode == ModeDeJeu.STANDARD) {
@@ -157,7 +146,7 @@ public class Partie
 				Joueur j = it.next();
 				if ((j.getScore() >= Partie.getInstance().getNb_pts_max()) 
 						|| ((Partie.getInstance().getNb_manches_max() != 0)
-						&& (Partie.getInstance().getManche() >= Partie.getInstance().getNb_manches_max())) ) {
+						&& (num_tour >= Partie.getInstance().getNb_manches_max())) ) {
 					est_fini = true;	
 				}
 			}
@@ -170,6 +159,7 @@ public class Partie
 	 * Fait dérouler une Partie du début à la fin.
 	 */
 	public void deroulementPartie() {
+		int num_manche = 0;
 		do {
 			Manche.getInstance().razManche();
 			// On récupère l'index du joueur gagnant et le score gagné.
@@ -177,9 +167,9 @@ public class Partie
 			resultatManche = Manche.getInstance().deroulementManche();
 			
 			Partie.getInstance().calculScore(resultatManche);
-			Partie.getInstance().setManche(Partie.getInstance().getManche() + 1);
+			num_manche++;
 			
-			if (!Partie.getInstance().isTerminee()) {
+			if (!Partie.getInstance().isTerminee(num_manche)) {
 				System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
 				// Try - Catch qui permet de passer à la manche suivante.
 				try {
@@ -190,7 +180,7 @@ public class Partie
 				}
 			}
 		}
-		while (!Partie.getInstance().isTerminee());
+		while (!Partie.getInstance().isTerminee(num_manche));
 		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
 
 		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
@@ -254,22 +244,6 @@ public class Partie
 		this.nb_manches_max = nb_manches_max;
 	}
 
-	/**
-	 * Retourne le numéro de la manche en cours.
-	 * @return Le numéro de la manche en cours.
-	 */
-	public int getManche() {
-		return manche;
-	}
-
-	/**
-	 * Met à jour le numéro de la manche en cours.
-	 * @param manche
-	 * 			Le numéro de la manche à mettre à jour.
-	 */
-	public void setManche(int manche) {
-		this.manche = manche;
-	}
 
 	/**
 	 * Retourne la Liste des Joueurs présents dans la Partie.

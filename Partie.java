@@ -99,7 +99,7 @@ public class Partie
 	 * Génère les Cartes, et les envoie dans la Pioche. 
 	 * @see Pioche
 	 */
-	public void construireCartes() {
+	private void construireCartes() {
 		for (Couleur couleur : Couleur.values()) {
 			for (int val = 1; val <= 9; val++) {
 				for (int i = 0; i < 2; i++) {
@@ -137,7 +137,7 @@ public class Partie
 	 * 			Numéro de la manche en cours.
 	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
 	 */
-	public boolean isTerminee(int num_tour) {
+	private boolean isTerminee(int num_tour) {
 		ModeDeJeu mode = Partie.getInstance().getMode();
 		boolean est_fini = false;
 		if (mode == ModeDeJeu.STANDARD) {
@@ -187,6 +187,62 @@ public class Partie
 		while (it.hasNext()) {
 			Joueur j = it.next();
 			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + " points.");
+		}
+	}
+	
+	
+	/**
+	 * Construit les Cartes et ajoute les Joueurs
+	 */
+	private void debuterPartie(){
+		
+		// On construit les Cartes, et on les envoie dans la Pioche =)
+		Partie.getInstance().construireCartes();
+		System.out.println("\nCartes générées.\n");
+		
+		// Ajout de 4 joueurs humains.
+		for (int i = 0; i < 4; i++){
+			Partie.getInstance().ajouterJoueur(new Joueur());
+			System.out.println("Génération du joueur " + (i+1));
+		}
+	}
+	
+	/**
+	 * Calcule le résultat d'une manche.
+	 * @param resultatManche
+	 * 			Tableau : en [0] -> index du joueur qui a gagné la manche. [2]-> score à additionner.
+	 */
+	private void calculScore(int[] resultatManche){
+		
+		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
+			
+			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
+			
+			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			
+			Iterator<Joueur> itj = joueurs.iterator();
+			while (itj.hasNext()){
+				Joueur j = itj.next();
+				StringBuffer sb = new StringBuffer();
+				sb.append("Score de Joueur ");
+				sb.append(joueurs.indexOf(j)+1);
+				sb.append(" : ");
+				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
+				sb.append(" + ");
+				
+				if (joueurs.indexOf(j) == resultatManche[0]){
+					sb.append(resultatManche[1]);
+					j.setScore(j.getScore() + resultatManche[1]);
+				}
+				else {
+					sb.append("0");
+				}
+				
+				sb.append(" = ");
+				sb.append(j.getScore());
+				sb.append(" points");
+				System.out.println(sb.toString());
+			}
 		}
 	}
 	
@@ -273,52 +329,6 @@ public class Partie
 		this.listeJoueurs = listeJoueurs;
 	}
 
-	public void debuterPartie(){
-		
-		// On construit les Cartes, et on les envoie dans la Pioche =)
-		Partie.getInstance().construireCartes();
-		System.out.println("\nCartes générées.\n");
-		
-		// Ajout de 4 joueurs humains.
-		for (int i = 0; i < 4; i++){
-			Partie.getInstance().ajouterJoueur(new Joueur());
-			System.out.println("Génération du joueur " + (i+1));
-		}
-	}
-	
-	public void calculScore(int[] resultatManche){
-		
-		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
-			
-			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
-			
-			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-			
-			Iterator<Joueur> itj = joueurs.iterator();
-			while (itj.hasNext()){
-				Joueur j = itj.next();
-				StringBuffer sb = new StringBuffer();
-				sb.append("Score de Joueur ");
-				sb.append(joueurs.indexOf(j)+1);
-				sb.append(" : ");
-				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
-				sb.append(" + ");
-				
-				if (joueurs.indexOf(j) == resultatManche[0]){
-					sb.append(resultatManche[1]);
-					j.setScore(j.getScore() + resultatManche[1]);
-				}
-				else {
-					sb.append("0");
-				}
-				
-				sb.append(" = ");
-				sb.append(j.getScore());
-				sb.append(" points");
-				System.out.println(sb.toString());
-			}
-		}
-	}
 	
 	public static void main(String[] args){
 		

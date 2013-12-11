@@ -82,6 +82,46 @@ public class Manche {
 			}
 		return Manche.instance;
 	}
+	
+	
+	/**
+	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
+	 */
+	public void razManche(){
+		
+		Manche.getInstance().setSensHoraire(true);
+		Manche.getInstance().setJoueurActuel(null);
+		
+		if (Manche.getInstance().getJoueurDebut() == null) {
+			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
+		}
+		else {
+			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
+			
+			Joueur joueur_suivant;
+			if (index == joueurs.size() - 1)
+				joueur_suivant = joueurs.get(0);
+			else
+				joueur_suivant = joueurs.get(index + 1);
+			Manche.getInstance().setJoueurDebut(joueur_suivant);
+			
+		}
+		
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+		
+		Iterator<Joueur> itj = joueurs.iterator();
+		while (itj.hasNext()){
+			Joueur j = itj.next();
+			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
+			j.getMain().getCartes().clear();			
+		}
+		
+		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
+		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
+		
+		Pioche.getInstance().melanger();
+	}
 
 	
 	/**
@@ -394,44 +434,6 @@ public class Manche {
 
 
 
-	/**
-	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
-	 */
-	public void razManche(){
-		
-		Manche.getInstance().setSensHoraire(true);
-		Manche.getInstance().setJoueurActuel(null);
-		
-		if (Manche.getInstance().getJoueurDebut() == null) {
-			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
-		}
-		else {
-			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
-			
-			Joueur joueur_suivant;
-			if (index == joueurs.size() - 1)
-				joueur_suivant = joueurs.get(0);
-			else
-				joueur_suivant = joueurs.get(index + 1);
-			Manche.getInstance().setJoueurDebut(joueur_suivant);
-			
-		}
-		
-		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-		
-		Iterator<Joueur> itj = joueurs.iterator();
-		while (itj.hasNext()){
-			Joueur j = itj.next();
-			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
-			j.getMain().getCartes().clear();			
-		}
-		
-		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
-		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
-		
-		Pioche.getInstance().melanger();
-
-	}
+	
 	
 }

@@ -3,9 +3,7 @@ package LO02_Uno;
 public class CarteChangerSens extends Carte {
 
 	public CarteChangerSens(Couleur couleur){
-		
 		super(20, couleur);
-		
 	}
 	
 	public void appliquerEffets(boolean premier_tour){
@@ -20,12 +18,6 @@ public class CarteChangerSens extends Carte {
 		}
 	}
 	
-	public String toString(){
-		
-		return ("<> " + this.getCouleur());
-		
-	}
-	
 	public boolean estJouable(Carte c) {
 		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
 		boolean retour = super.estJouable(c);
@@ -35,4 +27,10 @@ public class CarteChangerSens extends Carte {
 		return retour;
 	}
 
+	
+	public String toString(){
+		
+		return ("<> " + this.getCouleur());
+		
+	}
 }

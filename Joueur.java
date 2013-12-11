@@ -55,6 +55,13 @@ public class Joueur {
 		this.setAPioche(false);
 	}
 
+	/**
+	 * Réinitialise les variables nécessaires au bon fonctionnement d'un tour au commencement de celui-ci
+	 */
+	public void raz() {
+		this.setADitUno(false);
+		this.setAPioche(false);
+	}
 	
 	/**
 	 * Ajoute des points au score actuel du Joueur.
@@ -139,13 +146,7 @@ public class Joueur {
 		}
 	}
 	
-	/**
-	 * Réinitialise les variables nécessaires au bon fonctionnement d'un tour au commencement de celui-ci
-	 */
-	public void raz() {
-		this.setADitUno(false);
-		this.setAPioche(false);
-	}
+	
 	
 	
 	

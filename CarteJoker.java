@@ -6,18 +6,8 @@ public abstract class CarteJoker extends Carte {
 		super(50, null);
 	}
 	
-	public void appliquerEffets(boolean premier_tour) {
-		
-	}
+	public abstract void appliquerEffets(boolean premier_tour);
 	
-	
-		
-	
-	
-	public String toString(){
-		
-		return ("");
-		
-	}
+	public abstract String toString();
 
 }

@@ -47,13 +47,9 @@ public class CarteNumerotee extends Carte {
 		
 		return retour;
 	}
-
 	
 	public void appliquerEffets(boolean premier_tour) { } // Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
 
-	
-	
-	
 	/**
 	 * Retourne la valeur faciale de la CarteNumerotee.
 	 * @return La valeur portée par la Carte.
@@ -75,6 +71,4 @@ public class CarteNumerotee extends Carte {
 	public String toString() {
 		return this.getValeurFaciale() + " " + this.getCouleur();
 	}
-
-
 }

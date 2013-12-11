@@ -68,6 +68,15 @@ public abstract class Carte {
 	}
 
 	/**
+	 * Retourne la couleur de la Carte.
+	 * @return Une instance de Couleur, qui correspond à la couleur portée par la Carte.
+	 * @see Couleur
+	 */
+	public Couleur getCouleur() {
+		return couleur;
+	}
+
+	/**
 	 * Met à jour le nombre de points de la Carte.
 	 * @param points
 	 * 			Le nouveau nombre de points.
@@ -76,14 +85,7 @@ public abstract class Carte {
 		this.points = points;
 	}
 
-	/**
-	 * Retourne la couleur de la Carte.
-	 * @return Une instance de Couleur, qui correspond à la couleur portée par la Carte.
-	 * @see Couleur
-	 */
-	public Couleur getCouleur() {
-		return couleur;
-	}
+
 
 	/**
 	 * Met à jour la couleur de la Carte.

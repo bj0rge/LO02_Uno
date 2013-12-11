@@ -38,16 +38,16 @@ public class Manche {
 	private boolean sensHoraire;
 	
 	/**
+	 * Le Joueur qui commence la Manche.
+	 */
+	private Joueur joueurDebut;
+
+
+	/**
 	 * Le Joueur actuel, c'est à dire celui qui va jouer son tour.
 	 */
 	private Joueur joueurActuel;
 	
-	/**
-	 * Le Joueur qui commence la Manche.
-	 */
-	private Joueur joueurDebut;
-	
-
 	/**
 	 * Constructeur de la Manche.
 	 */
@@ -55,147 +55,49 @@ public class Manche {
 		super();
 	}
 
-	
-	
-	
-
 	/**
-	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à true.
-	 * @return Une instance de Manche, qui correspond au singleton.
-	 */
-	public final static Manche getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Manche.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Manche.class) {
-				if (Manche.instance == null) {
-					Manche.instance = new Manche();
-					Manche.instance.setSensHoraire(true);
-					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
-					Manche.instance.setJoueurDebut(null);
-					}
+		 * Fait dérouler une Manche du début à la fin et retourne un tableau d'entier.
+		 * @return Un tableau d'entiers. En index [0], on a l'index du Joueur gagnant dans listeJoueurs, en index [1], le nombre de points gagnés. 
+		 */
+		public int[] deroulementManche() {
+			
+			
+			// On donne pour premier joueur le JoueurDebut
+			Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
+			
+			// On distribue les cartes à chacun des joueurs
+			Manche.getInstance().distribuer();
+			
+			// On retourne la première carte de la Pioche
+			Manche.getInstance().retournerPremiereCarte();
+	//		Manche.getInstance().setPremierTour(false);
+			// On fait le premier tour de la manche
+	//		Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel(), true);
+			
+			// Tant que le JoueurActuel a encore au moins une Carte dans la Main
+			while(!Manche.getInstance().finManche()) {
+				// On fait jouer le JoueurActuel
+				Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel());
+			}
+			
+			// On récupère l'index du Joueur qui a gagné la partie, ie qui n'a plus de Carte en Main
+			int index = 0;
+			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+			while (it.hasNext()) {
+				Joueur j = (Joueur) it.next();
+				if (j.getMain().getCartes().size() == 0) {
+					index = Partie.getInstance().getListeJoueurs().indexOf(j); 
 				}
 			}
-		return Manche.instance;
-	}
-	
-	
-	/**
-	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
-	 */
-	public void razManche(){
-		
-		Manche.getInstance().setSensHoraire(true);
-		Manche.getInstance().setJoueurActuel(null);
-		
-		if (Manche.getInstance().getJoueurDebut() == null) {
-			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
-		}
-		else {
-			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
 			
-			Joueur joueur_suivant;
-			if (index == joueurs.size() - 1)
-				joueur_suivant = joueurs.get(0);
-			else
-				joueur_suivant = joueurs.get(index + 1);
-			Manche.getInstance().setJoueurDebut(joueur_suivant);
+			// On calcule les points qu'il a gagné
+			int points = Manche.getInstance().compterPoints();
 			
+			// On retourne l'index du Joueur gagnant, et les Points gagnés.
+			int ret[] = {index, points};
+			return ret;
 		}
-		
-		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-		
-		Iterator<Joueur> itj = joueurs.iterator();
-		while (itj.hasNext()){
-			Joueur j = itj.next();
-			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
-			j.getMain().getCartes().clear();			
-		}
-		
-		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
-		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
-		
-		Pioche.getInstance().melanger();
-	}
 
-	
-	/**
-	 * Inverse le sens de la Manche en cours.
-	 */
-	public void changerSens(){
-		Manche.getInstance().setSensHoraire(!Manche.getInstance().isSensHoraire());
-	}
-	
-	/**
-	 * Retourne le Joueur qui a eu la main au tour de jeu précédent dans la Manche.
-	 * @return Le Joueur précédent, sous la forme d'une instance Joueur.
-	 * @see Joueur
-	 */
-	public Joueur getJoueurPrecedent(){
-		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-		int index = joueurs.indexOf(getJoueurActuel());
-		
-		Joueur joueur_precedent;
-		if (Manche.getInstance().isSensHoraire()) {
-			if (index == 0) {
-				joueur_precedent = joueurs.get((joueurs.size())-1);
-			}
-			else {
-				joueur_precedent = joueurs.get(index - 1);
-			}
-		}
-		else {
-			if (index == joueurs.size() - 1) {
-				joueur_precedent = joueurs.get(0);
-			}
-			else {
-				joueur_precedent = joueurs.get(index + 1);
-			}
-		}
-		return joueur_precedent;		
-	}
-	
-	/**
-	 * Retourne le Joueur qui va avoir la main au tour de jeu suivant.
-	 * @return Le Joueur suivant, sous la forme d'une instance Joueur.
-	 * @see Joueur
-	 */
-	public Joueur getJoueurSuivant(){
-		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
-		int index = joueurs.indexOf(getJoueurActuel());
-		
-		Joueur joueur_suivant;
-		if (Manche.getInstance().isSensHoraire()) {
-			if (index == joueurs.size() - 1) {
-				joueur_suivant = joueurs.get(0);
-			}
-			else {
-				joueur_suivant = joueurs.get(index + 1);
-			}
-		}
-		else {
-			if (index == 0) {
-				joueur_suivant = joueurs.get((joueurs.size()-1));
-			}
-			else  {
-				joueur_suivant = joueurs.get(index-1);
-			}
-		}
-		return joueur_suivant;
-	}
-	
-	/**
-	 * Passe le JoueurSuivant en JoueurActuel.
-	 */
-	public void passerJoueur() {
-		this.setJoueurActuel(this.getJoueurSuivant());
-	}
-	
 	/**
 	 * Distribue les cartes à chacun des joueurs. A effectuer en début de Manche.
 	 */
@@ -208,19 +110,7 @@ public class Manche {
 			}
 		}
 	}
-	
-	/**
-	 * Retourne la première Carte de la Défausse en début de Manche.
-	 */
-	public void retournerPremiereCarte() {
-		Carte c = Pioche.getInstance().piocher();
-		Defausse.getInstance().defausser(c);
-		c.appliquerEffets(true);
-		
-		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
-	}
-	
-	
+
 	/**
 	 * Effectuer le déroulement d'un tour d'un Joueur
 	 * @param j
@@ -299,48 +189,38 @@ public class Manche {
 	}
 	
 	/**
-	 * Fait dérouler une Manche du début à la fin et retourne un tableau d'entier.
-	 * @return Un tableau d'entiers. En index [0], on a l'index du Joueur gagnant dans listeJoueurs, en index [1], le nombre de points gagnés. 
+	 * Retourne le sens de déroulement de la Manche en cours.
+	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
 	 */
-	public int[] deroulementManche() {
-		
-		
-		// On donne pour premier joueur le JoueurDebut
-		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
-		
-		// On distribue les cartes à chacun des joueurs
-		Manche.getInstance().distribuer();
-		
-		// On retourne la première carte de la Pioche
-		Manche.getInstance().retournerPremiereCarte();
-//		Manche.getInstance().setPremierTour(false);
-		// On fait le premier tour de la manche
-//		Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel(), true);
-		
-		// Tant que le JoueurActuel a encore au moins une Carte dans la Main
-		while(!Manche.getInstance().finManche()) {
-			// On fait jouer le JoueurActuel
-			Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel());
-		}
-		
-		// On récupère l'index du Joueur qui a gagné la partie, ie qui n'a plus de Carte en Main
-		int index = 0;
-		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
-		while (it.hasNext()) {
-			Joueur j = (Joueur) it.next();
-			if (j.getMain().getCartes().size() == 0) {
-				index = Partie.getInstance().getListeJoueurs().indexOf(j); 
-			}
-		}
-		
-		// On calcule les points qu'il a gagné
-		int points = Manche.getInstance().compterPoints();
-		
-		// On retourne l'index du Joueur gagnant, et les Points gagnés.
-		int ret[] = {index, points};
-		return ret;
+	public boolean isSensHoraire() {
+		return sensHoraire;
 	}
-	
+
+	/**
+	 * Retourne la première Carte de la Défausse en début de Manche.
+	 */
+	public void retournerPremiereCarte() {
+		Carte c = Pioche.getInstance().piocher();
+		Defausse.getInstance().defausser(c);
+		c.appliquerEffets(true);
+		
+		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+	}
+
+	/**
+	 * Passe le JoueurSuivant en JoueurActuel.
+	 */
+	public void passerJoueur() {
+		this.setJoueurActuel(this.getJoueurSuivant());
+	}
+
+	/**
+	 * Inverse le sens de la Manche en cours.
+	 */
+	public void changerSens(){
+		Manche.getInstance().setSensHoraire(!Manche.getInstance().isSensHoraire());
+	}
+
 	/**
 	 * Retourne vrai si un Joueur a posé toutes ses Cartes.
 	 * @return <i>true</i> si un Joueur a remporté la Manche
@@ -373,25 +253,76 @@ public class Manche {
 		return points;
 	}
 	
-	
-	
-	
-	
 	/**
-	 * Retourne le sens de déroulement de la Manche en cours.
-	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
+	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
 	 */
-	public boolean isSensHoraire() {
-		return sensHoraire;
+	public void razManche(){
+		
+		Manche.getInstance().setSensHoraire(true);
+		Manche.getInstance().setJoueurActuel(null);
+		
+		if (Manche.getInstance().getJoueurDebut() == null) {
+			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
+		}
+		else {
+			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
+			
+			Joueur joueur_suivant;
+			if (index == joueurs.size() - 1)
+				joueur_suivant = joueurs.get(0);
+			else
+				joueur_suivant = joueurs.get(index + 1);
+			Manche.getInstance().setJoueurDebut(joueur_suivant);
+			
+		}
+		
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+		
+		Iterator<Joueur> itj = joueurs.iterator();
+		while (itj.hasNext()){
+			Joueur j = itj.next();
+			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
+			j.getMain().getCartes().clear();			
+		}
+		
+		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
+		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
+		
+		Pioche.getInstance().melanger();
 	}
 
 	/**
-	 * Met à jour le sens de déroulement de la Manche en cours.
-	 * @param sensHoraire
-	 * 			<i>true</i> pour horaire, <i>false</i> pour anti-horaire. 
+	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à true.
+	 * @return Une instance de Manche, qui correspond au singleton.
 	 */
-	public void setSensHoraire(boolean sensHoraire) {
-		this.sensHoraire = sensHoraire;
+	public final static Manche getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Manche.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Manche.class) {
+				if (Manche.instance == null) {
+					Manche.instance = new Manche();
+					Manche.instance.setSensHoraire(true);
+					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
+					Manche.instance.setJoueurDebut(null);
+					}
+				}
+			}
+		return Manche.instance;
+	}
+
+	/**
+	 * Retourne le Joueur qui commence la Manche en cours.
+	 * @return Le Joueur qui commence la Manche, sous la forme d'une instance Joueur.
+	 * @see Joueur
+	 */
+	public Joueur getJoueurDebut() {
+		return joueurDebut;
 	}
 
 	/**
@@ -404,22 +335,70 @@ public class Manche {
 	}
 
 	/**
-	 * Met à jour le joueurActuel.
-	 * @param joueurActuel
-	 * 			Nouveau Joueur actuel.
+	 * Retourne le Joueur qui a eu la main au tour de jeu précédent dans la Manche.
+	 * @return Le Joueur précédent, sous la forme d'une instance Joueur.
 	 * @see Joueur
 	 */
-	public void setJoueurActuel(Joueur joueurActuel) {
-		this.joueurActuel = joueurActuel;
+	public Joueur getJoueurPrecedent(){
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+		int index = joueurs.indexOf(getJoueurActuel());
+		
+		Joueur joueur_precedent;
+		if (Manche.getInstance().isSensHoraire()) {
+			if (index == 0) {
+				joueur_precedent = joueurs.get((joueurs.size())-1);
+			}
+			else {
+				joueur_precedent = joueurs.get(index - 1);
+			}
+		}
+		else {
+			if (index == joueurs.size() - 1) {
+				joueur_precedent = joueurs.get(0);
+			}
+			else {
+				joueur_precedent = joueurs.get(index + 1);
+			}
+		}
+		return joueur_precedent;		
 	}
-	
+
 	/**
-	 * Retourne le Joueur qui commence la Manche en cours.
-	 * @return Le Joueur qui commence la Manche, sous la forme d'une instance Joueur.
+	 * Retourne le Joueur qui va avoir la main au tour de jeu suivant.
+	 * @return Le Joueur suivant, sous la forme d'une instance Joueur.
 	 * @see Joueur
 	 */
-	public Joueur getJoueurDebut() {
-		return joueurDebut;
+	public Joueur getJoueurSuivant(){
+		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+		int index = joueurs.indexOf(getJoueurActuel());
+		
+		Joueur joueur_suivant;
+		if (Manche.getInstance().isSensHoraire()) {
+			if (index == joueurs.size() - 1) {
+				joueur_suivant = joueurs.get(0);
+			}
+			else {
+				joueur_suivant = joueurs.get(index + 1);
+			}
+		}
+		else {
+			if (index == 0) {
+				joueur_suivant = joueurs.get((joueurs.size()-1));
+			}
+			else  {
+				joueur_suivant = joueurs.get(index-1);
+			}
+		}
+		return joueur_suivant;
+	}
+
+	/**
+	 * Met à jour le sens de déroulement de la Manche en cours.
+	 * @param sensHoraire
+	 * 			<i>true</i> pour horaire, <i>false</i> pour anti-horaire. 
+	 */
+	public void setSensHoraire(boolean sensHoraire) {
+		this.sensHoraire = sensHoraire;
 	}
 
 	/**
@@ -432,8 +411,13 @@ public class Manche {
 		this.joueurDebut = joueurDebut;
 	}
 
-
-
-	
-	
+	/**
+	 * Met à jour le joueurActuel.
+	 * @param joueurActuel
+	 * 			Nouveau Joueur actuel.
+	 * @see Joueur
+	 */
+	public void setJoueurActuel(Joueur joueurActuel) {
+		this.joueurActuel = joueurActuel;
+	}
 }

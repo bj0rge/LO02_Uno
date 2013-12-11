@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Iterator;
 
-
-
-
 /**
  * <b>Partie est la classe représentant la Partie de UNO. Elle permettra de faire boucler les Manches du jeu.</b>
  * <p>
@@ -35,65 +32,25 @@ public class Partie
 	private static volatile Partie instance = null;
 	
 	/**
+	 * La liste des Joueurs qui participent à la Partie.
+	 * @see Joueur
+	 */
+	private ArrayList<Joueur> listeJoueurs;
+
+	/**
 	 * Le Mode de jeu de la Partie. 
 	 */
 	private ModeDeJeu mode;
 	
 	/**
-	 * La liste des Joueurs qui participent à la Partie.
-	 * @see Joueur
+	 * Le nombre de manches à atteindre pour mettre fin à la Partie.
 	 */
-	private ArrayList<Joueur> listeJoueurs;
-	
+	private int nb_manches_max;
+
 	/**
 	 * Le nombre de points à atteindre pour mettre fin à la Partie.
 	 */
 	private int nb_pts_max;
-	
-	/**
-	 * Le nombre de manches à atteindre pour mettre fin à la Partie.
-	 */
-	private int nb_manches_max;
-	
-	
-	
-	
-	
-	/**
-	 * Retourne l'instance du Partie, et la construit si elle n'existe pas.
-	 * @return Une instance de Partie, qui correspond au singleton.
-	 */
-	public final static Partie getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Partie.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Manche.class) {
-				if (Partie.instance == null) {
-					Partie.instance = new Partie();
-					Partie.instance.setMode(ModeDeJeu.STANDARD);
-					Partie.instance.setNb_pts_max(500);
-					Partie.instance.setNb_manches_max(0);
-					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
-				}
-			}
-		}
-		return Partie.instance;
-	}
-	
-	/**
-	 * Ajoute un Joueur à la listeJoueurs.
-	 * @param j
-	 * 			Joueur à ajouter.
-	 * @see Joueur
-	 */
-	public void ajouterJoueur(Joueur j) {
-		this.getListeJoueurs().add(j);
-	}
-	
 	
 	/**
 	 * Génère les Cartes, et les envoie dans la Pioche. 
@@ -118,7 +75,67 @@ public class Partie
 		}
 		Pioche.getInstance().melanger();
 	}
+
+	/**
+	 * Ajoute un Joueur à la listeJoueurs.
+	 * @param j
+	 * 			Joueur à ajouter.
+	 * @see Joueur
+	 */
+	public void ajouterJoueur(Joueur j) {
+		this.getListeJoueurs().add(j);
+	}
 	
+	/**
+	 * Construit les Cartes et ajoute les Joueurs
+	 */
+	private void debuterPartie(){
+		
+		// On construit les Cartes, et on les envoie dans la Pioche =)
+		Partie.getInstance().construireCartes();
+		System.out.println("\nCartes générées.\n");
+		
+		// Ajout de 4 joueurs humains.
+		for (int i = 0; i < 4; i++){
+			Partie.getInstance().ajouterJoueur(new Joueur());
+			System.out.println("Génération du joueur " + (i+1));
+		}
+	}
+
+	/**
+	 * Fait dérouler une Partie du début à la fin.
+	 */
+	public void deroulementPartie() {
+		int num_manche = 0;
+		do {
+			Manche.getInstance().razManche();
+			// On récupère l'index du joueur gagnant et le score gagné.
+			int resultatManche[] = new int[2];
+			resultatManche = Manche.getInstance().deroulementManche();
+			
+			Partie.getInstance().calculScore(resultatManche);
+			num_manche++;
+			
+			if (!Partie.getInstance().isTerminee(num_manche)) {
+				System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
+				// Try - Catch qui permet de passer à la manche suivante.
+				try {
+					System.in.read();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		while (!Partie.getInstance().isTerminee(num_manche));
+		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
+	
+		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		while (it.hasNext()) {
+			Joueur j = it.next();
+			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + " points.");
+		}
+	}
+
 	/**
 	 * Demande un int via l'interface et retourne la valeur.
 	 * @return Un entier, entré par le Joueur.
@@ -158,59 +175,6 @@ public class Partie
 		return est_fini;
 	}
 	
-	
-	/**
-	 * Fait dérouler une Partie du début à la fin.
-	 */
-	public void deroulementPartie() {
-		int num_manche = 0;
-		do {
-			Manche.getInstance().razManche();
-			// On récupère l'index du joueur gagnant et le score gagné.
-			int resultatManche[] = new int[2];
-			resultatManche = Manche.getInstance().deroulementManche();
-			
-			Partie.getInstance().calculScore(resultatManche);
-			num_manche++;
-			
-			if (!Partie.getInstance().isTerminee(num_manche)) {
-				System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
-				// Try - Catch qui permet de passer à la manche suivante.
-				try {
-					System.in.read();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		while (!Partie.getInstance().isTerminee(num_manche));
-		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
-
-		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
-		while (it.hasNext()) {
-			Joueur j = it.next();
-			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + " points.");
-		}
-	}
-	
-	
-	/**
-	 * Construit les Cartes et ajoute les Joueurs
-	 */
-	private void debuterPartie(){
-		
-		// On construit les Cartes, et on les envoie dans la Pioche =)
-		Partie.getInstance().construireCartes();
-		System.out.println("\nCartes générées.\n");
-		
-		// Ajout de 4 joueurs humains.
-		for (int i = 0; i < 4; i++){
-			Partie.getInstance().ajouterJoueur(new Joueur());
-			System.out.println("Génération du joueur " + (i+1));
-		}
-	}
-	
 	/**
 	 * Calcule le résultat d'une manche.
 	 * @param resultatManche
@@ -236,7 +200,7 @@ public class Partie
 				
 				if (joueurs.indexOf(j) == resultatManche[0]){
 					sb.append(resultatManche[1]);
-					j.setScore(j.getScore() + resultatManche[1]);
+					j.ajouterPoints(resultatManche[1]);
 				}
 				else {
 					sb.append("0");
@@ -250,41 +214,56 @@ public class Partie
 		}
 	}
 	
-	
-	
+	/**
+	 * Retourne l'instance du Partie, et la construit si elle n'existe pas.
+	 * @return Une instance de Partie, qui correspond au singleton.
+	 */
+	public final static Partie getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Partie.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Manche.class) {
+				if (Partie.instance == null) {
+					Partie.instance = new Partie();
+					Partie.instance.setMode(ModeDeJeu.STANDARD);
+					Partie.instance.setNb_pts_max(500);
+					Partie.instance.setNb_manches_max(0);
+					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
+				}
+			}
+		}
+		return Partie.instance;
+	}
+
+	/**
+	 * Retourne la Liste des Joueurs présents dans la Partie.
+	 * @return La liste des Joueurs présents dans la Partie, sous forme d'une instance d'ArrayList<Joueur>.
+	 * @see Joueur
+	 */
+	public ArrayList<Joueur> getListeJoueurs(){
+		return this.listeJoueurs;
+	}
+
+	/**
+	 * Retourne un Joueur en fonction de sa position dans liste_joueurs 
+	 * @param position
+	 * 			La position du Joueur que l'on veut récupérer.
+	 * @return Le Joueur demandé.
+	 */
+	public Joueur getJoueur(int position) {
+		return this.getListeJoueurs().get(position);
+	}
+
 	/**
 	 * Retourne le Mode de jeu de la Partie.
 	 * @return Le Mode de jeu, sous la forme d'une instance.
 	 */
 	public ModeDeJeu getMode() {
 		return mode;
-	}
-
-	/**
-	 * Met à jour le Mode de jeu.
-	 * @param mode
-	 * 			Mode de jeu de la Partie qui va remplacer l'ancien.
-	 */
-	public void setMode(ModeDeJeu mode) {
-		this.mode = mode;
-	}
-
-
-	/**
-	 * Retourne le nombre de points à atteindre pour mettre fin à la Partie.
-	 * @return Le nombre de points à atteindre pour mettre fin à la Partie.
-	 */
-	public int getNb_pts_max() {
-		return nb_pts_max;
-	}
-
-	/**
-	 * Met à jour le nombre de points à atteindre pour mettre fin à la Partie.
-	 * @param nb_pts_max
-	 * 			Le nombre de points à mettre à jour.
-	 */
-	public void setNb_pts_max(int nb_pts_max) {
-		this.nb_pts_max = nb_pts_max;
 	}
 
 	/**
@@ -296,34 +275,13 @@ public class Partie
 	}
 
 	/**
-	 * Met à jour le nombre de manches à atteindre pour mettre fin à la Partie.
-	 * @param nb_manches_max
-	 * 			Le nombre de manches à mettre à jour.
+	 * Retourne le nombre de points à atteindre pour mettre fin à la Partie.
+	 * @return Le nombre de points à atteindre pour mettre fin à la Partie.
 	 */
-	public void setNb_manches_max(int nb_manches_max) {
-		this.nb_manches_max = nb_manches_max;
+	public int getNb_pts_max() {
+		return nb_pts_max;
 	}
 
-
-	/**
-	 * Retourne la Liste des Joueurs présents dans la Partie.
-	 * @return La liste des Joueurs présents dans la Partie, sous forme d'une instance d'ArrayList<Joueur>.
-	 * @see Joueur
-	 */
-	public ArrayList<Joueur> getListeJoueurs(){
-		return this.listeJoueurs;
-	}
-	
-	/**
-	 * Retourne un Joueur en fonction de sa position dans liste_joueurs 
-	 * @param position
-	 * 			La position du Joueur que l'on veut récupérer.
-	 * @return Le Joueur demandé.
-	 */
-	public Joueur getJoueur(int position) {
-		return this.getListeJoueurs().get(position);
-	}
-	
 	/**
 	 * Met à jour la Liste des Joueurs présents dans la Partie. 
 	 * @param listeJoueurs
@@ -334,6 +292,33 @@ public class Partie
 	}
 
 	
+	/**
+	 * Met à jour le Mode de jeu.
+	 * @param mode
+	 * 			Mode de jeu de la Partie qui va remplacer l'ancien.
+	 */
+	public void setMode(ModeDeJeu mode) {
+		this.mode = mode;
+	}
+
+	/**
+	 * Met à jour le nombre de manches à atteindre pour mettre fin à la Partie.
+	 * @param nb_manches_max
+	 * 			Le nombre de manches à mettre à jour.
+	 */
+	public void setNb_manches_max(int nb_manches_max) {
+		this.nb_manches_max = nb_manches_max;
+	}
+
+	/**
+	 * Met à jour le nombre de points à atteindre pour mettre fin à la Partie.
+	 * @param nb_pts_max
+	 * 			Le nombre de points à mettre à jour.
+	 */
+	public void setNb_pts_max(int nb_pts_max) {
+		this.nb_pts_max = nb_pts_max;
+	}
+
 	public static void main(String[] args){
 		
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.

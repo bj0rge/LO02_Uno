@@ -8,6 +8,15 @@ public class CartePlusDeux extends Carte {
 		
 	}
 	
+	public boolean estJouable(Carte c) {
+		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
+		boolean retour = super.estJouable(c);
+		if ((this.getClass() == c.getClass())) {
+			retour = true;
+		}
+		return retour;
+	}
+
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
 			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
@@ -30,16 +39,6 @@ public class CartePlusDeux extends Carte {
 			System.out.println("et il passe son tour.");
 		}
 	}
-	
-	public boolean estJouable(Carte c) {
-		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
-		boolean retour = super.estJouable(c);
-		if ((this.getClass() == c.getClass())) {
-			retour = true;
-		}
-		return retour;
-	}
-	
 	
 	public String toString() {
 		

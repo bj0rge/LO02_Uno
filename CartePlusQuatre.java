@@ -8,6 +8,12 @@ public class CartePlusQuatre extends CarteJoker {
 		
 	}
 	
+	public boolean estJouable(Carte c){
+		
+		return true;
+		
+	}
+	
 	public void appliquerEffets(boolean premier_tour){
 		
 		System.out.println("\n+4 ! Le joueur " + Manche.getInstance().getJoueurSuivant() + "prend 4 cartes et passe son tour.");

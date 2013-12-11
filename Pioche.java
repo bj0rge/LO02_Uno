@@ -31,8 +31,6 @@ public class Pioche {
 	 */
 	private ArrayList<Carte> pioche;
 	
-	
-	
 	/**
 	 * Constructeur de la Pioche.
 	 */
@@ -40,9 +38,13 @@ public class Pioche {
 		super();
 	}
 	
-	
-	
-	
+	/**
+	 * Permet de mélanger la Pioche.
+	 */
+	public void melanger() {
+		Collections.shuffle(getPioche());
+	}
+
 	/**
 	 * Action de piocher une Carte dans la Pioche.<br>
 	 * Plus simplement : supprime la première Carte de la Pioche et la renvoie. Retourne la Défausse pour 
@@ -58,7 +60,6 @@ public class Pioche {
 		return carte_piochee;
 	}
 	
-	
 	/**
 	 * Permet de retourner la Défausse. Utilisée uniquement après que la dernière Carte de la Pioche a été piochée.
 	 */
@@ -67,17 +68,6 @@ public class Pioche {
 		this.setPioche(nouvelle_pioche);
 		this.melanger();
 	}
-	
-	
-	/**
-	 * Permet de mélanger la Pioche.
-	 */
-	public void melanger() {
-		Collections.shuffle(getPioche());
-	}
-	
-	
-	
 
 	/**
 	 * Retourne l'instance de la Pioche, et la construit si elle n'existe pas.
@@ -117,8 +107,4 @@ public class Pioche {
 	public void setPioche(ArrayList<Carte> pioche) {
 		this.pioche = pioche;
 	}
-	
-	
-	
-	
 }

@@ -110,6 +110,7 @@ public class Partie
 			for (int i = 0; i < 2; i++) {
 				Pioche.getInstance().getPioche().add(new CartePlusDeux(couleur));
 				Pioche.getInstance().getPioche().add(new CarteChangerSens(couleur));
+				Pioche.getInstance().getPioche().add(new CartePasserTour(couleur));
 			}
 		}
 		Pioche.getInstance().melanger();

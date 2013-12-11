@@ -24,7 +24,7 @@ import java.util.Iterator;
 public class Partie 
 {
 	
-	private final static Scanner sc = new Scanner(System.in);
+	final static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * L'instance de la Partie.
@@ -90,7 +90,7 @@ public class Partie
 	/**
 	 * Construit les Cartes et ajoute les Joueurs
 	 */
-	private void debuterPartie(){
+	public void debuterPartie(){
 		
 		// On construit les Cartes, et on les envoie dans la Pioche =)
 		Partie.getInstance().construireCartes();
@@ -318,23 +318,5 @@ public class Partie
 	 */
 	public void setNb_pts_max(int nb_pts_max) {
 		this.nb_pts_max = nb_pts_max;
-	}
-
-	public static void main(String[] args){
-		
-		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
-		Partie.getInstance();
-		
-		// Génération des cartes et ajout des joueurs
-		Partie.getInstance().debuterPartie();
-		
-		// Le mode de jeu sera STANDARD
-		Partie.getInstance().setMode(ModeDeJeu.STANDARD);
-		
-
-		Partie.getInstance().deroulementPartie();
-		
-		sc.close();
-				
 	}
 }

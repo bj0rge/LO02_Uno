@@ -149,7 +149,7 @@ public class Manche {
 		do {
 			int ret = -1;
 			do {
-				if (j.APioche())
+				if (j.aPioche())
 					System.out.println("[0] Passer son tour");
 				else
 					System.out.println("[0] Piocher");
@@ -175,7 +175,7 @@ public class Manche {
 			if (ret == 0)
 				// Si le joueur a déjà pioché, cela veut dire que 
 				// son choix était de finir son tour
-				if (j.APioche()){
+				if (j.aPioche()){
 					fintour = true;
 					j.passerTour();
 					System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");

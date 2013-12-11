@@ -99,22 +99,6 @@ public class Joueur {
 	}
 	
 	/**
-	 * Retourne la valeur de a_dit_uno.
-	 * @return <i>true</i> si le Joueur a dit UNO depuis la fin de son tour précédent, <i>false</i> sinon.
-	 */
-	public boolean aDitUno() {
-		return a_dit_uno;
-	}
-
-	/**
-	 * Retourne la valeur de a_pioche.
-	 * @return <i>true</i> si le Joueur a pioché lors de son tour actuel, <i>false</i> sinon.
-	 */
-	public boolean APioche() {
-		return a_pioche;
-	}
-
-	/**
 	 * Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
 	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
 	 * à tors qui piochera deux Cartes. 
@@ -138,7 +122,7 @@ public class Joueur {
 	 * Passer son tour. A un effet uniquement après avoir pioché, sinon ne fait rien.
 	 */
 	public void passerTour() {
-		if (this.APioche())
+		if (this.aPioche())
 			this.terminerTour();	
 	}
 	
@@ -176,15 +160,6 @@ public class Joueur {
 	}
 
 	/**
-	 * Met à jour le nom du Joueur.
-	 * @param nom
-	 * 			Nouveau nom du Joueur.
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	/**
 	 * Retourne la Main du Joueur.
 	 * @return La Main du Joueur, sous la forme d'une instance de Main.
 	 */
@@ -193,11 +168,36 @@ public class Joueur {
 	}
 
 	/**
+	 * Retourne la valeur de a_dit_uno.
+	 * @return <i>true</i> si le Joueur a dit UNO depuis la fin de son tour précédent, <i>false</i> sinon.
+	 */
+	public boolean aDitUno() {
+		return a_dit_uno;
+	}
+
+	/**
+	 * Retourne la valeur de a_pioche.
+	 * @return <i>true</i> si le Joueur a pioché lors de son tour actuel, <i>false</i> sinon.
+	 */
+	public boolean aPioche() {
+		return a_pioche;
+	}
+
+	/**
 	 * Retourne le score du Joueur.
 	 * @return Le score du Joueur.
 	 */
 	public int getScore() {
 		return score;
+	}
+
+	/**
+	 * Met à jour le nom du Joueur.
+	 * @param nom
+	 * 			Nouveau nom du Joueur.
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	/**

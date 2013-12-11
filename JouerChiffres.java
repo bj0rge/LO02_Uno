@@ -1,11 +1,42 @@
 package LO02_Uno;
 
+import java.util.Iterator;
+
+/**
+ * Classe déterminant la Stratégie de jouer en priorité les Cartes Numérotées à gros chiffre.
+ */
 public class JouerChiffres implements Strategy {
 
-	@Override
-	public void jouer() {
-		// TODO Auto-generated method stub
+	
+	public void jouer(Joueur j) {
 		
+		Carte ca = new CarteNumerotee(0, null);
+		
+		// On parcourt la Main du Joueur
+		Iterator<Carte> it = j.getMain().getCartes().iterator();
+		while (it.hasNext()) {
+			Carte c = it.next();
+			// Si la Carte c est jouable, et qu'elle est une Carte Numerotée et qu'elle vaut plus de points que ca
+			if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee()) 
+					&& c.getClass() == ca.getClass()
+					&& c.getPoints() > ca.getPoints()) {
+				// On passe c dans ca
+				ca = c;
+			}
+			// Si aucune Carte Numérotée n'est jouable, alors on joue la première carte jouable
+			if (ca.getPoints() == 0) {
+				it = j.getMain().getCartes().iterator();
+				while (it.hasNext() && ca.getPoints() == 0) {
+					c = it.next();
+					if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+						ca = c;
+					}
+				}
+			}
+			
+			// On sait maintenant quelle Carte jouer : ca
+			j.poser(ca);
+		}
 	}
 
 }

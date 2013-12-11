@@ -48,11 +48,6 @@ public class CarteNumerotee extends Carte {
 		return retour;
 	}
 
-
-	
-	public String toString() {
-		return this.getValeurFaciale() + " " + this.getCouleur();
-	}
 	
 	public void appliquerEffets(boolean premier_tour) { } // Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
 
@@ -74,6 +69,11 @@ public class CarteNumerotee extends Carte {
 	 */
 	public void setValeurFaciale(int valeur_faciale) {
 		this.valeur_faciale = valeur_faciale;
+	}
+
+	
+	public String toString() {
+		return this.getValeurFaciale() + " " + this.getCouleur();
 	}
 
 

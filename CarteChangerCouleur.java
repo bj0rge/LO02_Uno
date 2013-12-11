@@ -2,10 +2,8 @@ package LO02_Uno;
 
 public class CarteChangerCouleur extends CarteJoker{
 
-	public CarteChangerCouleur(){
-		
+	public CarteChangerCouleur() {	
 		super(null);
-		
 	}
 	
 	public void appliquerEffets(boolean premier_tour){
@@ -48,7 +46,6 @@ public class CarteChangerCouleur extends CarteJoker{
 		}
 		
 		return sb.toString();
-		
 	}
 	
 }

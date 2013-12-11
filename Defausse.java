@@ -65,6 +65,25 @@ public class Defausse {
 	}
 	
 	/**
+	 * Réinitialise la couleur des CarteJoker
+	 * @param liste_carte
+	 * 			Liste des Cartes à réinitialiser
+	 * @return La liste de Cartes avec les Jokers remis à zéro, sous forme d'une instance de Cartes ArrayList.
+	 */
+	public ArrayList<Carte> razCouleurJoker(ArrayList<Carte> liste_carte){	
+		// On repasse la couleur des cartes +4 et changer couleur à null
+		// Faudrait pas que le joueur en pioche une et ne puisse pas choisir la couleur =) 
+		Iterator<Carte> it = liste_carte.iterator();
+		while (it.hasNext()){
+			Carte c = it.next();
+			if (c instanceof CarteJoker) {
+				c.setCouleur(null);
+			}
+		}
+		return liste_carte;
+	}
+	
+	/**
 	 * Ajoute une Carte dans la pile de la Défausse, elle est donc jouée et posée sur la table. 
 	 * @param carte
 	 * 			Carte à défausser.
@@ -105,19 +124,6 @@ public class Defausse {
 		return nouvelle_pioche;
 	}
 	
-	public ArrayList<Carte> razCouleurJoker(ArrayList<Carte> liste_carte){
-		
-		// On repasse la couleur des cartes +4 et changer couleur à null
-		// Faudrait pas que le joueur en pioche une et ne puisse pas choisir la couleur =) 
-		Iterator<Carte> it = liste_carte.iterator();
-		while (it.hasNext()){
-			Carte c = it.next();
-			if (c instanceof CarteJoker) {
-				c.setCouleur(null);
-			}
-		}
-		return liste_carte;
-	}
 	
 	/**
 	 * Retourne la dernière Carte posée sur le haut de la Défausse.

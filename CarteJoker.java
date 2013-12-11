@@ -1,6 +1,6 @@
 package LO02_Uno;
 
-public class CarteJoker extends Carte {
+public abstract class CarteJoker extends Carte {
 
 	public CarteJoker(Couleur couleur) {
 		
@@ -8,11 +8,11 @@ public class CarteJoker extends Carte {
 		
 	}
 	
-	public void appliquerEffets(){
-		
-		
+	public void appliquerEffets(boolean premier_tour) {
 		
 	}
+		
+	
 	
 	public String toString(){
 		

@@ -8,8 +8,8 @@ public class CartePlusDeux extends Carte {
 		
 	}
 	
-	public void appliquerEffets(){
-		if (Manche.getInstance().isPremierTour()) {
+	public void appliquerEffets(boolean premier_tour){
+		if (premier_tour) {
 			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
 					+ "Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurActuel()) + 1) + " pioche :");
 			for (int i = 0; i < 2; i++) {

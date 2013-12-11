@@ -47,11 +47,6 @@ public class Manche {
 	 */
 	private Joueur joueurDebut;
 	
-	/**
-	 * Indique s'il sagit du premier tour. <i>true</i> quand c'est le cas, <i>false</i> sinon.
-	 */
-	private boolean premierTour;
-	
 
 	/**
 	 * Constructeur de la Manche.
@@ -180,7 +175,7 @@ public class Manche {
 	public void retournerPremiereCarte() {
 		Carte c = Pioche.getInstance().piocher();
 		Defausse.getInstance().defausser(c);
-		c.appliquerEffets();
+		c.appliquerEffets(true);
 		
 		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 	}
@@ -190,6 +185,8 @@ public class Manche {
 	 * Effectuer le déroulement d'un tour d'un Joueur
 	 * @param j
 	 * 			Joueur qui doit jouer
+	 * @param premier_tour
+	 * 			Indique s'il s'agit du premier tour à jouer
 	 * @see Joueur
 	 */
 	public void jouerTour(Joueur j) {
@@ -276,7 +273,9 @@ public class Manche {
 		
 		// On retourne la première carte de la Pioche
 		Manche.getInstance().retournerPremiereCarte();
-		Manche.getInstance().setPremierTour(false);
+//		Manche.getInstance().setPremierTour(false);
+		// On fait le premier tour de la manche
+//		Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel(), true);
 		
 		// Tant que le JoueurActuel a encore au moins une Carte dans la Main
 		while(!Manche.getInstance().finManche()) {
@@ -392,27 +391,6 @@ public class Manche {
 	public void setJoueurDebut(Joueur joueurDebut) {
 		this.joueurDebut = joueurDebut;
 	}
-	
-	/**
-	 * Retourne s'il s'agit du premier tour de la Manche en cours.
-	 * @return <i>true</i> si oui, <i>false</i> sinon.
-	 */
-	public boolean isPremierTour() {
-		return premierTour;
-	}
-
-
-
-
-	/**
-	 * Met à jour la valeur premierTour.
-	 * @param premierTour
-	 * 			<i>true</i> pour oui, <i>false</i> pour non. 
-	 */
-	public void setPremierTour(boolean premierTour) {
-		this.premierTour = premierTour;
-	}
-
 
 
 
@@ -423,7 +401,6 @@ public class Manche {
 		
 		Manche.getInstance().setSensHoraire(true);
 		Manche.getInstance().setJoueurActuel(null);
-		Manche.getInstance().setPremierTour(true);
 		
 		if (Manche.getInstance().getJoueurDebut() == null) {
 			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));

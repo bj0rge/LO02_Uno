@@ -8,7 +8,7 @@ public class CartePasserTour extends Carte {
 		
 	}
 	
-	public void appliquerEffets(){
+	public void appliquerEffets(boolean premier_tour){
 		
 		System.out.println("Le joueur " + Manche.getInstance().getJoueurSuivant() + "passe son tour !");
 		Manche.getInstance().passerJoueur();

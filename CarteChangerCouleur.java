@@ -8,7 +8,7 @@ public class CarteChangerCouleur extends CarteJoker{
 		
 	}
 	
-	public void appliquerEffets(){
+	public void appliquerEffets(boolean premier_tour){
 		
 		System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer ?\n");
 		int i = 0;

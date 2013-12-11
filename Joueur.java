@@ -134,7 +134,7 @@ public class Joueur {
 		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
 			this.getMain().getCartes().remove(carte);
 			Defausse.getInstance().defausser(carte);
-			carte.appliquerEffets();
+			carte.appliquerEffets(false);
 			this.terminerTour();
 		}
 	}

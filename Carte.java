@@ -56,7 +56,7 @@ public abstract class Carte {
 	 * Applique les effets induits par la carte.
 	 * @see Defausse
 	 */
-	public abstract void appliquerEffets();
+	public abstract void appliquerEffets(boolean premier_tour);
 	
 
 	/**

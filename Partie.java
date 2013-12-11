@@ -99,7 +99,7 @@ public class Partie
 		
 		// Ajout de 4 joueurs humains.
 		for (int i = 0; i < 4; i++){
-			Partie.getInstance().ajouterJoueur(new Joueur());
+			Partie.getInstance().ajouterJoueur(new Joueur(("Joueur " + Integer.toString(i+1))));
 			System.out.println("Génération du joueur " + (i+1));
 		}
 	}

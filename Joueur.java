@@ -6,6 +6,7 @@ package LO02_Uno;
  * <p>
  * Le Joueur est caractérisée par :
  * <ul>
+ * <li>Son nom</li>
  * <li>Sa Main</li>
  * <li>Son score actuel</li>
  * <li>Le fait qu'il ait ou non dit "UNO" lors de son dernier tour</li>
@@ -15,6 +16,11 @@ package LO02_Uno;
  * @see Main
  */
 public class Joueur {
+	
+	/**
+	 * Le nom du Joueur
+	 */
+	private String nom;
 	
 	/**
 	 * La Main du Joueur.
@@ -45,7 +51,8 @@ public class Joueur {
      * vide.
      * </p>
      */
-	public Joueur() {
+	public Joueur(String nom) {
+		this.setNom(nom);
 		this.setMain(new Main());
 		this.setScore(0);
 		this.setADitUno(false);
@@ -159,6 +166,24 @@ public class Joueur {
 		this.setAPioche(false);
 	}
 
+	
+	/**
+	 * Retourne le nom du Joueur.
+	 * @return Le nom du Joueur, sous la forme d'une String.
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * Met à jour le nom du Joueur.
+	 * @param nom
+	 * 			Nouveau nom du Joueur.
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
 	/**
 	 * Retourne la Main du Joueur.
 	 * @return La Main du Joueur, sous la forme d'une instance de Main.
@@ -209,5 +234,13 @@ public class Joueur {
 	 */
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	/**
+	 * Retourne une représentation du Joueur sous forme de String.
+	 * @returns Une représentation du Joueur sous forme de String. 
+	 */
+	public String toString() {
+		return this.getNom();
 	}
 }

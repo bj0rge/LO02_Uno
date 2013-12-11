@@ -1,7 +1,24 @@
 package LO02_Uno;
 
+/**
+ * <b>CarteChangerSens est la classe représentant une Carte Changement de sens du jeu de UNO.</b>
+ * <p>
+ * Une CarteChangerSens est caractérisée par les informations suivantes :
+ * <ul>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>La couleur qu'elle porte</li>
+ * </ul>
+ * Une CarteChangerSens peut être posée sur la table pour être jouée.
+ * </p>
+ *
+ */
 public class CarteChangerSens extends Carte {
-
+	
+	/**
+	 * Constructeur de la CarteChangerSens.
+	 * @param couleur
+	 * 			La Couleur de la Carte.
+	 */
 	public CarteChangerSens(Couleur couleur){
 		super(20, couleur);
 	}

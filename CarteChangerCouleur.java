@@ -1,7 +1,22 @@
 package LO02_Uno;
 
+/**
+ * <b>CarteChangerCouleur est la classe représentant une Carte joker du jeu de UNO.</b>
+ * <p>
+ * Une CarteChangerCouleur est caractérisée par les informations suivantes :
+ * <ul>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>La couleur qu'elle porte (peut être nul)</li>
+ * </ul>
+ * Une CarteChangerCouleur peut être posée sur la table pour être jouée.
+ * </p>
+ *
+ */
 public class CarteChangerCouleur extends CarteJoker{
 
+	/**
+	 * Constructeur de la CarteChangerCouleur.
+	 */
 	public CarteChangerCouleur() {	
 		super();
 	}

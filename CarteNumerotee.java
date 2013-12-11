@@ -6,7 +6,7 @@ package LO02_Uno;
  * Une CarteNumérotée est caractérisée par les informations suivantes :
  * <ul>
  * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
- * <li>La couleur qu'elle porte (peut être nul)</li>
+ * <li>La couleur qu'elle porte</li>
  * <li>Sa valeur faciale</li>
  * </ul>
  * Une CarteNumérotée peut être posée sur la table pour être jouée.
@@ -26,7 +26,7 @@ public class CarteNumerotee extends Carte {
 	 * @param points
 	 * 			Le nombre de points que rapporte la Carte, qui sera aussi sa valeur faciale.
 	 * @param couleur
-	 * 			La couleur portée par la Carte. La valeur peut être égale à <i>null</i>.
+	 * 			La couleur portée par la Carte.
 	 */
 	public CarteNumerotee(int points, Couleur couleur) {
 		super(points, couleur);

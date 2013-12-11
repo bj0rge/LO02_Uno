@@ -1,7 +1,24 @@
 package LO02_Uno;
 
+/**
+ * <b>CartePlusDeux est la classe représentant une Carte +2 du jeu de UNO.</b>
+ * <p>
+ * Une CartePlusDeux est caractérisée par les informations suivantes :
+ * <ul>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>La couleur qu'elle porte </li>
+ * </ul>
+ * Une CartePlusDeux peut être posée sur la table pour être jouée.
+ * </p>
+ *
+ */
 public class CartePlusDeux extends Carte {
 
+	/**
+	 * Constructeur de la CartePlusDeux.
+	 * @param couleur
+	 * 			La Couleur de la Carte.
+	 */
 	public CartePlusDeux(Couleur couleur){
 		
 		super(20, couleur);

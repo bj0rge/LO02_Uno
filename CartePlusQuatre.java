@@ -1,11 +1,24 @@
 package LO02_Uno;
 
+/**
+ * <b>CartePlusCarte est la classe représentant une Carte +4 du jeu de UNO.</b>
+ * <p>
+ * Une CartePlusQuatre est caractérisée par les informations suivantes :
+ * <ul>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>La couleur qu'elle porte (peut être nul)</li>
+ * </ul>
+ * Une CartePlusQuatre peut être posée sur la table pour être jouée.
+ * </p>
+ *
+ */
 public class CartePlusQuatre extends CarteJoker {
 
+	/**
+	 * Constructeur de la CartePlusQuatre.
+	 */
 	public CartePlusQuatre(){
-		
 		super();
-		
 	}
 	
 	public boolean estJouable(Carte c){

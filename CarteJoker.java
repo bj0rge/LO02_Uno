@@ -9,6 +9,8 @@ public abstract class CarteJoker extends Carte {
 	public void appliquerEffets(boolean premier_tour) {
 		
 	}
+	
+	
 		
 	
 	

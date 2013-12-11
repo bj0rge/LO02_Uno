@@ -20,7 +20,7 @@ public class CartePlusDeux extends Carte {
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
 			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
-					+ "Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurActuel()) + 1) + " pioche :");
+					+ Manche.getInstance().getJoueurActuel() + " pioche :");
 			for (int i = 0; i < 2; i++) {
 				System.out.println("Un " + Manche.getInstance().getJoueurActuel().piocher());
 			}
@@ -29,7 +29,7 @@ public class CartePlusDeux extends Carte {
 			System.out.println("et il passe son tour.");
 		}
 		else {
-			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurSuivant()) + 1) + " pioche :");
+			System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
 			
 			for (int i = 0; i < 2; i++) {
 				System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());

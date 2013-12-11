@@ -142,7 +142,7 @@ public class Manche {
 	public void jouerTour(Joueur j) {
 		j.raz();
 		
-		System.out.println("\nJoueur " + (Partie.getInstance().getListeJoueurs().indexOf(j)+1) + ", que voulez-vous faire ?\n");
+		System.out.println("\n" + j + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
 		
@@ -188,7 +188,7 @@ public class Manche {
 			// Sinon, il choisit de poser une carte
 			else {
 				Carte carte_jouee = j.getMain().getCartes().get(ret - 1);
-				System.out.println("\nVous jouez la carte " + carte_jouee + ".");
+				System.out.println("\n" + j + " joue la carte " + carte_jouee + ".");
 				
 				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
 					j.poser(carte_jouee);

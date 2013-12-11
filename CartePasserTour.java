@@ -19,11 +19,11 @@ public class CartePasserTour extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
-			System.out.println("La première page est un " + this + ", le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurActuel()) + 1) + " passe son tour !");
+			System.out.println("La première page est un " + this + ", " + Manche.getInstance().getJoueurActuel() + " passe son tour !");
 			Manche.getInstance().passerJoueur();
 		}
 		else {
-			System.out.println("Le joueur " + Manche.getInstance().getJoueurSuivant() + "passe son tour !");
+			System.out.println(Manche.getInstance().getJoueurSuivant() + "passe son tour !");
 			Manche.getInstance().passerJoueur();
 		}
 		

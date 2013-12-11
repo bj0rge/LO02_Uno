@@ -17,7 +17,7 @@ public class CarteChangerCouleur extends CarteJoker{
 		}
 		else {
 			
-			System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer ?\n");
+			System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer " + Manche.getInstance().getJoueurActuel() + " ?\n");
 			int i = 1;
 			for (Couleur couleur : Couleur.values()){
 				System.out.println("[" + i + "] " + couleur);

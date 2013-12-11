@@ -88,20 +88,13 @@ public class Partie
 	}
 	
 	/**
-	 * Construit les Cartes et ajoute les Joueurs
+	 * Construit les Cartes
 	 */
 
 	public void debuterPartie(){
 		
 		// On construit les Cartes, et on les envoie dans la Pioche =)
 		Partie.getInstance().construireCartes();
-		System.out.println("\nCartes générées.\n");
-		
-		// Ajout de 4 joueurs humains.
-		for (int i = 0; i < 4; i++){
-			Partie.getInstance().ajouterJoueur(new Joueur(("Joueur " + Integer.toString(i+1))));
-			System.out.println("Génération du joueur " + (i+1));
-		}
 	}
 
 	/**
@@ -134,7 +127,7 @@ public class Partie
 		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
 		while (it.hasNext()) {
 			Joueur j = it.next();
-			System.out.println("Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(j) + 1) + " a " + j.getScore() + " points.");
+			System.out.println(j + " a " + j.getScore() + " points.");
 		}
 	}
 
@@ -186,7 +179,7 @@ public class Partie
 		
 		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
 			
-			System.out.println("\nLe joueur " + (resultatManche[0] + 1) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
+			System.out.println("\n" + Partie.getInstance().getListeJoueurs().get(resultatManche[0]) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 			
 			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 			

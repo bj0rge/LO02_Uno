@@ -23,7 +23,7 @@ public class CarteChangerSens extends Carte {
 		if (premier_tour) {
 			Manche.getInstance().passerJoueur();
 			Manche.getInstance().passerJoueur();
-			System.out.println("C'est donc le joueur " + (Partie.getInstance().getListeJoueurs().indexOf((Manche.getInstance().getJoueurActuel())) + 1) + " qui commence.");
+			System.out.println("C'est donc " + Manche.getInstance().getJoueurActuel() + " qui commence.");
 		}
 	}
 	

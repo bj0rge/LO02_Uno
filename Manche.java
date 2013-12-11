@@ -112,6 +112,25 @@ public class Manche {
 	}
 
 	/**
+	 * Retourne la première Carte de la Défausse en début de Manche.
+	 */
+	public void retournerPremiereCarte() {
+		Carte c = Pioche.getInstance().piocher();
+		Defausse.getInstance().defausser(c);
+		c.appliquerEffets(true);
+		
+		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+	}
+
+	/**
+	 * Retourne le sens de déroulement de la Manche en cours.
+	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
+	 */
+	public boolean isSensHoraire() {
+		return sensHoraire;
+	}
+
+	/**
 	 * Effectuer le déroulement d'un tour d'un Joueur
 	 * @param j
 	 * 			Joueur qui doit jouer
@@ -188,25 +207,6 @@ public class Manche {
 		while(!fintour);
 	}
 	
-	/**
-	 * Retourne le sens de déroulement de la Manche en cours.
-	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
-	 */
-	public boolean isSensHoraire() {
-		return sensHoraire;
-	}
-
-	/**
-	 * Retourne la première Carte de la Défausse en début de Manche.
-	 */
-	public void retournerPremiereCarte() {
-		Carte c = Pioche.getInstance().piocher();
-		Defausse.getInstance().defausser(c);
-		c.appliquerEffets(true);
-		
-		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
-	}
-
 	/**
 	 * Passe le JoueurSuivant en JoueurActuel.
 	 */

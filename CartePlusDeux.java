@@ -13,7 +13,7 @@ public class CartePlusDeux extends Carte {
 			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
 					+ "Le joueur " + (Partie.getInstance().getListeJoueurs().indexOf(Manche.getInstance().getJoueurActuel()) + 1) + " pioche :");
 			for (int i = 0; i < 2; i++) {
-				System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+				System.out.println("Un " + Manche.getInstance().getJoueurActuel().piocher());
 			}
 			Manche.getInstance().passerJoueur();
 	

@@ -31,35 +31,10 @@ public class CarteChangerCouleur extends CarteJoker{
 			System.out.println("\nJOKER ! Jouez ce que vous voulez !\n");
 		}
 		else {
-			
-			System.out.println("\nJOKER ! Quelle couleur voulez-vous jouer " + Manche.getInstance().getJoueurActuel() + " ?\n");
-			int i = 1;
-			for (Couleur couleur : Couleur.values()){
-				System.out.println("[" + i + "] " + couleur);
-				i++;
-			}
-			
-			if (Manche.getInstance().getJoueurActuel().estHumain()) {
-				switch (Partie.getInstance().demanderInt())
-				{
-				case 1:
-					System.out.println("La couleur du JOKER est ROUGE !");
-					this.setCouleur(Couleur.ROUGE);
-					break;
-				case 2:
-					System.out.println("La couleur du JOKER est BLEU !");
-					this.setCouleur(Couleur.BLEU);
-					break;
-				case 3:
-					System.out.println("La couleur du JOKER est JAUNE !");
-					this.setCouleur(Couleur.JAUNE);
-					break;
-				case 4:
-					System.out.println("La couleur du JOKER est VERT !");
-					this.setCouleur(Couleur.VERT);
-					break;
-				}
-			}
+			Couleur c = Manche.getInstance().getJoueurActuel().choixCouleur();
+			System.out.println("La couleur du Joker est  " + c + " !");
+			this.setCouleur(c);
+			Manche.getInstance().passerJoueur();
 		}
 	}
 	

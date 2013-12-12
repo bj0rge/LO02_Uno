@@ -38,6 +38,7 @@ public class Uno {
 		// Le mode de jeu sera STANDARD
 		Partie.getInstance().setMode(ModeDeJeu.STANDARD);
 		
+		
 	
 		Partie.getInstance().deroulementPartie();
 		

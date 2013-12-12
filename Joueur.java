@@ -136,72 +136,109 @@ public class Joueur {
 	}
 	
 	public void jouer() {
-		if (this.estHumain()) {
-			System.out.println("\n" + this + ", que voulez-vous faire ?\n");
-			
-			boolean fintour = false;
-			
+		
+		System.out.println("\n" + this + ", que voulez-vous faire ?\n");
+		
+		boolean fintour = false;
+	
+		do {
+			int ret = -1;
 			do {
-				int ret = -1;
-				do {
-					if (this.aPioche())
-						System.out.println("[0] Passer son tour");
-					else
-						System.out.println("[0] Piocher");
-					
-					int i = 0;
-					Iterator<Carte> it = this.getMain().getCartes().iterator();
-					while (it.hasNext()){
-						System.out.println("[" + (i+1) + "] Jouer le " + it.next());
-						i += 1;
-					}
-					
-					ret = Partie.getInstance().demanderInt();
-					
-					if (ret < 0 || ret > this.getMain().getCartes().size()){
-						System.out.println("Valeur incorrecte : veuillez entrer un choix possible.");
-					}
-					
-				}
-				// Tant que ret n'est pas dans la liste 
-				while (ret < 0 || ret > this.getMain().getCartes().size());
+				if (this.aPioche())
+					System.out.println("[0] Passer son tour");
+				else
+					System.out.println("[0] Piocher");
 				
-				// Si l'option choisie est 0
-				if (ret == 0)
-					// Si le joueur a déjà pioché, cela veut dire que 
-					// son choix était de finir son tour
-					if (this.aPioche()){
-						fintour = true;
-						this.passerTour();
-						System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
-					}
-					// Sinon, on le fait piocher
-					else {
-						System.out.println(" \nVous avez pioché un " + this.piocher() + ".");
-						System.out.println("Dernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
-					}
-				// Sinon, il choisit de poser une carte
+				int i = 0;
+				Iterator<Carte> it = this.getMain().getCartes().iterator();
+				while (it.hasNext()){
+					System.out.println("[" + (i+1) + "] Jouer le " + it.next());
+					i += 1;
+				}
+				
+				ret = Partie.getInstance().demanderInt();
+				
+				if (ret < 0 || ret > this.getMain().getCartes().size()){
+					System.out.println("Valeur incorrecte : veuillez entrer un choix possible.");
+				}
+				
+			}
+			// Tant que ret n'est pas dans la liste 
+			while (ret < 0 || ret > this.getMain().getCartes().size());
+			
+			// Si l'option choisie est 0
+			if (ret == 0)
+				// Si le joueur a déjà pioché, cela veut dire que 
+				// son choix était de finir son tour
+				if (this.aPioche()){
+					fintour = true;
+					this.passerTour();
+					System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+				}
+				// Sinon, on le fait piocher
 				else {
-					Carte carte_jouee = this.getMain().getCartes().get(ret - 1);
-					System.out.println("\n" + this + " joue la carte " + carte_jouee + ".");
+					System.out.println(" \nVous avez pioché un " + this.piocher() + ".");
+					System.out.println("Dernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
+				}
+			// Sinon, il choisit de poser une carte
+			else {
+				Carte carte_jouee = this.getMain().getCartes().get(ret - 1);
+				System.out.println("\n" + this + " joue la carte " + carte_jouee + ".");
+				
+				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+					this.poser(carte_jouee);
+					System.out.println("La carte " + carte_jouee + " a été défaussée de votre main.\n");
 					
-					if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-						this.poser(carte_jouee);
-						System.out.println("La carte " + carte_jouee + " a été défaussée de votre main.\n");
-						
-						// syso de la dernière carte posée, via défausse, pour confirmation
-						System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
-					
-						fintour = true;
-					}
-					else {
-						System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
-								+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
-					}
+					// syso de la dernière carte posée, via défausse, pour confirmation
+					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+				
+					fintour = true;
+				}
+				else {
+					System.out.println("La carte " + carte_jouee + " ne peut pas être jouée.\n"
+							+ "Pour rappel, la dernière carte jouée est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				}
 			}
-			while(!fintour);
 		}
+		while(!fintour);
+	}
+	
+	/**
+	 * Retourne la Couleur à jouer au prochain tour en fonction des Cartes dans la main
+	 */
+	public Couleur choixCouleur() {
+		System.out.println("\nQuelle couleur voulez-vous lancer " + Manche.getInstance().getJoueurActuel() + " ?\n");
+		int i = 1;
+		
+		for (Couleur couleur : Couleur.values()){
+			System.out.println("[" + i + "] " + couleur);
+			i++;
+		}
+		
+		
+		Couleur c = null;
+		int val = 0;
+		while (val < 1 || val > 4) {
+			Partie.getInstance().demanderInt();
+		}
+		
+		switch (val)
+		{
+		case 1:
+			c = Couleur.ROUGE;
+			break;
+		case 2:
+			c = Couleur.BLEU;
+			break;
+		case 3:
+			c = Couleur.JAUNE;
+			break;
+		case 4:
+			c = Couleur.VERT;
+			break;
+		}
+		
+		return c;
 	}
 	
 	/**

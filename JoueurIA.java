@@ -1,5 +1,6 @@
 package LO02_Uno;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -61,20 +62,44 @@ public class JoueurIA extends Joueur {
 	 */
 	public void jouer() {
 		if (this.peutJouer()) {
-			System.out.println("peut jouer");
 			this.getStrategie().jouer(this);
 		}
 		else {
-			System.out.println("peut pas jouer");
 			this.piocher();
 		}
 	}
 	
-	/**
-	 * Retourne la Couleur à jouer au prochain tour en fonction des Cartes dans la main
-	 * 
-	 */
-	public Couleur choixCouleur() { return null; }
+
+	public Couleur choixCouleur() {
+		Iterator<Carte> it;
+		int val_max = 0;
+		Couleur c_max = null;
+		
+		for (Couleur coul : Couleur.values()) {
+			
+			int tmp = 0;
+			it = this.getMain().getCartes().iterator();
+			while (it.hasNext()) {
+				Carte c = it.next();
+				if (c.getCouleur() == coul) {
+					tmp += c.getPoints();
+				}
+			}
+			if (tmp > val_max) {
+				val_max = tmp;
+				c_max = coul;
+			}
+		}
+		
+		if (c_max == null) {
+			ArrayList<Couleur> random_couleur = new ArrayList<Couleur>();
+			for (Couleur c : Couleur.values()) {
+				random_couleur.add(c);
+			}
+			c_max = random_couleur.get((int) (Math.random() * Couleur.values().length));
+		}
+		return c_max; 
+	}
 	
 	
 

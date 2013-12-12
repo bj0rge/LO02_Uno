@@ -23,16 +23,30 @@ public class JouerChiffres implements Strategy {
 				// On passe c dans ca
 				ca = c;
 			}
-			// Si aucune Carte Numérotée n'est jouable, alors on joue la première carte jouable
-			if (ca.getPoints() == 0) {
-				it = j.getMain().getCartes().iterator();
-				while (it.hasNext() && ca.getPoints() == 0) {
-					c = it.next();
-					if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-						ca = c;
-					}
+		}
+			
+		// Si aucune Carte Numérotée n'est jouable, alors on joue la première carte jouable différente du +4
+		if (ca.getPoints() == 0) {
+			it = j.getMain().getCartes().iterator();
+			while (it.hasNext() && ca.getPoints() == 0) {
+				Carte c = it.next();
+				if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee()) 
+						&& c.getClass() != (new CartePlusQuatre()).getClass()) {
+					ca = c;
 				}
 			}
+		}
+		
+		// Sinon, c'est que la seule Carte jouable est un +4
+		if (ca.getPoints() == 0) {
+			it = j.getMain().getCartes().iterator();
+			while (it.hasNext() && ca.getPoints() == 0) {
+				Carte c = it.next();
+				if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+					ca = c;
+				}
+		}
+			
 			
 			// On sait maintenant quelle Carte jouer : ca
 			j.poser(ca);

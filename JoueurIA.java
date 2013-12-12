@@ -67,6 +67,14 @@ public class JoueurIA extends Joueur {
 			this.piocher();
 		}
 	}
+	
+	/**
+	 * Retourne la Couleur à jouer au prochain tour en fonction des Cartes dans la main
+	 * 
+	 */
+	public Couleur choixCouleur() { return null; }
+	
+	
 
 	/**
 	 * Retourne la Stratégie en cours.

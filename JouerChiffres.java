@@ -10,6 +10,7 @@ public class JouerChiffres implements Strategy {
 	
 	public void jouer(Joueur j) {
 		
+		
 		Carte ca = new CarteNumerotee(0, null);
 		
 		// On parcourt la Main du Joueur
@@ -45,12 +46,13 @@ public class JouerChiffres implements Strategy {
 				if (c.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
 					ca = c;
 				}
+			}
 		}
 			
 			
-			// On sait maintenant quelle Carte jouer : ca
-			j.poser(ca);
-		}
+		// On sait maintenant quelle Carte jouer : ca
+		j.poser(ca);
+		System.out.println(j + " pose un " + ca + ".\n");
 	}
 
 }

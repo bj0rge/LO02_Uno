@@ -61,9 +61,11 @@ public class JoueurIA extends Joueur {
 	 */
 	public void jouer() {
 		if (this.peutJouer()) {
+			System.out.println("peut jouer");
 			this.getStrategie().jouer(this);
 		}
 		else {
+			System.out.println("peut pas jouer");
 			this.piocher();
 		}
 	}

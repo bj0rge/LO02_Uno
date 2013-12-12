@@ -23,6 +23,7 @@ public class Uno {
 			String nom = sc.nextLine();
 			Partie.getInstance().ajouterJoueur(new Joueur((nom)));
 		}
+		Partie.getInstance().ajouterJoueur(new JoueurIA("Robocoop", new JouerChiffres()));
 		
 		// Génération des cartes et ajout des joueurs
 		Partie.getInstance().debuterPartie();

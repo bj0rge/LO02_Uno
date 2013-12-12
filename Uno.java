@@ -13,17 +13,23 @@ public class Uno {
 		
 		
 		System.out.println("--------------------\n"
-				+ "Bienvenue dans le jeu de Uno !\n"
+				+ " *** Bienvenue dans le jeu de Uno ! *** \n"
 				+ "--------------------\n");
-		System.out.println("Vous allez débuter une partie. Combien de joueurs humains voulez-vous ?");
+		System.out.println("Vous allez débuter une partie. Combien de joueurs voulez-vous ?");
 		int nbj = Partie.getInstance().demanderInt();
+		System.out.println("Dont combien de joueurs IA ?");
+		int nbia = Partie.getInstance().demanderInt();
 		
 		for (int i = 1; i <= nbj; i++) {
 			System.out.println("\nQuel est le nom du joueur " + i + " ?");
 			String nom = sc.nextLine();
-			Partie.getInstance().ajouterJoueur(new Joueur((nom)));
+			if (i <= (nbj - nbia)) {
+				Partie.getInstance().ajouterJoueur(new Joueur(nom));
+			}
+			else {
+					Partie.getInstance().ajouterJoueur(new JoueurIA(nom, new JouerChiffres()));
+			}
 		}
-		Partie.getInstance().ajouterJoueur(new JoueurIA("Robocoop", new JouerChiffres()));
 		
 		// Génération des cartes et ajout des joueurs
 		Partie.getInstance().debuterPartie();

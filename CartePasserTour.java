@@ -40,7 +40,7 @@ public class CartePasserTour extends Carte {
 			Manche.getInstance().passerJoueur();
 		}
 		else {
-			System.out.println(Manche.getInstance().getJoueurSuivant() + "passe son tour !");
+			System.out.println(Manche.getInstance().getJoueurSuivant() + " passe son tour !");
 			Manche.getInstance().passerJoueur();
 		}
 		

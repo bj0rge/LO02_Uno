@@ -61,12 +61,26 @@ public class JoueurIA extends Joueur {
 	 * Choisit la Carte à jouer en fonction de la Strategy actuelle et la pose.
 	 */
 	public void jouer() {
-		if (this.peutJouer()) {
-			this.getStrategie().jouer(this);
+		boolean fin_tour = false;
+		do {
+			if (this.peutJouer()) {
+				this.getStrategie().jouer(this);
+				fin_tour = true;
+			}
+			else {
+				if (this.aPioche()) {
+					this.passerTour();
+					System.out.println(this + " passe son tour.\n");
+					fin_tour = true;
+				}
+				else {
+					this.piocher();
+					this.setAPioche(true);
+					System.out.println(this + " a pioché une carte.");
+				}
+			}
 		}
-		else {
-			this.piocher();
-		}
+		while (!fin_tour);
 	}
 	
 

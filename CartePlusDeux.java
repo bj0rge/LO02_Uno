@@ -36,20 +36,36 @@ public class CartePlusDeux extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
-			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !\n"
-					+ Manche.getInstance().getJoueurActuel() + " pioche :");
-			for (int i = 0; i < 2; i++) {
-				System.out.println("Un " + Manche.getInstance().getJoueurActuel().piocher());
+			System.out.println("\nLa première carte de la défausse est un " + this + ", pas de bol !");
+			
+			if (Manche.getInstance().getJoueurActuel().estHumain()) {
+				System.out.println(Manche.getInstance().getJoueurActuel() + " pioche :");
+				for (int i = 0; i < 2; i++) {
+					System.out.println("Un " + Manche.getInstance().getJoueurActuel().piocher());
+				}
+			}
+			else {
+				System.out.println(Manche.getInstance().getJoueurActuel() + " pioche 2 cartes.");
+				for (int i = 0; i < 2; i++) {
+					Manche.getInstance().getJoueurActuel().piocher();
+				}
 			}
 			Manche.getInstance().passerJoueur();
 	
 			System.out.println("et il passe son tour.");
 		}
 		else {
-			System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
-			
-			for (int i = 0; i < 2; i++) {
-				System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+			if (Manche.getInstance().getJoueurSuivant().estHumain()) {
+				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
+				for (int i = 0; i < 2; i++) {
+					System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+				}
+			}
+			else {
+				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche 2 cartes.");
+				for (int i = 0; i < 2; i++) {
+					Manche.getInstance().getJoueurSuivant().piocher();
+				}
 			}
 			Manche.getInstance().passerJoueur();
 	

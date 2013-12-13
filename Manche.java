@@ -221,7 +221,7 @@ public class Manche {
 			j.getMain().getCartes().clear();			
 		}
 		
-		Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse());
+		Defausse.getInstance().setDefausse(Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse()));
 		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
 		
 		Pioche.getInstance().melanger();

@@ -219,7 +219,7 @@ public class Joueur {
 		Couleur c = null;
 		int val = 0;
 		while (val < 1 || val > 4) {
-			Partie.getInstance().demanderInt();
+			val = Partie.getInstance().demanderInt();
 		}
 		
 		switch (val)

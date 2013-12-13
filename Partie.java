@@ -187,8 +187,8 @@ public class Partie
 			while (itj.hasNext()){
 				Joueur j = itj.next();
 				StringBuffer sb = new StringBuffer();
-				sb.append("Score de Joueur ");
-				sb.append(joueurs.indexOf(j)+1);
+				sb.append("Score de ");
+				sb.append(j);
 				sb.append(" : ");
 				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
 				sb.append(" + ");

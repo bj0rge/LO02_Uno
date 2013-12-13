@@ -61,8 +61,8 @@ public class Defausse {
 		// On l'enlève de la Défausse actuelle
 		this.getDefausse().remove(this.getIndexCartePosee());
 		
-		// On stocke la défausse.
-		ArrayList<Carte> nouvelle_pioche = this.getDefausse();
+		// On stocke la défausse en remettant la couleur des joker à null.
+		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().razCouleurJoker(this.getDefausse());
 		
 		// On met à jour la nouvelle Défausse
 		ArrayList<Carte> nouvelle_defausse = new ArrayList<Carte>();

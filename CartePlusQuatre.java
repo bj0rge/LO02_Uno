@@ -34,6 +34,20 @@ public class CartePlusQuatre extends CarteJoker {
 			Manche.getInstance().retournerPremiereCarte();
 		}
 		else {	
+
+			if (Manche.getInstance().getJoueurSuivant().estHumain()) {
+				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
+				for (int i = 0; i < 4; i++) {
+					System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+				}
+			}
+			else {
+				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche 4 cartes.");
+				for (int i = 0; i < 4; i++) {
+					Manche.getInstance().getJoueurSuivant().piocher();
+				}
+			}
+			
 			Couleur c = Manche.getInstance().getJoueurActuel().choixCouleur();
 			System.out.println("La couleur du +4 est " + c + " !");
 			this.setCouleur(c);

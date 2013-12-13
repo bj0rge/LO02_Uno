@@ -1,6 +1,8 @@
 package LO02_Uno;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -29,6 +31,45 @@ public class Main {
 		this.setCartes(new ArrayList<Carte>());
 	}
 
+	/** 
+	 * Classe les Cartes de la Main par Couleur et par Valeur.
+	 */
+	public void classer() {
+		ArrayList<Carte> al = new ArrayList<Carte>();
+		Iterator<Carte> it;
+		
+		// Pour chacune des Couleurs, on stocke les Cartes de la Main dans une Liste
+		for (Couleur c: Couleur.values()) {
+			it = this.getCartes().iterator();
+			ArrayList<Carte> al2 = new ArrayList<Carte>();
+			while (it.hasNext()) {
+				Carte ca = it.next();
+				if (ca.getCouleur() == c) {
+					al2.add(ca);
+				}
+			}
+			// On classe ensuite cette Liste dans l'ordre croissant des valeurs des Cartes
+			Collections.sort(al2, new Comparator<Carte>() {
+				@Override public int compare(Carte c1, Carte c2) {
+					return c1.getPoints() - c2.getPoints();
+				 }
+			});
+			// On ajoute la Liste à celle qui deviendra la nouvelle Main
+			al.addAll(al2);
+		}
+		
+		// On termine par ajouter les Cartes Noires
+		it = this.getCartes().iterator();
+		while(it.hasNext()) {
+			Carte ca = it.next();
+			if (ca.getCouleur() == null) {
+				al.add(ca);
+			}
+		}
+		
+		// Et on met à jour la Main triée.
+		this.setCartes(al);
+	}
 	
 
 	/**

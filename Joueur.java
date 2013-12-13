@@ -76,6 +76,7 @@ public class Joueur {
 		Carte carte_piochee = Pioche.getInstance().piocher();
 		this.getMain().getCartes().add(carte_piochee);
 		this.setAPioche(true);
+		this.getMain().classer();
 		return carte_piochee;
 	}
 

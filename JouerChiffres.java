@@ -51,8 +51,8 @@ public class JouerChiffres implements Strategy {
 			
 			
 		// On sait maintenant quelle Carte jouer : ca
-		j.poser(ca);
 		System.out.println(j + " pose un " + ca + ".\n");
+		j.poser(ca);
 	}
 
 }

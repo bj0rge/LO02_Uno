@@ -2,7 +2,7 @@ package LO02_Uno;
 
 import java.util.Iterator;
 
-public class Attaquer implements Strategy {
+public class Attaquer extends Strategy {
 
 	/**
 	 * Retourne le niveau de méchanceté d'une Carte afin de savoir
@@ -59,7 +59,7 @@ public class Attaquer implements Strategy {
 		// Sinon, on joue en posant un chiffre.
 		else {
 			((JoueurIA) j).setStrategie(new JouerChiffres());
-			j.jouer();
+			j.getStrategie().jouer(j);
 		}
 	}
 }

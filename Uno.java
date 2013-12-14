@@ -27,7 +27,7 @@ public class Uno {
 				Partie.getInstance().ajouterJoueur(new Joueur(nom));
 			}
 			else {
-					Partie.getInstance().ajouterJoueur(new JoueurIA(nom, new Attaquer()));
+					Partie.getInstance().ajouterJoueur(new JoueurIA(nom, new JouerChiffres()));
 			}
 		}
 		

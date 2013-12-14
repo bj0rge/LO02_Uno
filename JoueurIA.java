@@ -64,6 +64,7 @@ public class JoueurIA extends Joueur {
 		boolean fin_tour = false;
 		do {
 			if (this.peutJouer()) {
+				this.getStrategie().set(this);
 				this.getStrategie().jouer(this);
 				fin_tour = true;
 			}

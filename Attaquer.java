@@ -35,7 +35,7 @@ public class Attaquer extends Strategy {
 		return nv;
 	}
 	
-	public void jouer(Joueur j) {
+	public void jouer(JoueurIA j) {
 		/* On cherche à savoir si le Joueur possède une Carte méchanceté,
 		 * et si oui, on garde en mémoire celle qui apporte le plus grand
 		 * malus au Joueur suivant.
@@ -58,7 +58,7 @@ public class Attaquer extends Strategy {
 		}
 		// Sinon, on joue en posant un chiffre.
 		else {
-			((JoueurIA) j).setStrategie(new JouerChiffres());
+			j.setStrategie(new JouerChiffres());
 			j.getStrategie().jouer(j);
 		}
 	}

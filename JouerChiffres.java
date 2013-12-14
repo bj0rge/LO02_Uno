@@ -5,10 +5,10 @@ import java.util.Iterator;
 /**
  * Classe déterminant la Stratégie de jouer en priorité les Cartes Numérotées à gros chiffre.
  */
-public class JouerChiffres implements Strategy {
+public class JouerChiffres extends Strategy {
 
 	
-	public void jouer(Joueur j) {
+	public void jouer(JoueurIA j) {
 		
 		
 		Carte ca = new CarteNumerotee(-1, null);

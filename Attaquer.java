@@ -2,6 +2,10 @@ package LO02_Uno;
 
 import java.util.Iterator;
 
+/**
+ * <b>Stratégie déterminant qu'il faut jouer en priorité des Cartes "méchanceté".</b>
+ *
+ */
 public class Attaquer extends Strategy {
 
 	/**

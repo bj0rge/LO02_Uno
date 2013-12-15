@@ -3,7 +3,7 @@ package LO02_Uno;
 import java.util.Iterator;
 
 /**
- * Classe déterminant la Stratégie de jouer en priorité les Cartes Numérotées à gros chiffre.
+ * <b>Stratégie déterminant qu'il faut jouer en priorité les Cartes Numérotées à gros chiffre.</b>
  */
 public class JouerChiffres extends Strategy {
 

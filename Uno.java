@@ -2,6 +2,10 @@ package LO02_Uno;
 
 import java.util.Scanner;
 
+/**
+ * <b>Crée la Partie et permet de jouer.</b>
+ *
+ */
 public class Uno {
 	
 	final static Scanner sc = new Scanner(System.in);

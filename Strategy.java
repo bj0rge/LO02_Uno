@@ -3,7 +3,7 @@ package LO02_Uno;
 import java.util.Iterator;
 
 /**
- * Classe définissant la Stratégie qu'un JoueurIA va déployer.
+ * <b>Stratégie qu'un JoueurIA va déployer.</b>
  * @see JoueurIA
  */
 public abstract class Strategy {

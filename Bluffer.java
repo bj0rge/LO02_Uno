@@ -2,6 +2,10 @@ package LO02_Uno;
 
 import java.util.Iterator;
 
+/**
+ * <b>Stratégie déterminant qu'il faut jouer un +4.</b>
+ *
+ */
 public class Bluffer extends Strategy{
 	
 	public void jouer(JoueurIA j) {

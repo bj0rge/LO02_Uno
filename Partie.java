@@ -135,35 +135,43 @@ public class Partie
 
 	public void selectionMode(){
 		
-		System.out.println("Quel mode de jeu voulez-vous ?");
-		System.out.println("[0] STANDARD");
-		System.out.println("[1] EQUIPE");
-		System.out.println("[2] CHALLENGE");
-			
-		int choixMode = this.demanderInt();
+		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
+			System.out.println("Quel mode de jeu voulez-vous ?");
+			System.out.println("[0] STANDARD");
+			System.out.println("[1] EQUIPE");
+			System.out.println("[2] CHALLENGE");
 		
-		if (choixMode == 1) {
-			
-			this.setMode(ModeDeJeu.EQUIPE);
-			
-			
-			
-			
+			int choixMode = this.demanderInt();
+					
+			if (choixMode == 0){
+				this.setMode(ModeDeJeu.STANDARD);
+			} else if (choixMode == 1){
+				this.setMode(ModeDeJeu.EQUIPE);
+				this.constituerEquipe();
+			} else if (choixMode == 2){
+				this.setMode(ModeDeJeu.CHALLENGE);
+			}
 		}
 		
-		switch (this.demanderInt())
-		{
-		case 0:
-			this.setMode(ModeDeJeu.STANDARD);
-			break;
-		case 1:
-			this.setMode(ModeDeJeu.EQUIPE);
-			break;
-		case 2:
-			this.setMode(ModeDeJeu.CHALLENGE);
-			break;
-		}
 		
+		System.out.println("Voulez-vous changer les paramètres de base ?");
+		System.out.println("[0] Ne rien changer.");
+		if (this.getMode() != ModeDeJeu.CHALLENGE){
+			System.out.println("[1] Changer le nombre de points avant de gagner la partie. (Default : 500 pts)");
+			System.out.println("[2] Changer le nombre de manches maximum. (Default : aucun)");
+		} else {
+			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Default 500 pts)");
+		}
+
+		int choixParam = this.demanderInt();
+		
+		if (choixParam == 1){
+			System.out.println("Combien de points ?");
+			this.setNb_pts_max(this.demanderInt());
+		} else if (choixParam == 2){
+			System.out.println("Combien de manches ?");
+			this.setNb_manches_max(this.demanderInt());
+		}
 	}
 	
 	/**
@@ -174,6 +182,20 @@ public class Partie
 	 */
 	public void ajouterJoueur(Joueur j) {
 		this.getListeJoueurs().add(j);
+	}
+	
+	public void constituerEquipe(){
+		
+		System.out.println("Combien d'équipes y aura-t-il ?");
+		int nbEquipe = this.demanderInt();		
+		
+		Iterator<Joueur> it = this.getListeJoueurs().iterator();
+		while (it.hasNext()){
+			Joueur j = it.next();
+			System.out.println("Dans quelle équipe jouera " + j + " ?");
+			j.setEquipe(this.demanderInt());
+		}
+		
 	}
 	
 	/**
@@ -211,12 +233,18 @@ public class Partie
 			}
 		}
 		while (!this.isTerminee(num_manche));
-		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
+			
+		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
+			System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
 	
-		Iterator<Joueur> it = this.getListeJoueurs().iterator();
-		while (it.hasNext()) {
-			Joueur j = it.next();
-			System.out.println(j + " a " + j.getScore() + " points.");
+			Iterator<Joueur> it = this.getListeJoueurs().iterator();
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				System.out.println(j + " a " + j.getScore() + " points.");
+			}
+		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
+			System.out.println("");
+			
 		}
 	}
 
@@ -232,6 +260,7 @@ public class Partie
 			sc.nextLine();
 			System.out.print("Valeur incorrecte. Entrez un entier : ");
 		}
+		
 		ret = sc.nextInt();
 		return ret;
 	}
@@ -245,7 +274,7 @@ public class Partie
 	private boolean isTerminee(int num_tour) {
 		ModeDeJeu mode = this.getMode();
 		boolean est_fini = false;
-		if (mode == ModeDeJeu.STANDARD) {
+		if (mode == ModeDeJeu.STANDARD || mode == ModeDeJeu.DEUX_JOUEURS) {
 			Iterator<Joueur> it = this.getListeJoueurs().iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
@@ -255,6 +284,10 @@ public class Partie
 					est_fini = true;	
 				}
 			}
+		} else if (mode == ModeDeJeu.CHALLENGE) {
+			
+			
+			
 		}
 		return est_fini;
 	}

@@ -23,9 +23,7 @@ public class Uno {
 		
 		Partie.getInstance().selectionNombreJoueur();
 		
-		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
-			Partie.getInstance().selectionMode();
-		}
+		Partie.getInstance().selectionMode();
 		
 		// Génération des cartes
 		Partie.getInstance().debuterPartie();

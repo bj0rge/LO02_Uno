@@ -24,6 +24,8 @@ public class Joueur {
 	 */
 	private String nom;
 	
+	private int equipe;
+	
 	/**
 	 * La Main du Joueur.
 	 * @see Main
@@ -125,8 +127,7 @@ public class Joueur {
 	}
 	
 	public void jouer() {
-		
-		System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+				
 		System.out.println("\n" + this + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
@@ -277,6 +278,10 @@ public class Joueur {
 		return nom;
 	}
 
+	public int getEquipe() {
+		return equipe;
+	}
+	
 	/**
 	 * Retourne la Main du Joueur.
 	 * @return La Main du Joueur, sous la forme d'une instance de Main.
@@ -318,6 +323,10 @@ public class Joueur {
 		this.nom = nom;
 	}
 
+	public void setEquipe(int equipe) {
+		this.equipe = equipe;
+	}
+	
 	/**
 	 * Met à jour la Main du Joueur.
 	 * @param main

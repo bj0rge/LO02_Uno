@@ -21,7 +21,7 @@ public class Manche {
 	 * Nombre de cartes à piocher lors du début d'un tour.<br>
 	 * NB_CARTES_INITIAL = {@value}
 	 */
-	public static final int NB_CARTES_INITIAL = 7;
+	public static final int NB_CARTES_INITIAL = 1;
 		
 	
 	/**
@@ -116,6 +116,7 @@ public class Manche {
 	 */
 	public void retournerPremiereCarte() {
 		Carte c = Pioche.getInstance().piocher();
+		
 		Defausse.getInstance().defausser(c);
 		
 		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
@@ -178,6 +179,7 @@ public class Manche {
 	 */
 	private int compterPoints() {
 		int points = 0;
+		
 		Iterator<Joueur> itj = Partie.getInstance().getListeJoueurs().iterator();
 		while (itj.hasNext()) {
 			Iterator<Carte> itc = itj.next().getMain().getCartes().iterator();

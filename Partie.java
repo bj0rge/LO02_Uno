@@ -77,6 +77,84 @@ public class Partie
 		Pioche.getInstance().melanger();
 	}
 
+	public void selectionNombreJoueur(){
+		
+		int nbj = 0;
+		int nbia = 0;
+		
+		while (nbj == 0) {
+			System.out.println("Combien de joueurs voulez-vous ? (10 joueurs max)");
+			nbj = this.demanderInt();
+			
+			switch (nbj)
+			{
+			case 0:
+				System.out.println("Il faut au moins deux joueurs pour jouer au UNO !");
+				nbj = 0;
+				break;
+			case 1:
+				System.out.println("Vous ne pouvez pas jouer tout seul !");
+				nbj = 0;
+				break;
+			case 2:
+				System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
+				System.out.println("[0] Oui");
+				System.out.println("[1] Non");
+				if (this.demanderInt() == 1){
+					nbj = 0;
+				} else {
+					nbj = 2;
+					this.setMode(ModeDeJeu.DEUX_JOUEURS);
+				}
+				break;
+			default:
+				break;
+			}			
+		}
+		
+		System.out.println("Dont combien de joueurs IA ?");
+		nbia = Partie.getInstance().demanderInt();
+		
+		while (nbia > nbj){
+			System.out.println("Il ne peut pas y avoir plus de joueurs IA que de joueurs possibles.");
+			System.out.println("Vous avez indiqué qu'il y aurait " + nbj + " joueurs. Combien de joueurs IA ?");
+			nbia = Partie.getInstance().demanderInt();
+		}
+		
+		for (int i = 1; i <= nbj; i++) {
+			System.out.println("\nQuel est le nom du joueur " + i + " ?");
+			String nom = sc.nextLine();
+			if (i <= (nbj - nbia)) {
+				Partie.getInstance().ajouterJoueur(new Joueur(nom));
+			}
+			else {
+					Partie.getInstance().ajouterJoueur(new JoueurIA(nom, new JouerChiffres()));
+			}
+		}	
+	}
+
+	public void selectionMode(){
+		
+		System.out.println("Quel mode de jeu voulez-vous ?");
+		System.out.println("[0] STANDARD");
+		System.out.println("[1] EQUIPE");
+		System.out.println("[2] CHALLENGE");
+			
+		switch (this.demanderInt())
+		{
+		case 0:
+			this.setMode(ModeDeJeu.STANDARD);
+			break;
+		case 1:
+			this.setMode(ModeDeJeu.EQUIPE);
+			break;
+		case 2:
+			this.setMode(ModeDeJeu.CHALLENGE);
+			break;
+		}
+		
+	}
+	
 	/**
 	 * Ajoute un Joueur à la listeJoueurs.
 	 * @param j
@@ -108,10 +186,10 @@ public class Partie
 			int resultatManche[] = new int[2];
 			resultatManche = Manche.getInstance().deroulementManche();
 			
-			Partie.getInstance().calculScore(resultatManche);
+			this.calculScore(resultatManche);
 			num_manche++;
 			
-			if (!Partie.getInstance().isTerminee(num_manche)) {
+			if (!this.isTerminee(num_manche)) {
 				System.out.print("\n\nAppuyez sur entrée pour passer à la Manche suivante.");
 				// Try - Catch qui permet de passer à la manche suivante.
 				try {
@@ -121,10 +199,10 @@ public class Partie
 				}
 			}
 		}
-		while (!Partie.getInstance().isTerminee(num_manche));
+		while (!this.isTerminee(num_manche));
 		System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
 	
-		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		Iterator<Joueur> it = this.getListeJoueurs().iterator();
 		while (it.hasNext()) {
 			Joueur j = it.next();
 			System.out.println(j + " a " + j.getScore() + " points.");
@@ -154,15 +232,15 @@ public class Partie
 	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
 	 */
 	private boolean isTerminee(int num_tour) {
-		ModeDeJeu mode = Partie.getInstance().getMode();
+		ModeDeJeu mode = this.getMode();
 		boolean est_fini = false;
 		if (mode == ModeDeJeu.STANDARD) {
-			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+			Iterator<Joueur> it = this.getListeJoueurs().iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
-				if ((j.getScore() >= Partie.getInstance().getNb_pts_max()) 
-						|| ((Partie.getInstance().getNb_manches_max() != 0)
-						&& (num_tour >= Partie.getInstance().getNb_manches_max())) ) {
+				if ((j.getScore() >= this.getNb_pts_max()) 
+						|| ((this.getNb_manches_max() != 0)
+						&& (num_tour >= this.getNb_manches_max())) ) {
 					est_fini = true;	
 				}
 			}
@@ -177,11 +255,11 @@ public class Partie
 	 */
 	private void calculScore(int[] resultatManche){
 		
-		if (Partie.getInstance().getMode() == ModeDeJeu.STANDARD){
+		if (this.getMode() == ModeDeJeu.STANDARD){
 			
-			System.out.println("\n" + Partie.getInstance().getListeJoueurs().get(resultatManche[0]) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
+			System.out.println("\n" + this.getListeJoueurs().get(resultatManche[0]) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
 			
-			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
+			ArrayList<Joueur> joueurs = this.getListeJoueurs();
 			
 			Iterator<Joueur> itj = joueurs.iterator();
 			while (itj.hasNext()){
@@ -190,7 +268,7 @@ public class Partie
 				sb.append("Score de ");
 				sb.append(j);
 				sb.append(" : ");
-				sb.append(Partie.getInstance().getJoueur(joueurs.indexOf(j)).getScore());
+				sb.append(this.getJoueur(joueurs.indexOf(j)).getScore());
 				sb.append(" + ");
 				
 				if (joueurs.indexOf(j) == resultatManche[0]){

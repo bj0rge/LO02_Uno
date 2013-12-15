@@ -38,10 +38,15 @@ public class CartePlusDeux extends Carte {
 		if (premier_tour) {
 			
 			if (Manche.getInstance().getJoueurActuel().estHumain()) {
-				System.out.println(Manche.getInstance().getJoueurActuel() + " pioche :");
+				StringBuffer sb = new StringBuffer();
+				sb.append(Manche.getInstance().getJoueurActuel());
+				sb.append(" pioche : ");
 				for (int i = 0; i < 2; i++) {
-					System.out.println("Un " + Manche.getInstance().getJoueurActuel().piocher());
+					sb.append(Manche.getInstance().getJoueurActuel().piocher());
+					sb.append(" et ");
 				}
+				sb.delete((sb.length() - 2), sb.length());
+				System.out.println(sb);
 			}
 			else {
 				System.out.println(Manche.getInstance().getJoueurActuel() + " pioche 2 cartes");
@@ -55,10 +60,17 @@ public class CartePlusDeux extends Carte {
 		}
 		else {
 			if (Manche.getInstance().getJoueurSuivant().estHumain()) {
-				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
+				 // System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
+				StringBuffer sb = new StringBuffer();
+				sb.append(Manche.getInstance().getJoueurSuivant());
+				sb.append(" pioche : ");
 				for (int i = 0; i < 2; i++) {
-					System.out.println("Un " + Manche.getInstance().getJoueurSuivant().piocher());
+					sb.append(Manche.getInstance().getJoueurSuivant().piocher());
+					sb.append(" et ");
 				}
+				sb.delete(sb.length(), sb.length() - 2);
+				System.out.println(sb);
+				
 			}
 			else {
 				System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche 2 cartes.");

@@ -126,6 +126,7 @@ public class Joueur {
 	
 	public void jouer() {
 		
+		System.out.println("\nDernière carte jouée : " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 		System.out.println("\n" + this + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;

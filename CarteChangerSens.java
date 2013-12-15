@@ -34,7 +34,6 @@ public class CarteChangerSens extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		
-		System.out.println("La première carte de la défausse est un " + this);
 		System.out.println("Le jeu change de sens !");
 		Manche.getInstance().changerSens();
 		if (premier_tour) {

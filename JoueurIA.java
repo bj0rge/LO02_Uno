@@ -116,6 +116,25 @@ public class JoueurIA extends Joueur {
 		return c_max; 
 	}
 	
+	public boolean direTuBluffesMartoni(Joueur j) {
+		boolean denoncer = false;
+		// Si le Joueur qui pose le +4 a encore au moins 3 Cartes en Main
+		if (j.getMain().getCartes().size() >= 3) {
+			// S'il a au moins 7 Cartes, on dénonce quoi qu'il arrive 
+			if (j.getMain().getCartes().size() >= 7) {
+				denoncer = true;
+			}
+			// Sinon, une chance sur 4
+			else {
+				int random = (int)(Math.random() * 4);
+				if (random < 1) {
+					denoncer = true;
+				}
+			}
+		}
+		// S'il avait moins de 3 Cartes, on ne dénonce pas.
+		return denoncer;
+	}
 	
 
 	/**

@@ -139,6 +139,14 @@ public class Defausse {
 	}
 
 	/**
+	 * Retourne l'avant dernière Carte posée sur le haut de la Défausse.
+	 * @return L'avant dernière Carte posée sur le haut de la Défausse, sous la forme d'une instance de Carte.
+	 */
+	public Carte getAvantDerniereCarteJouee() {
+		return this.getDefausse().get(this.getIndexCartePosee() -1);
+	}
+
+	/**
 	 * Met à jour la Défausse.
 	 * @param carte
 	 * 		Liste des Cartes de la nouvelle Défausse. 

@@ -108,18 +108,6 @@ public class Joueur {
 	 */
 	public void direContreUno() {}
 	
-	
-	/**
-	 * 
-	 */
-	// Est-ce que cette méthode a sa place ici ?
-	public void direTuBluffesMartoni() {}
-	
-	/**
-	 * 
-	 */
-	// Est-ce que cette méthode a sa place ici ?
-	public void direCouleur(Couleur c) {}
 
 	/**
 	 * Passer son tour. A un effet uniquement après avoir pioché, sinon ne fait rien.
@@ -241,6 +229,26 @@ public class Joueur {
 		
 		return c;
 	}
+	
+	
+	/**
+	 * Methode permettant de savoir si le Joueur souhaite dénoncer le bluff
+	 * @param j 
+	 * 			Joueur qui a joué le +4
+	 * @return <i>true</i> si le Joueur souhaite prendre le risque de dénoncer le bluff,
+	 * <i>false</i> sinon.
+	 */
+	public boolean direTuBluffesMartoni(Joueur j) {
+		System.out.println(this + ", " + j + " joue un +4, voulez-vous dénoncer le bluff ?\n"
+				+ "[1] Dénoncer le bluff\n"
+				+ "[2] Piocher 4 cartes");
+		int val = 0;
+		while (val < 1 || val > 2) {
+			val = Partie.getInstance().demanderInt();
+		}
+		return val == 1 ? true : false;
+	}
+	
 	
 	/**
 	 * Ajoute des points au score actuel du Joueur.

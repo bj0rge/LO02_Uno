@@ -50,7 +50,7 @@ public class Partie
 	/**
 	 * Le nombre de points à atteindre pour mettre fin à la Partie.
 	 */
-	private int nb_pts_max;
+	private int nb_pts_max = 500;
 	
 	/**
 	 * Génère les Cartes, et les envoie dans la Pioche. 
@@ -160,7 +160,7 @@ public class Partie
 			System.out.println("[1] Changer le nombre de points avant de gagner la partie. (Default : 500 pts)");
 			System.out.println("[2] Changer le nombre de manches maximum. (Default : aucun)");
 		} else {
-			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Default 500 pts)");
+			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Default : 500 pts)");
 		}
 
 		int choixParam = this.demanderInt();
@@ -215,11 +215,11 @@ public class Partie
 		int num_manche = 0;
 		do {
 			Manche.getInstance().razManche();
-			// On récupère l'index du joueur gagnant et le score gagné.
-			int resultatManche[] = new int[2];
-			resultatManche = Manche.getInstance().deroulementManche();
+			// On récupère l'index du joueur gagnant
+			int index_vainqueur_manche;
+			index_vainqueur_manche = Manche.getInstance().deroulementManche();
 			
-			this.calculScore(resultatManche);
+			this.calculScore(index_vainqueur_manche);
 			num_manche++;
 			
 			if (!this.isTerminee(num_manche)) {
@@ -233,21 +233,7 @@ public class Partie
 			}
 		}
 		while (!this.isTerminee(num_manche));
-			
-		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
-			System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
-	
-			Iterator<Joueur> it = this.getListeJoueurs().iterator();
-			while (it.hasNext()) {
-				Joueur j = it.next();
-				System.out.println(j + " a " + j.getScore() + " points.");
-			}
-		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
-			System.out.println("");
-			
-		}
 	}
-
 	/**
 	 * Demande un int via l'interface et retourne la valeur.
 	 * @return Un entier, entré par le Joueur.
@@ -272,8 +258,10 @@ public class Partie
 	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
 	 */
 	private boolean isTerminee(int num_tour) {
+		
 		ModeDeJeu mode = this.getMode();
 		boolean est_fini = false;
+		
 		if (mode == ModeDeJeu.STANDARD || mode == ModeDeJeu.DEUX_JOUEURS) {
 			Iterator<Joueur> it = this.getListeJoueurs().iterator();
 			while (it.hasNext()) {
@@ -286,8 +274,9 @@ public class Partie
 			}
 		} else if (mode == ModeDeJeu.CHALLENGE) {
 			
-			
-			
+			if (this.getListeJoueurs().size() == 1){
+				est_fini = true;
+			}
 		}
 		return est_fini;
 	}
@@ -297,27 +286,35 @@ public class Partie
 	 * @param resultatManche
 	 * 			Tableau : en [0] -> index du joueur qui a gagné la manche. [2]-> score à additionner.
 	 */
-	private void calculScore(int[] resultatManche){
+	private void calculScore(int index_vainqueur){
+		
+		int points = 0;
 		
 		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
-			
-			System.out.println("\n" + this.getListeJoueurs().get(resultatManche[0]) + " a gagné la manche ! Il empoche " + resultatManche[1] + " points.\n");
 			
 			ArrayList<Joueur> joueurs = this.getListeJoueurs();
 			
 			Iterator<Joueur> itj = joueurs.iterator();
-			while (itj.hasNext()){
+			while (itj.hasNext()) {
 				Joueur j = itj.next();
+				points += Manche.getInstance().compterPoints(j);
+				}
+			
+			System.out.println("\n" + this.getListeJoueurs().get(index_vainqueur) + " a gagné la manche ! Il empoche " + points + " points.\n");
+			
+			Iterator<Joueur> it = joueurs.iterator();
+			while (it.hasNext()){
+				Joueur j = it.next();
 				StringBuffer sb = new StringBuffer();
 				sb.append("Score de ");
 				sb.append(j);
 				sb.append(" : ");
-				sb.append(this.getJoueur(joueurs.indexOf(j)).getScore());
+				sb.append(j.getScore());
 				sb.append(" + ");
 				
-				if (joueurs.indexOf(j) == resultatManche[0]){
-					sb.append(resultatManche[1]);
-					j.ajouterPoints(resultatManche[1]);
+				if (joueurs.indexOf(j) == index_vainqueur){
+					sb.append(points);
+					j.ajouterPoints(points);
 				}
 				else {
 					sb.append("0");
@@ -328,8 +325,72 @@ public class Partie
 				sb.append(" points");
 				System.out.println(sb.toString());
 			}
+		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
+			
+			ArrayList<Joueur> joueurs = this.getListeJoueurs();
+			
+			System.out.println("\n" + joueurs.get(index_vainqueur) + " a gagné la manche !");
+			
+			Iterator<Joueur> it = joueurs.iterator();
+			while (it.hasNext()){
+				Joueur j = it.next();
+				StringBuffer sb = new StringBuffer();
+				sb.append("Score de ");
+				sb.append(j);
+				sb.append(" : ");
+				sb.append(j.getScore());
+				sb.append(" + ");
+			
+				if (joueurs.indexOf(j) != index_vainqueur){
+					sb.append(Manche.getInstance().compterPoints(j));
+					j.ajouterPoints(Manche.getInstance().compterPoints(j));
+				}
+				else {
+					sb.append("0");
+				}
+			
+				sb.append(" = ");
+				sb.append(j.getScore());
+				sb.append(" points");
+				if (j.getScore() >= this.nb_pts_max){
+					sb.append(" => Eliminé !");
+					this.getListeJoueurs().remove(this.getListeJoueurs().indexOf(j));
+				}
+				System.out.println(sb.toString());
+			}
+			
+			
+			
+		}	
+	}	
+	
+	public void afficherScoreFinal(){
+		
+		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
+			System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
+	
+			Iterator<Joueur> it = this.getListeJoueurs().iterator();
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				System.out.println(j + " a " + j.getScore() + " points.");
+			}
+		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
+			
+			Joueur vainqueur = null;
+			
+			this.getListeJoueurs().trimToSize();
+			vainqueur = this.getListeJoueurs().get(0);
+			
+			/*Iterator<Joueur> it = this.getListeJoueurs().iterator();
+			while (it.hasNext()){
+				Joueur j = it.next();
+				if (j.getScore() != -1){
+					vainqueur = j;
+				}
+			}*/
+			System.out.println("\nLe jeu est terminé ! Le vainqueur est " + vainqueur + ".");
 		}
-	}
+	}	
 	
 	/**
 	 * Retourne l'instance du Partie, et la construit si elle n'existe pas.

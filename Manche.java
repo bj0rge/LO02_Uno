@@ -59,8 +59,7 @@ public class Manche {
 		 * Fait dérouler une Manche du début à la fin et retourne un tableau d'entier.
 		 * @return Un tableau d'entiers. En index [0], on a l'index du Joueur gagnant dans listeJoueurs, en index [1], le nombre de points gagnés. 
 		 */
-		public int[] deroulementManche() {
-			
+		public int deroulementManche() {
 			
 			// On donne pour premier joueur le JoueurDebut
 			Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
@@ -71,8 +70,6 @@ public class Manche {
 			// On retourne la première carte de la Pioche
 			Manche.getInstance().retournerPremiereCarte();
 	//		Manche.getInstance().setPremierTour(false);
-			// On fait le premier tour de la manche
-	//		Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel(), true);
 			
 			// Tant que le JoueurActuel a encore au moins une Carte dans la Main
 			while(!Manche.getInstance().finManche()) {
@@ -90,11 +87,8 @@ public class Manche {
 				}
 			}
 			
-			// On calcule les points qu'il a gagné
-			int points = Manche.getInstance().compterPoints();
-			
-			// On retourne l'index du Joueur gagnant, et les Points gagnés.
-			int ret[] = {index, points};
+			// On retourne l'index du Joueur gagnant
+			int ret = index;
 			return ret;
 		}
 
@@ -115,7 +109,8 @@ public class Manche {
 	 * Retourne la première Carte de la Défausse en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
-		Carte c = Pioche.getInstance().piocher();
+		// Carte c = Pioche.getInstance().piocher();
+		CartePlusDeux c = new CartePlusDeux(Couleur.BLEU);
 		
 		Defausse.getInstance().defausser(c);
 		
@@ -162,8 +157,10 @@ public class Manche {
 	 * @return <i>true</i> si un Joueur a remporté la Manche
 	 */
 	private boolean finManche() {
-		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		
 		boolean fin_manche = false;
+		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		
 		while (it.hasNext()){
 			Joueur j = (Joueur) it.next();
 			if (j.getMain().getCartes().size() == 0) {
@@ -177,16 +174,14 @@ public class Manche {
 	 * Compte les points dans la Main de chaque Joueur et les additionne.
 	 * @return Le nombre de points contenu dans chaque Main
 	 */
-	private int compterPoints() {
+	public int compterPoints(Joueur j) {
 		int points = 0;
 		
-		Iterator<Joueur> itj = Partie.getInstance().getListeJoueurs().iterator();
-		while (itj.hasNext()) {
-			Iterator<Carte> itc = itj.next().getMain().getCartes().iterator();
-			while (itc.hasNext()) {
-				points += itc.next().getPoints();
-			}
-		}
+		Iterator<Carte> it = j.getMain().getCartes().iterator();
+		while (it.hasNext()){
+			points += it.next().getPoints();
+		}		
+			
 		return points;
 	}
 	

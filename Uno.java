@@ -21,14 +21,20 @@ public class Uno {
 				+ "--------------------\n");
 		System.out.println("Vous allez débuter une partie.");
 		
+		// Choix du nb de joueur humain et ia
 		Partie.getInstance().selectionNombreJoueur();
 		
+		// Choix du mode de jeu et des paramètres
 		Partie.getInstance().selectionMode();
 		
 		// Génération des cartes
 		Partie.getInstance().debuterPartie();
 		
+		// Débute une partie
 		Partie.getInstance().deroulementPartie();
+		
+		// Affiche le score de fin de partie
+		Partie.getInstance().afficherScoreFinal();
 		
 		Partie.sc.close();
 				

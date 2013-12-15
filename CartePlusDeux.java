@@ -45,7 +45,7 @@ public class CartePlusDeux extends Carte {
 					sb.append(Manche.getInstance().getJoueurActuel().piocher());
 					sb.append(" et ");
 				}
-				sb.delete((sb.length() - 2), sb.length());
+				sb.delete((sb.length() - 3), sb.length());
 				System.out.println(sb);
 			}
 			else {
@@ -68,7 +68,7 @@ public class CartePlusDeux extends Carte {
 					sb.append(Manche.getInstance().getJoueurSuivant().piocher());
 					sb.append(" et ");
 				}
-				sb.delete(sb.length(), sb.length() - 2);
+				sb.delete((sb.length() - 3), sb.length());
 				System.out.println(sb);
 				
 			}

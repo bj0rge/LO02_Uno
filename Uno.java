@@ -27,15 +27,9 @@ public class Uno {
 			Partie.getInstance().selectionMode();
 		}
 		
-		// Génération des cartes et ajout des joueurs
+		// Génération des cartes
 		Partie.getInstance().debuterPartie();
 		
-		
-		// Le mode de jeu sera STANDARD
-		Partie.getInstance().setMode(ModeDeJeu.STANDARD);
-		
-		
-	
 		Partie.getInstance().deroulementPartie();
 		
 		Partie.sc.close();

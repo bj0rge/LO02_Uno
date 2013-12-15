@@ -37,9 +37,15 @@ public class CarteChangerSens extends Carte {
 		System.out.println("Le jeu change de sens !");
 		Manche.getInstance().changerSens();
 		if (premier_tour) {
-			Manche.getInstance().passerJoueur();
-			Manche.getInstance().passerJoueur();
+			if (Partie.getInstance().getMode() == ModeDeJeu.DEUX_JOUEURS){
+				Manche.getInstance().passerJoueur();
+			} else {
+				Manche.getInstance().passerJoueur();
+				Manche.getInstance().passerJoueur();
+			}
+
 			System.out.println("C'est donc " + Manche.getInstance().getJoueurActuel() + " qui commence.");
+
 		}
 	}
 	

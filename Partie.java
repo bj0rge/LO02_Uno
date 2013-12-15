@@ -112,7 +112,7 @@ public class Partie
 			}			
 		}
 		
-		System.out.println("Dont combien de joueurs IA ?");
+		System.out.println("Parmi ces " + nbj + " joueurs, combien de joueurs IA ?");
 		nbia = Partie.getInstance().demanderInt();
 		
 		while (nbia > nbj){
@@ -140,6 +140,17 @@ public class Partie
 		System.out.println("[1] EQUIPE");
 		System.out.println("[2] CHALLENGE");
 			
+		int choixMode = this.demanderInt();
+		
+		if (choixMode == 1) {
+			
+			this.setMode(ModeDeJeu.EQUIPE);
+			
+			
+			
+			
+		}
+		
 		switch (this.demanderInt())
 		{
 		case 0:
@@ -255,9 +266,9 @@ public class Partie
 	 */
 	private void calculScore(int[] resultatManche){
 		
-		if (this.getMode() == ModeDeJeu.STANDARD){
+		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
 			
-			System.out.println("\n" + this.getListeJoueurs().get(resultatManche[0]) + " a gagné la manche. Il empoche " + resultatManche[1] + " points.\n");
+			System.out.println("\n" + this.getListeJoueurs().get(resultatManche[0]) + " a gagné la manche ! Il empoche " + resultatManche[1] + " points.\n");
 			
 			ArrayList<Joueur> joueurs = this.getListeJoueurs();
 			

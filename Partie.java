@@ -123,7 +123,7 @@ public class Partie
 		
 		for (int i = 1; i <= nbj; i++) {
 			System.out.println("\nQuel est le nom du joueur " + i + " ?");
-			String nom = sc.nextLine();
+			String nom = sc.next();
 			if (i <= (nbj - nbia)) {
 				Partie.getInstance().ajouterJoueur(new Joueur(nom));
 			}
@@ -331,6 +331,9 @@ public class Partie
 			
 			System.out.println("\n" + joueurs.get(index_vainqueur) + " a gagné la manche !");
 			
+			
+			ArrayList<Integer> tempo = null;
+			
 			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()){
 				Joueur j = it.next();
@@ -354,12 +357,13 @@ public class Partie
 				sb.append(" points");
 				if (j.getScore() >= this.nb_pts_max){
 					sb.append(" => Eliminé !");
-					this.getListeJoueurs().remove(this.getListeJoueurs().indexOf(j));
+					// add tempo.add(indexOf(j)
+					//this.getListeJoueurs().remove(this.getListeJoueurs().indexOf(j));
 				}
 				System.out.println(sb.toString());
 			}
 			
-			
+			// if tempo.size != 0 => joueurs.remove((Int) it.next)
 			
 		}	
 	}	

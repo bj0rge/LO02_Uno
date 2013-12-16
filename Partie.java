@@ -50,7 +50,7 @@ public class Partie
 	/**
 	 * Le nombre de points à atteindre pour mettre fin à la Partie.
 	 */
-	private int nb_pts_max = 500;
+	private int nb_pts_max;
 	
 	/**
 	 * Génère les Cartes, et les envoie dans la Pioche. 
@@ -83,20 +83,17 @@ public class Partie
 		int nbia = 0;
 		
 		while (nbj == 0) {
-			System.out.println("Combien de joueurs voulez-vous ? (10 joueurs max)");
-			nbj = this.demanderInt();
+			do { 
+				System.out.println("Combien de joueurs voulez-vous ? (10 joueurs max)");
+				nbj = this.demanderInt();
+			} while (nbj > 10);
 			
-			switch (nbj)
-			{
-			case 0:
+			if (nbj == 0){
 				System.out.println("Il faut au moins deux joueurs pour jouer au UNO !");
-				nbj = 0;
-				break;
-			case 1:
+			} else if (nbj == 1){
 				System.out.println("Vous ne pouvez pas jouer tout seul !");
 				nbj = 0;
-				break;
-			case 2:
+			} else if (nbj == 2){
 				System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
 				System.out.println("[0] Oui");
 				System.out.println("[1] Non");
@@ -106,9 +103,6 @@ public class Partie
 					nbj = 2;
 					this.setMode(ModeDeJeu.DEUX_JOUEURS);
 				}
-				break;
-			default:
-				break;
 			}			
 		}
 		
@@ -130,7 +124,7 @@ public class Partie
 			else {
 					Partie.getInstance().ajouterJoueur(new JoueurIA(nom, new JouerChiffres()));
 			}
-		}	
+		}
 	}
 
 	public void selectionMode(){
@@ -138,18 +132,20 @@ public class Partie
 		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
 			System.out.println("Quel mode de jeu voulez-vous ?");
 			System.out.println("[0] STANDARD");
-			System.out.println("[1] EQUIPE");
-			System.out.println("[2] CHALLENGE");
-		
+			System.out.println("[1] CHALLENGE");
+			if ((this.getListeJoueurs().size()%2) == 0){
+				System.out.println("[2] EQUIPE");
+			}
+			
 			int choixMode = this.demanderInt();
 					
 			if (choixMode == 0){
 				this.setMode(ModeDeJeu.STANDARD);
 			} else if (choixMode == 1){
+				this.setMode(ModeDeJeu.CHALLENGE);
+			} else if (choixMode == 2){
 				this.setMode(ModeDeJeu.EQUIPE);
 				this.constituerEquipe();
-			} else if (choixMode == 2){
-				this.setMode(ModeDeJeu.CHALLENGE);
 			}
 		}
 		
@@ -165,7 +161,9 @@ public class Partie
 
 		int choixParam = this.demanderInt();
 		
-		if (choixParam == 1){
+		if (choixParam == 0){
+			this.setNb_pts_max(500);
+		} else if (choixParam == 1){
 			System.out.println("Combien de points ?");
 			this.setNb_pts_max(this.demanderInt());
 		} else if (choixParam == 2){
@@ -186,16 +184,12 @@ public class Partie
 	
 	public void constituerEquipe(){
 		
-		System.out.println("Combien d'équipes y aura-t-il ?");
-		int nbEquipe = this.demanderInt();		
+		int x = (this.getListeJoueurs().size() / 2);
 		
-		Iterator<Joueur> it = this.getListeJoueurs().iterator();
-		while (it.hasNext()){
-			Joueur j = it.next();
-			System.out.println("Dans quelle équipe jouera " + j + " ?");
-			j.setEquipe(this.demanderInt());
+		for (int i = 0; i < x; i++){
+			System.out.println(this.getListeJoueurs().get(i) + " joue avec " + this.getListeJoueurs().get(i + x) + ".");
 		}
-		
+		System.out.println("\n");
 	}
 	
 	/**
@@ -243,7 +237,7 @@ public class Partie
 		// Boucle pour s'assurer que l'utilisateur a bien entré un entier.
 		while (!sc.hasNextInt())
 		{
-			sc.nextLine();
+			sc.next();
 			System.out.print("Valeur incorrecte. Entrez un entier : ");
 		}
 		
@@ -262,7 +256,8 @@ public class Partie
 		ModeDeJeu mode = this.getMode();
 		boolean est_fini = false;
 		
-		if (mode == ModeDeJeu.STANDARD || mode == ModeDeJeu.DEUX_JOUEURS) {
+		// if (mode == ModeDeJeu.STANDARD || mode == ModeDeJeu.DEUX_JOUEURS) {
+		if (mode != ModeDeJeu.CHALLENGE) {
 			Iterator<Joueur> it = this.getListeJoueurs().iterator();
 			while (it.hasNext()) {
 				Joueur j = it.next();
@@ -272,7 +267,7 @@ public class Partie
 					est_fini = true;	
 				}
 			}
-		} else if (mode == ModeDeJeu.CHALLENGE) {
+		} else /*if (mode == ModeDeJeu.CHALLENGE)*/ {
 			
 			if (this.getListeJoueurs().size() == 1){
 				est_fini = true;
@@ -289,20 +284,18 @@ public class Partie
 	private void calculScore(int index_vainqueur){
 		
 		int points = 0;
+		ArrayList<Joueur> joueurs = this.getListeJoueurs();
+		Iterator<Joueur> it = joueurs.iterator();
 		
 		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
 			
-			ArrayList<Joueur> joueurs = this.getListeJoueurs();
-			
-			Iterator<Joueur> itj = joueurs.iterator();
-			while (itj.hasNext()) {
-				Joueur j = itj.next();
+			while (it.hasNext()) {
+				Joueur j = it.next();
 				points += Manche.getInstance().compterPoints(j);
 				}
 			
 			System.out.println("\n" + this.getListeJoueurs().get(index_vainqueur) + " a gagné la manche ! Il empoche " + points + " points.\n");
 			
-			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()){
 				Joueur j = it.next();
 				StringBuffer sb = new StringBuffer();
@@ -327,14 +320,10 @@ public class Partie
 			}
 		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
 			
-			ArrayList<Joueur> joueurs = this.getListeJoueurs();
-			
 			System.out.println("\n" + joueurs.get(index_vainqueur) + " a gagné la manche !");
 			
+			ArrayList<Joueur> joueurs_elimines = new ArrayList<>();
 			
-			ArrayList<Integer> tempo = null;
-			
-			Iterator<Joueur> it = joueurs.iterator();
 			while (it.hasNext()){
 				Joueur j = it.next();
 				StringBuffer sb = new StringBuffer();
@@ -357,15 +346,58 @@ public class Partie
 				sb.append(" points");
 				if (j.getScore() >= this.nb_pts_max){
 					sb.append(" => Eliminé !");
-					// add tempo.add(indexOf(j)
-					//this.getListeJoueurs().remove(this.getListeJoueurs().indexOf(j));
+					joueurs_elimines.add(j);
 				}
 				System.out.println(sb.toString());
 			}
 			
-			// if tempo.size != 0 => joueurs.remove((Int) it.next)
+			if (joueurs_elimines.isEmpty() == false){
+				joueurs.removeAll(joueurs_elimines);
+			}			
+		} else if (this.getMode() == ModeDeJeu.EQUIPE) {
 			
-		}	
+			System.out.println("\n" + joueurs.get(index_vainqueur) + " a gagné la manche !");
+			
+			int x = (this.getListeJoueurs().size() / 2);
+			int index_vainqueur2;
+			
+			if (index_vainqueur < x){
+				index_vainqueur2 = index_vainqueur + x;
+			} else {
+				index_vainqueur2 = index_vainqueur - x;
+			}
+			
+			while (it.hasNext()) {
+				Joueur j = it.next();
+				if (joueurs.indexOf(j) != index_vainqueur && joueurs.indexOf(j) != index_vainqueur2){
+					points += Manche.getInstance().compterPoints(j);
+				}
+			}
+			
+			for (int i = 0; i < x; i++){
+				StringBuffer sb = new StringBuffer();
+				sb.append("Score de ");
+				sb.append(joueurs.get(i));
+				sb.append(" et ");
+				sb.append(joueurs.get(i + x));
+				sb.append(" : ");
+				sb.append(joueurs.get(i).getScore());
+				sb.append(" + ");
+				
+				if (i == index_vainqueur || i == index_vainqueur2){
+					sb.append(points);
+					joueurs.get(i).ajouterPoints(points);
+					joueurs.get(i+x).ajouterPoints(points);
+				} else {
+					sb.append("0");
+				}
+				
+				sb.append(" = ");
+				sb.append(joueurs.get(i).getScore());
+				sb.append(" points");
+				System.out.println(sb.toString());
+			}		
+		}
 	}	
 	
 	public void afficherScoreFinal(){
@@ -380,19 +412,18 @@ public class Partie
 			}
 		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
 			
-			Joueur vainqueur = null;
+			Joueur vainqueur = this.getListeJoueurs().get(0);
 			
-			this.getListeJoueurs().trimToSize();
-			vainqueur = this.getListeJoueurs().get(0);
-			
-			/*Iterator<Joueur> it = this.getListeJoueurs().iterator();
-			while (it.hasNext()){
-				Joueur j = it.next();
-				if (j.getScore() != -1){
-					vainqueur = j;
-				}
-			}*/
 			System.out.println("\nLe jeu est terminé ! Le vainqueur est " + vainqueur + ".");
+		} else if (this.getMode() == ModeDeJeu.EQUIPE){
+			System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
+			
+			int x = (this.getListeJoueurs().size() / 2);
+			
+			for (int i = 0; i < x; i++){
+			
+				System.out.println(this.getListeJoueurs().get(i) + " et " + this.getListeJoueurs().get(i + x) + " ont " + this.getListeJoueurs().get(i).getScore() + " points.");
+			}
 		}
 	}	
 	

@@ -24,8 +24,6 @@ public class Joueur {
 	 */
 	private String nom;
 	
-	private int equipe;
-	
 	/**
 	 * La Main du Joueur.
 	 * @see Main
@@ -277,10 +275,6 @@ public class Joueur {
 	public String getNom() {
 		return nom;
 	}
-
-	public int getEquipe() {
-		return equipe;
-	}
 	
 	/**
 	 * Retourne la Main du Joueur.
@@ -321,10 +315,6 @@ public class Joueur {
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public void setEquipe(int equipe) {
-		this.equipe = equipe;
 	}
 	
 	/**

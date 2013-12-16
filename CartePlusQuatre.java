@@ -78,10 +78,15 @@ public class CartePlusQuatre extends CarteJoker {
 			
 			// Enfin, on fait piocher
 			if (piocheur.estHumain()) {
-				System.out.println(piocheur + " pioche :");
+				StringBuffer sb = new StringBuffer();
+				sb.append(Manche.getInstance().getJoueurSuivant());
+				sb.append(" pioche : ");
 				for (int i = 0; i < nb_cartes; i++) {
-					System.out.println("Un " + piocheur.piocher());
+					sb.append(Manche.getInstance().getJoueurSuivant().piocher());
+					sb.append(", ");
 				}
+				sb.delete((sb.length() - 2), sb.length());
+				System.out.println(sb);
 			}
 			else {
 				System.out.println(piocheur + " pioche " + nb_cartes + " cartes.");

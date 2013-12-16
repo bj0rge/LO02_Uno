@@ -109,8 +109,7 @@ public class Manche {
 	 * Retourne la première Carte de la Défausse en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
-		// Carte c = Pioche.getInstance().piocher();
-		CartePlusDeux c = new CartePlusDeux(Couleur.BLEU);
+		Carte c = Pioche.getInstance().piocher();
 		
 		Defausse.getInstance().defausser(c);
 		

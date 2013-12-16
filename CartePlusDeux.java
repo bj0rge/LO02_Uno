@@ -60,7 +60,6 @@ public class CartePlusDeux extends Carte {
 		}
 		else {
 			if (Manche.getInstance().getJoueurSuivant().estHumain()) {
-				 // System.out.println(Manche.getInstance().getJoueurSuivant() + " pioche :");
 				StringBuffer sb = new StringBuffer();
 				sb.append(Manche.getInstance().getJoueurSuivant());
 				sb.append(" pioche : ");

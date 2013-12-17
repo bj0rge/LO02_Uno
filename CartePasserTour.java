@@ -36,11 +36,11 @@ public class CartePasserTour extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
-			System.out.println(Manche.getInstance().getJoueurActuel() + " passe son tour dès le début !");
+			System.out.println(Manche.getInstance().getJoueurActuel() + " passe son tour dès le début !\n");
 			Manche.getInstance().passerJoueur();
 		}
 		else {
-			System.out.println(Manche.getInstance().getJoueurSuivant() + " passe son tour !");
+			System.out.println(Manche.getInstance().getJoueurSuivant() + " passe son tour !\n");
 			Manche.getInstance().passerJoueur();
 		}
 		

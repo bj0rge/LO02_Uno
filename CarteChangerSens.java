@@ -34,7 +34,7 @@ public class CarteChangerSens extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		
-		System.out.println("Le jeu change de sens !");
+		System.out.println("Le jeu change de sens !\n");
 		Manche.getInstance().changerSens();
 		if (premier_tour) {
 			if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS || 

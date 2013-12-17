@@ -126,7 +126,7 @@ public class Joueur {
 	
 	public void jouer() {
 				
-		System.out.println("\n" + this + ", que voulez-vous faire ?\n");
+		System.out.println(this + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
 	
@@ -175,11 +175,9 @@ public class Joueur {
 				System.out.println("\n" + this + " joue la carte " + carte_jouee + ".");
 				
 				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-					this.poser(carte_jouee);
-					System.out.println("La carte " + carte_jouee + " a été défaussée de votre main.\n");
-					
+					this.poser(carte_jouee);					
 					// syso de la dernière carte posée, via défausse, pour confirmation
-					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 				
 					fintour = true;
 				}
@@ -190,6 +188,11 @@ public class Joueur {
 			}
 		}
 		while(!fintour);
+		
+		if (this.getMain().getCartes().size() == 1){
+			System.out.println(this + " annonce UNO !\n");
+		}
+		
 	}
 	
 	/**

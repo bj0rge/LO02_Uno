@@ -95,12 +95,19 @@ public class CartePlusQuatre extends CarteJoker {
 				}
 			}
 			
-			Couleur c = j1.choixCouleur();	// On change la couleur
-			System.out.println("La couleur du +4 est " + c + " !");
-			this.setCouleur(c);
+			
 			// Et si c'est j2 qui récupère des Cartes, il passe son tour en prime !
 			if (piocheur == j2) {
 				Manche.getInstance().passerJoueur();
+				Couleur c = j1.choixCouleur();	// On change la couleur
+				System.out.println("La couleur du +4 est " + c + " !");
+				this.setCouleur(c);
+			}
+			// Sinon, j1 reprends son +4
+			else {
+				Carte c_plus_4 = Defausse.getInstance().getDerniereCarteJouee();
+				Defausse.getInstance().getDefausse().remove(c_plus_4);
+				j1.getMain().getCartes().add(c_plus_4);
 			}
 		}
 	}

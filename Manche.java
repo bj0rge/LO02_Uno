@@ -134,6 +134,8 @@ public class Manche {
 	 */
 	public void jouerTour(Joueur j) {
 		j.raz();
+		// syso de la dernière carte posée, via défausse, pour confirmation
+		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 		j.jouer();
 	}
 	

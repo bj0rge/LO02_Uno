@@ -176,10 +176,6 @@ public class Joueur {
 				
 				if (carte_jouee.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
 					this.poser(carte_jouee);
-					System.out.println("La carte " + carte_jouee + " a été défaussée de votre main.\n");
-					
-					// syso de la dernière carte posée, via défausse, pour confirmation
-					System.out.println("La première carte de la défausse est maintenant un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
 				
 					fintour = true;
 				}

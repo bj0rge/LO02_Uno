@@ -138,46 +138,77 @@ public class Partie
 
 	public void selectionMode(){
 		
-		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
-			System.out.println("Quel mode de jeu voulez-vous ?");
-			System.out.println("[0] STANDARD");
-			System.out.println("[1] CHALLENGE");
-			if ((this.getListeJoueurs().size()%2) == 0){
-				System.out.println("[2] EQUIPE");
-			}
+		int choixMode = -1;
+		
+		while (choixMode == -1) {
+			if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
+				System.out.println("Quel mode de jeu voulez-vous ?");
+				System.out.println("[0] STANDARD");
+				System.out.println("[1] CHALLENGE");
+				if ((this.getListeJoueurs().size()%2) == 0){
+					System.out.println("[2] EQUIPE");
+				}
 			
-			int choixMode = this.demanderInt();
+				choixMode = this.demanderInt();
 					
-			if (choixMode == 0){
-				this.setMode(ModeDeJeu.STANDARD);
-			} else if (choixMode == 1){
-				this.setMode(ModeDeJeu.CHALLENGE);
-			} else if (choixMode == 2){
-				this.setMode(ModeDeJeu.EQUIPE);
-				this.constituerEquipe();
+				if (choixMode == 0){
+					this.setMode(ModeDeJeu.STANDARD);
+				} else if (choixMode == 1){
+					this.setMode(ModeDeJeu.CHALLENGE);
+				} else if (choixMode == 2 && ((this.getListeJoueurs().size()%2) == 0)){
+					this.setMode(ModeDeJeu.EQUIPE);
+					this.constituerEquipe();
+				} else {
+					System.out.println("Erreur de commande.");
+					choixMode = -1;
+				}
 			}
 		}
 		
+		int choixParam = -1;
 		
-		System.out.println("Voulez-vous changer les paramètres de base ?");
-		System.out.println("[0] Ne rien changer. (Par défaut : 500 points et aucune manche maximum)");
-		if (this.getMode() != ModeDeJeu.CHALLENGE){
-			System.out.println("[1] Changer le nombre de points avant de gagner la partie.");
-			System.out.println("[2] Changer le nombre de manches maximum.");
-		} else {
-			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé.");
-		}
+		while (choixParam == -1){
+			System.out.println("Voulez-vous changer les paramètres de base ?");
+			System.out.println("[0] Ne rien changer. (Par défaut : 500 points et aucune manche maximum)");
+			if (this.getMode() != ModeDeJeu.CHALLENGE){
+				System.out.println("[1] Changer le nombre de points avant de gagner la partie.");
+				System.out.println("[2] Changer le nombre de manches maximum.");
+			} else {
+				System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé.");
+			}
 
-		int choixParam = this.demanderInt();
+			choixParam = this.demanderInt();
+			
+			int val = 0;
 		
-		if (choixParam == 0){
-			this.setNb_pts_max(500);
-		} else if (choixParam == 1){
-			System.out.println("Combien de points ?");
-			this.setNb_pts_max(this.demanderInt());
-		} else if (choixParam == 2){
-			System.out.println("Combien de manches ?");
-			this.setNb_manches_max(this.demanderInt());
+			if (choixParam == 0){
+				this.setNb_pts_max(500);
+			} else if (choixParam == 1){
+				while (val == 0){
+					System.out.println("Combien de points ?");
+					val = this.demanderInt();
+					if (val <= 0) {
+						System.out.println("Impossible de fixer un nombre de points max inférieur ou égal à 0");
+						val = 0;
+					} else {
+						this.setNb_pts_max(val);
+					}
+				}
+			} else if (choixParam == 2){
+				while (val == 0){
+					System.out.println("Combien de manches ?");
+					val = this.demanderInt();
+					if (val <= 0) {
+						System.out.println("Impossible de fixer un nombre de manches max inférieur ou égal à 0");
+						val = 0;
+					} else {
+						this.setNb_manches_max(val);
+					}
+				}
+			} else {
+				System.out.println("Erreur de commande.");
+				choixParam = -1;
+			}
 		}
 	}
 	

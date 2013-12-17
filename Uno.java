@@ -16,9 +16,9 @@ public class Uno {
 		Partie.getInstance();
 		
 		
-		System.out.println("--------------------\n"
-				+ " *** Bienvenue dans le jeu de Uno ! *** \n"
-				+ "--------------------\n");
+		System.out.println("--------------------------------------\n"
+				+ " *** Bienvenue dans le jeu de Uno *** \n"
+				+ "--------------------------------------\n");
 		System.out.println("Vous allez débuter une partie.");
 		
 		// Choix du nb de joueur humain et ia

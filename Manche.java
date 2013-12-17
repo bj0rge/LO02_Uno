@@ -113,7 +113,7 @@ public class Manche {
 		
 		Defausse.getInstance().defausser(c);
 		
-		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".");
+		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 
 		c.appliquerEffets(true);
 	}

@@ -34,26 +34,27 @@ public class CarteChangerSens extends Carte {
 
 	public void appliquerEffets(boolean premier_tour){
 		
-		System.out.println("Le jeu change de sens !");
+		System.out.println("Le jeu change de sens !\n");
 		Manche.getInstance().changerSens();
-		if (premier_tour) {
-			if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS || 
-					(Partie.getInstance().getMode() == ModeDeJeu.CHALLENGE 
-						&& Partie.getInstance().getListeJoueurs().size() == 2)){
+		
+		if (Partie.getInstance().getListeJoueurs().size() > 2){
+			if (premier_tour) {
 				Manche.getInstance().passerJoueur();
-			} else { 
 				Manche.getInstance().passerJoueur();
+				
+				System.out.println("C'est donc " + Manche.getInstance().getJoueurActuel() + " qui commence.");
+			}
+		} else {
+			if (!premier_tour){
+				System.out.println(Manche.getInstance().getJoueurActuel() + " peut rejouer.");
 				Manche.getInstance().passerJoueur();
 			}
-
-			System.out.println("C'est donc " + Manche.getInstance().getJoueurActuel() + " qui commence.");
-
 		}
 	}
 	
 	public String toString(){
 		
-		return ("<> " + this.getCouleur());
+		return ("<-> " + this.getCouleur());
 		
 	}
 }

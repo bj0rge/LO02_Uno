@@ -126,7 +126,7 @@ public class Joueur {
 	
 	public void jouer() {
 				
-		System.out.println("\n" + this + ", que voulez-vous faire ?\n");
+		System.out.println(this + ", que voulez-vous faire ?\n");
 		
 		boolean fintour = false;
 	
@@ -186,6 +186,11 @@ public class Joueur {
 			}
 		}
 		while(!fintour);
+		
+		if (this.getMain().getCartes().size() == 1){
+			System.out.println(this + " annonce UNO !\n");
+		}
+		
 	}
 	
 	/**

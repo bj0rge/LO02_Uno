@@ -67,6 +67,11 @@ public class JoueurIA extends Joueur {
 				this.getStrategie().set(this);
 				this.getStrategie().jouer(this);
 				fin_tour = true;
+				
+				if (this.getMain().getCartes().size() == 1){
+					System.out.println(this + " annonce UNO !\n");
+				}
+				
 			}
 			else {
 				if (this.aPioche()) {
@@ -81,7 +86,7 @@ public class JoueurIA extends Joueur {
 				}
 			}
 		}
-		while (!fin_tour);
+		while (!fin_tour);		
 	}
 	
 

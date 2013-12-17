@@ -21,7 +21,7 @@ public class Manche {
 	 * Nombre de cartes à piocher lors du début d'un tour.<br>
 	 * NB_CARTES_INITIAL = {@value}
 	 */
-	public static final int NB_CARTES_INITIAL = 1;
+	public static final int NB_CARTES_INITIAL = 7;
 		
 	
 	/**
@@ -170,8 +170,8 @@ public class Manche {
 	}
 	
 	/**
-	 * Compte les points dans la Main de chaque Joueur et les additionne.
-	 * @return Le nombre de points contenu dans chaque Main
+	 * Compte les points dans la Main d'un Joueur
+	 * @return Le nombre de points contenu dans une Main
 	 */
 	public int compterPoints(Joueur j) {
 		int points = 0;

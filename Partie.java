@@ -95,8 +95,8 @@ public class Partie
 				nbj = 0;
 			} else if (nbj == 2){
 				System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
-				System.out.println("[0] Oui");
-				System.out.println("[1] Non");
+				System.out.println("[1] Oui");
+				System.out.println("[2] Non");
 				if (this.demanderInt() == 1){
 					nbj = 0;
 				} else {
@@ -153,10 +153,10 @@ public class Partie
 		System.out.println("Voulez-vous changer les paramètres de base ?");
 		System.out.println("[0] Ne rien changer.");
 		if (this.getMode() != ModeDeJeu.CHALLENGE){
-			System.out.println("[1] Changer le nombre de points avant de gagner la partie. (Default : 500 pts)");
+			System.out.println("[1] Changer le nombre de points avant de gagner la partie. (Par défaut : 500 pts)");
 			System.out.println("[2] Changer le nombre de manches maximum. (Default : aucun)");
 		} else {
-			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Default : 500 pts)");
+			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Par défaut : 500 pts)");
 		}
 
 		int choixParam = this.demanderInt();
@@ -185,6 +185,8 @@ public class Partie
 	public void constituerEquipe(){
 		
 		int x = (this.getListeJoueurs().size() / 2);
+		
+		System.out.println("\n");
 		
 		for (int i = 0; i < x; i++){
 			System.out.println(this.getListeJoueurs().get(i) + " joue avec " + this.getListeJoueurs().get(i + x) + ".");
@@ -295,6 +297,8 @@ public class Partie
 				}
 			
 			System.out.println("\n" + this.getListeJoueurs().get(index_vainqueur) + " a gagné la manche ! Il empoche " + points + " points.\n");
+			
+			it = joueurs.iterator();
 			
 			while (it.hasNext()){
 				Joueur j = it.next();

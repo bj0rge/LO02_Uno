@@ -94,14 +94,23 @@ public class Partie
 				System.out.println("Vous ne pouvez pas jouer tout seul !");
 				nbj = 0;
 			} else if (nbj == 2){
-				System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
-				System.out.println("[1] Oui");
-				System.out.println("[2] Non");
-				if (this.demanderInt() == 1){
-					nbj = 0;
-				} else {
-					nbj = 2;
-					this.setMode(ModeDeJeu.DEUX_JOUEURS);
+				
+				int reponse = 0;
+				
+				while (reponse != 1 && reponse != 2) {
+					System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
+					System.out.println("[1] Oui");
+					System.out.println("[2] Non");
+				
+					reponse = this.demanderInt();
+				
+					if (reponse == 1){
+						this.setMode(ModeDeJeu.DEUX_JOUEURS);
+					} else if (reponse == 2){
+						nbj = 0;
+					} else {
+						System.out.println("Erreur de commande.");
+					}
 				}
 			}			
 		}
@@ -151,12 +160,12 @@ public class Partie
 		
 		
 		System.out.println("Voulez-vous changer les paramètres de base ?");
-		System.out.println("[0] Ne rien changer.");
+		System.out.println("[0] Ne rien changer. (Par défaut : 500 points et aucune manche maximum)");
 		if (this.getMode() != ModeDeJeu.CHALLENGE){
-			System.out.println("[1] Changer le nombre de points avant de gagner la partie. (Par défaut : 500 pts)");
-			System.out.println("[2] Changer le nombre de manches maximum. (Default : aucun)");
+			System.out.println("[1] Changer le nombre de points avant de gagner la partie.");
+			System.out.println("[2] Changer le nombre de manches maximum.");
 		} else {
-			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé. (Par défaut : 500 pts)");
+			System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé.");
 		}
 
 		int choixParam = this.demanderInt();
@@ -296,7 +305,7 @@ public class Partie
 				points += Manche.getInstance().compterPoints(j);
 				}
 			
-			System.out.println("\n" + this.getListeJoueurs().get(index_vainqueur) + " a gagné la manche ! Il empoche " + points + " points.\n");
+			System.out.println(this.getListeJoueurs().get(index_vainqueur) + " a gagné la manche ! Il empoche " + points + " points.\n");
 			
 			it = joueurs.iterator();
 			

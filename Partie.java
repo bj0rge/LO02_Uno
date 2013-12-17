@@ -82,17 +82,12 @@ public class Partie
 		int nbj = 0;
 		int nbia = 0;
 		
-		while (nbj == 0) {
-			do { 
-				System.out.println("Combien de joueurs voulez-vous ? (10 joueurs max)");
-				nbj = this.demanderInt();
-			} while (nbj > 10);
+		while (nbj <= 1 || nbj > 10) {
+			System.out.println("Combien de joueurs voulez-vous ?");
+			nbj = this.demanderInt();
 			
-			if (nbj == 0){
+			if (nbj <= 1){
 				System.out.println("Il faut au moins deux joueurs pour jouer au UNO !");
-			} else if (nbj == 1){
-				System.out.println("Vous ne pouvez pas jouer tout seul !");
-				nbj = 0;
 			} else if (nbj == 2){
 				
 				int reponse = 0;
@@ -112,7 +107,9 @@ public class Partie
 						System.out.println("Erreur de commande.");
 					}
 				}
-			}			
+			} else if (nbj > 10){
+				System.out.println("Il ne peut y avoir plus de 10 joueurs !");
+			}
 		}
 		
 		System.out.println("Parmi ces " + nbj + " joueurs, combien de joueurs IA ?");
@@ -140,8 +137,8 @@ public class Partie
 		
 		int choixMode = -1;
 		
-		while (choixMode == -1) {
-			if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
+		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
+			while (choixMode == -1) {
 				System.out.println("Quel mode de jeu voulez-vous ?");
 				System.out.println("[0] STANDARD");
 				System.out.println("[1] CHALLENGE");

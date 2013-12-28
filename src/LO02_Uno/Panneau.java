@@ -1,13 +1,21 @@
 package LO02_Uno;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Panneau extends JPanel {
-	public void paintComponent(Graphics g) {
-		int TAILLE = 80;
-		int x1 = (this.getWidth() / 2) - (TAILLE/2);
-		int y1 = (this.getHeight() / 2) - (TAILLE / 2);
-		g.fillOval(x1, y1, TAILLE, TAILLE);
+	  public void paintComponent(Graphics g){
+	    try {
+	      Image img = ImageIO.read(new File("verso.png"));
+	      g.drawImage(img, (this.getWidth()/2 - 110/2), (this.getHeight()/2 - 175/2), this);
+	      //Pour une image de fond
+	      //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    }                
+	  }               
 	}
-}

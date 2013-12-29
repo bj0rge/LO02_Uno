@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class Panneau extends JPanel {
 	  public void paintComponent(Graphics g){
 	    try {
-	      Image img = ImageIO.read(new File("verso.png"));
+	      Image img = ImageIO.read(new File("images/verso.png"));
 	      g.drawImage(img, (this.getWidth()/2 - 110/2), (this.getHeight()/2 - 175/2), this);
 	      //Pour une image de fond
 	      //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);

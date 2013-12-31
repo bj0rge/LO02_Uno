@@ -1,4 +1,4 @@
-package LO02_Uno;
+package LO02_Graphique;
 
 import javax.swing.JFrame;
 

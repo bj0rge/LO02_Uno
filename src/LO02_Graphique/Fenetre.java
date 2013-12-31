@@ -1,32 +1,51 @@
 package LO02_Graphique;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
 
-import java.awt.Dimension;
-
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements ActionListener {
 
 	private Panneau pan = new Panneau();
-	private JButton bouton = new JButton("Autodestruction");
+	private JButton bouton = new JButton("Clic count");
+	private JButton bouton2 = new JButton("Joli bouton");
 	private JPanel container = new JPanel();
+	private JLabel label = new JLabel("Trololo !");
+	private int compteur = 0;
 
 	public Fenetre() {
 		this.setTitle("UNO");
 		this.setSize(400, 500);
 		this.setLocationRelativeTo(null); // Pour centrer la JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Pour terminer le processus en fermant la fenêtre
+		
+		
 		container.setBackground(Color.white);
-	    container.setLayout(new BorderLayout());
+		container.setLayout(new BorderLayout());
 	    container.add(pan, BorderLayout.CENTER);
-	    container.add(bouton, BorderLayout.NORTH);
 	    
-		this.setContentPane(container); // On prévient notre JFrame que notre JPanel sera son content pane
+	    bouton.addActionListener(this);
+	    bouton2.addActionListener(this);
+	    
+	    JPanel bouton_pan = new JPanel();
+	    bouton_pan.add(bouton);
+	    bouton_pan.add(bouton2);
+	    
+	    container.add(bouton_pan, BorderLayout.NORTH);
+	    
+	    container.add(label, BorderLayout.SOUTH);	
+	    
+	    Font police = new Font("Tahoma", Font.BOLD, 16);
+	    label.setFont(police);
+	    label.setForeground(new Color(35,31,32));
+	    label.setHorizontalAlignment(JLabel.CENTER);
+	    
+	    
+	    
+		this.setContentPane(container); // On prévient notre JFrame que notre container sera son content pane
 		this.setVisible(true);
 		go();
 	}
@@ -74,5 +93,15 @@ public class Fenetre extends JFrame {
 		}
 		
 		
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getSource() == bouton) {
+			this.compteur++;
+			label.setText("Vous avez cliqué " + this.compteur + " fois sur le compteur");
+		}
+		if(arg0.getSource() == bouton2) {
+			label.setText("Vous avez cliqué sur le joli bouton");
+		}
 	}
 }

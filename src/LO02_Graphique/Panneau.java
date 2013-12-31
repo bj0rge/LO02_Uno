@@ -18,7 +18,7 @@ public class Panneau extends JPanel {
 		try {
 			
 			//On choisit une couleur de fond pour le rectangle
-		    g.setColor(Color.white);
+		    g.setColor(new Color(0,114,61));
 		    //On le dessine de sorte qu'il occupe toute la surface
 		    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		    

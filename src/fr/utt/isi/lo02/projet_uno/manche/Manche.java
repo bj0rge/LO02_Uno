@@ -3,9 +3,9 @@ package fr.utt.isi.lo02.projet_uno.manche;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import LO02_Uno.Partie;
 import fr.utt.isi.lo02.projet_uno.carte.Carte;
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
+import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 
 /**

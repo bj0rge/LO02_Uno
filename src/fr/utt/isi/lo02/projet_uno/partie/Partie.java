@@ -1,4 +1,4 @@
-package LO02_Uno;
+package fr.utt.isi.lo02.projet_uno.partie;
 
 import java.io.IOException;
 import java.util.ArrayList;

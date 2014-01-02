@@ -2,12 +2,12 @@ package fr.utt.isi.lo02.projet_uno.joueur;
 
 import java.util.Iterator;
 
-import LO02_Uno.Partie;
 import fr.utt.isi.lo02.projet_uno.carte.Carte;
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
 import fr.utt.isi.lo02.projet_uno.manche.Pioche;
+import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 
 /**

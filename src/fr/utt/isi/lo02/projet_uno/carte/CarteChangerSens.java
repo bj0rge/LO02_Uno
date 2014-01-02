@@ -2,7 +2,7 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
-import LO02_Uno.Partie;
+import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 /**
  * <b>CarteChangerSens est la classe représentant une Carte Changement de sens du jeu de UNO.</b>

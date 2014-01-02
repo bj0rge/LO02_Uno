@@ -2,6 +2,8 @@ package LO02_Uno;
 
 import java.util.Scanner;
 
+import fr.utt.isi.lo02.projet_uno.partie.Partie;
+
 /**
  * <b>Crée la Partie et permet de jouer.</b>
  *

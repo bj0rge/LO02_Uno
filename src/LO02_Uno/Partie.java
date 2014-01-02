@@ -5,6 +5,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Iterator;
 
+import fr.utt.isi.lo02.projet_uno.carte.CarteChangerCouleur;
+import fr.utt.isi.lo02.projet_uno.carte.CarteChangerSens;
+import fr.utt.isi.lo02.projet_uno.carte.CarteNumerotee;
+import fr.utt.isi.lo02.projet_uno.carte.CartePasserTour;
+import fr.utt.isi.lo02.projet_uno.carte.CartePlusDeux;
+import fr.utt.isi.lo02.projet_uno.carte.CartePlusQuatre;
+import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
+import fr.utt.isi.lo02.projet_uno.enumeration.ModeDeJeu;
+import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
+import fr.utt.isi.lo02.projet_uno.joueur.JoueurIA;
+import fr.utt.isi.lo02.projet_uno.manche.Manche;
+import fr.utt.isi.lo02.projet_uno.manche.Pioche;
+import fr.utt.isi.lo02.projet_uno.strategy.JouerChiffres;
+
 /**
  * <b>Partie est la classe représentant la Partie de UNO. Elle permettra de faire boucler les Manches du jeu.</b>
  * <p>

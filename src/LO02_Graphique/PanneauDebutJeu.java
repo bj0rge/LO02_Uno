@@ -57,8 +57,7 @@ public class PanneauDebutJeu extends JPanel {
 	class BoutonListener implements ActionListener {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("On vient de me cliquer !");
-			fenetre_principale.switchPan();
+			fenetre_principale.switchPan(PanneauDebutJeu.class);
 		}
 	}
 }

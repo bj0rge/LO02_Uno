@@ -43,7 +43,7 @@ public class Fenetre extends JFrame {
 	
 	public void switchPan(Class c) {
 		if (c == PanneauDebutJeu.class) {
-			cl.show(container, listContent[1]);
+			cl.show(container, listContent[0]);
 		}
 	}
 

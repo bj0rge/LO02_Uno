@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +21,7 @@ public class PanneauSelectionOptions extends PanneauVert {
 	private JPanel pan_opt = new PanneauOptions();
 	private JLabel lab = new LabelVert("Sélection des options", JLabel.CENTER);
 	private Fenetre fenetre_principale;
+	private int nbhumains = 1, nbia = 3;
 	
 	public PanneauSelectionOptions(Fenetre fen) {
 		this.fenetre_principale = fen;
@@ -33,6 +36,7 @@ public class PanneauSelectionOptions extends PanneauVert {
 	private class PanneauOptions extends PanneauVert {
 		private JPanel opt = new PanneauVert(); // Contient les différentes options possibles
 		private JPanel opt_container = new PanneauVert();
+		private JLabel attention_label = new LabelVert("Attention : ne dépassez pas un total de 10 joueurs - Veillez à avoir au moins 2 joueurs");
 		
 		public PanneauOptions() {
 			JPanel jhumains = new OptPan("humans", "humains", 1);
@@ -47,13 +51,18 @@ public class PanneauSelectionOptions extends PanneauVert {
 			
 			JButton val_button = new JButton("Valider");
 			val_button.addActionListener(new BoutonListener());
-			JLabel attention_label = new LabelVert("Attention : ne dépassez pas un total de 10 joueurs");
 			JPanel val_panel = new PanneauVert();
 			
 			val_panel.add(attention_label);
 			val_panel.add(val_button);
 			opt_container.add(val_panel, BorderLayout.SOUTH);
-			
+		}
+		
+		public void setColorAttentionLabel(Color c) {
+			attention_label.setForeground(c);
+		}
+		public Color getColorAttentionLabel() {
+			return attention_label.getForeground();
 		}
 	}
 	
@@ -75,12 +84,13 @@ public class PanneauSelectionOptions extends PanneauVert {
 			label.setHorizontalTextPosition(JLabel.LEFT);
 			jp.add(label);
 			
-			combo.setPreferredSize(new Dimension(35, 20));
+			combo.setPreferredSize(new Dimension(40, 20));
 			for (int i = 0; i <= 10; i++) {
 				combo.addItem(i);
 			}
 			combo.setSelectedIndex(defaut);
 			jp.add(combo);
+			combo.addActionListener((type == "IA") ? new ListListenerIA() : new ListListenerHumains());
 			
 			this.add(jp, BorderLayout.CENTER);			
 		}
@@ -90,7 +100,40 @@ public class PanneauSelectionOptions extends PanneauVert {
 	private class BoutonListener implements ActionListener {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
-			fenetre_principale.switchPan(1);
+			// Si le nombre de joueurs est trop élevé ou insuffisant
+			if (nbhumains + nbia > 10 || nbhumains + nbia < 2) {
+				
+				// On fait clignoter le label
+				TimerTask task = new TimerTask() {
+					private int iterator = 0;
+						@Override
+						public void run() {
+							((PanneauOptions) pan_opt).setColorAttentionLabel((((PanneauOptions) pan_opt).getColorAttentionLabel() == Color.RED) ? Color.WHITE : Color.RED);
+							if (iterator < 3) {
+								iterator++;
+							} else {
+								this.cancel();
+							}
+						}
+					};
+				Timer timer = new Timer();
+				timer.scheduleAtFixedRate(task, 0, 200);				
+			}
+			else {
+				fenetre_principale.switchPan(1);
+			}
+		}
+	}
+	
+	private class ListListenerHumains implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			nbhumains = (int) (((JComboBox<Integer>)arg0.getSource()).getSelectedItem());
+		}
+	}
+	
+	private class ListListenerIA implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			nbia = (int) (((JComboBox<Integer>)arg0.getSource()).getSelectedItem());
 		}
 	}
 }

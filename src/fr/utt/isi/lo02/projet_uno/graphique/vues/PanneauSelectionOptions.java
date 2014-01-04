@@ -6,30 +6,35 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
+import fr.utt.isi.lo02.projet_uno.enumeration.ModeDeJeu;
 import fr.utt.isi.lo02.projet_uno.graphique.controler.NbJoueursControler;
 import fr.utt.isi.lo02.projet_uno.graphique.observer.Observable;
 import fr.utt.isi.lo02.projet_uno.graphique.observer.Observer;
+import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 
 public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	private CardLayout cl = new CardLayout();
-	private String[] listContent = {"Nbj", "Noms"};
+	private String[] listContent = {"Nbj", "Modes"};
 	private ArrayList<JPanel> cards = new ArrayList<JPanel>();
 	
 	private JPanel pan_opt_nbj = new PanneauOptionsNbj(); // Choix du nombre de joueurs
-	private JPanel pan_opt_noms = new PanneauOptionsNoms(); // Choix du nombre de joueurs
+	private JPanel pan_opt_mode = new PanneauVert(); // Choix du mode de jeu
 	private Fenetre fenetre_principale;
 	private int nbhumains = 1, nbia = 3;
 	
@@ -43,7 +48,7 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		this.fenetre_principale = fen;
 		
 		cards.add(pan_opt_nbj);	
-		cards.add(pan_opt_noms);
+//		cards.add(pan_opt_mode);
 		this.setLayout(cl);
 
 		// Pour chaque card
@@ -133,10 +138,142 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	}
 	
 	
-	private class PanneauOptionsNoms extends PanneauVert {
-		private JLabel lab = new LabelVert("Options : noms des joueurs", JLabel.CENTER);
-		public PanneauOptionsNoms() {
+	private class PanneauOptionsMode extends PanneauVert {
+		private JLabel lab = new LabelVert("Options : Modalités de jeu", JLabel.CENTER);
+		private JPanel opt = new PanneauVert(); // Contient les différentes options possibles
+		private JPanel opt_container = new PanneauVert();
+		
+		public PanneauOptionsMode() {
+//			this.setLayout(new BorderLayout());
+			this.add(lab, BorderLayout.NORTH);
+			Font f = new Font("Dialog", Font.BOLD, 24);
+			lab.setFont(f);
+			lab.setPreferredSize(new Dimension(900, 120));
 			
+			JPanel mode = new OptPan(1);
+			JPanel conditions = new OptPan(2);
+			this.add(opt_container);
+			this.setPreferredSize(new Dimension(550, 500));
+			opt_container.setLayout(new BorderLayout());
+			
+			opt_container.add(opt, BorderLayout.CENTER);
+			opt.add(mode);
+			opt.add(conditions);
+			
+			JButton ret_button = new JButton("Annuler");
+//			ret_button.addActionListener(new BoutonListenerBack());
+			JButton val_button = new JButton("Valider");
+//			val_button.addActionListener(new BoutonListenerVal());
+			JPanel val_panel = new PanneauVert();
+
+			
+			val_panel.add(ret_button);
+			val_panel.add(val_button);
+			opt_container.add(val_panel, BorderLayout.SOUTH);
+			
+			
+		}
+		
+		private class OptPan extends PanneauVert implements ActionListener {
+			private JLabel imglab = new LabelVert();
+			private JLabel label = new LabelVert();
+			private JPanel jp = new PanneauVert();
+			private JPanel opt_jcomponent_container = new PanneauVert(); // JPanel générique qui contient notre JComponent
+			
+			public OptPan(int num) {
+				
+				if (num == 1) {
+					imglab.setIcon(new ImageIcon("images/game_mode.png"));
+					label.setText("Mode de jeu :");
+					int nbj = nbhumains + nbia;
+					
+					
+					ButtonGroup group = new ButtonGroup();
+					JRadioButton standardButton = new BoutonRadioVert("Standard");
+					standardButton.setActionCommand("STANDARD");
+					
+					JRadioButton deuxJoueursButton = new BoutonRadioVert("Deux joueurs");
+					deuxJoueursButton.setActionCommand("DEUX_JOUEURS");
+					
+					JRadioButton equipeButton = new BoutonRadioVert("Par équipe");
+					equipeButton.setActionCommand("EQUIPE");
+					
+					JRadioButton challengeButton = new BoutonRadioVert("Uno Challenge");
+					challengeButton.setActionCommand("CHALLENGE");
+					
+					if (nbj == 2) { // S'il n'y a que deux joueurs, seul le mode 2 joueurs sera autorisé
+						standardButton.setEnabled(false);
+						deuxJoueursButton.setSelected(true);
+						equipeButton.setEnabled(false);
+						challengeButton.setEnabled(false);
+					}
+					else {
+						standardButton.setSelected(true);
+						deuxJoueursButton.setEnabled(false);
+					}
+					if ((nbj%2)!=0) { // On interdit le mode équipe si les joueurs sont impairs
+						equipeButton.setEnabled(false);
+					}
+					
+					group.add(standardButton);
+					group.add(deuxJoueursButton);
+					group.add(equipeButton);
+					group.add(challengeButton);
+
+					standardButton.addActionListener(this);
+					deuxJoueursButton.addActionListener(this);
+					equipeButton.addActionListener(this);
+					challengeButton.addActionListener(this);
+					
+					
+					opt_jcomponent_container.setLayout(new GridLayout(0,1));
+					opt_jcomponent_container.add(standardButton);
+					opt_jcomponent_container.add(deuxJoueursButton);
+					opt_jcomponent_container.add(equipeButton);
+					opt_jcomponent_container.add(challengeButton);
+				}
+				else {
+					imglab.setIcon(new ImageIcon("images/victory_params.png"));
+					label.setText("Conditions de victoire :");
+				}
+				this.setPreferredSize(new Dimension(250, 250));
+				this.setLayout(new BorderLayout());
+				
+				imglab.setHorizontalAlignment(JLabel.CENTER);
+				this.add(imglab, BorderLayout.NORTH);
+				
+				label.setHorizontalTextPosition(JLabel.LEFT);
+				jp.add(label);
+				jp.add(opt_jcomponent_container);
+				
+//				combo.setPreferredSize(new Dimension(40, 20));
+//				for (int i = 0; i <= 10; i++) {
+//					combo.addItem(i);
+//				}
+//				combo.setSelectedIndex(defaut);
+//				jp.add(combo);
+//				combo.addActionListener((type == "IA") ? new ListListenerIA() : new ListListenerHumains());
+				
+				this.add(jp, BorderLayout.CENTER);			
+			}
+			
+			public void actionPerformed(ActionEvent e) {
+				Partie partie = Partie.getInstance();
+				switch(e.getActionCommand()) {
+				case "STANDARD":
+					partie.setMode(ModeDeJeu.STANDARD);
+					break;
+				case "DEUX_JOUEURS":
+					partie.setMode(ModeDeJeu.DEUX_JOUEURS);
+					break;
+				case "EQUIPE":
+					partie.setMode(ModeDeJeu.EQUIPE);
+					break;
+				case "CHALLENGE":
+					partie.setMode(ModeDeJeu.CHALLENGE);
+					break;
+				}
+		    }
 		}
 	}
 	
@@ -173,7 +310,10 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	@Override
 	public void update(boolean controle_ok) {
 		if (controle_ok) {
-			fenetre_principale.switchPan(Fenetre.DEBUT_JEU);
+//			fenetre_principale.switchPan(Fenetre.DEBUT_JEU);
+			pan_opt_mode = new PanneauOptionsMode();
+			this.add(pan_opt_mode, listContent[1]);
+			cl.next(this);
 		}
 		else {
 			// On fait clignoter le label
@@ -190,7 +330,7 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 					}
 				};
 			Timer timer = new Timer();
-			timer.scheduleAtFixedRate(task, 0, 200);
+			timer.scheduleAtFixedRate(task, 0, 100);
 		}
 	}
 

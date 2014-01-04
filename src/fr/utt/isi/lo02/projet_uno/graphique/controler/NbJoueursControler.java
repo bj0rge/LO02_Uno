@@ -39,7 +39,8 @@ public class NbJoueursControler implements Observable {
 	
 	public void control() {
 		if (!(nbhumains + nbia > 10 || nbhumains + nbia < 2)) {
-			
+			// Remise à 0 de la liste si le lanceur s'est planté et veut recommencer
+			partie.setListeJoueurs(new ArrayList<Joueur>());
 			for (int i = 0; i < nbhumains; i++) {
 				DialogBoxUsername perso = new DialogBoxUsername(true, i+1);
 				partie.ajouterJoueur(new Joueur(perso.getNom()));

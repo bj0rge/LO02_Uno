@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Fenetre extends JFrame {
 	
+	public static final int DEBUT_JEU = 0, SELECTION_OPTIONS = 1;
 	private CardLayout cl = new CardLayout(); // CardLayout, permet d'afficher différents jpanels successifs
 	private JPanel container = new PanneauVert(); // JPanel principal
 	private String[] listContent = {"Accueil", "Options"};
@@ -52,15 +53,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void switchPan(int num) {		
-		switch(num) {
-		case 0:
-			cl.show(container, listContent[1]);
-			break;
-		case 1:
-			System.out.println("Ouiiiii, ça marche !");
-			break;
-		}
-		
+		cl.show(container, listContent[num]);		
 	}
 
 	public static void main(String args[]) {

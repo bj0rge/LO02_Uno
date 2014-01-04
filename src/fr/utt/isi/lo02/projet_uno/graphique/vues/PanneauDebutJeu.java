@@ -70,7 +70,7 @@ public class PanneauDebutJeu extends PanneauVert {
 	private class BoutonListener implements ActionListener {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
-			fenetre_principale.switchPan(0);
+			fenetre_principale.switchPan(Fenetre.SELECTION_OPTIONS);
 		}
 	}
 }

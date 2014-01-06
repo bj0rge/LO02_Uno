@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -36,7 +38,7 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	private JPanel pan_opt_nbj = new PanneauOptionsNbj(); // Choix du nombre de joueurs
 	private JPanel pan_opt_mode = new PanneauVert(); // Choix du mode de jeu
 	private Fenetre fenetre_principale;
-	private int nbhumains = 1, nbia = 3;
+	private int nbhumains = 1, nbia = 3, pts_max = 500, tours_max = 0;
 	
 	// L'instance de l'objet controleur
 	private NbJoueursControler controler = new NbJoueursControler();
@@ -142,6 +144,9 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		private JLabel lab = new LabelVert("Options : Modalités de jeu", JLabel.CENTER);
 		private JPanel opt = new PanneauVert(); // Contient les différentes options possibles
 		private JPanel opt_container = new PanneauVert();
+		JFormattedTextField nb_pts_max = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		JFormattedTextField nb_tours_max = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		JLabel indication = new LabelVert("Si valeur = 0, pas de limite.");
 		
 		public PanneauOptionsMode() {
 //			this.setLayout(new BorderLayout());
@@ -161,9 +166,9 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 			opt.add(conditions);
 			
 			JButton ret_button = new JButton("Annuler");
-//			ret_button.addActionListener(new BoutonListenerBack());
+			ret_button.addActionListener(new BoutonListenerBack());
 			JButton val_button = new JButton("Valider");
-//			val_button.addActionListener(new BoutonListenerVal());
+			val_button.addActionListener(new BoutonListenerVal());
 			JPanel val_panel = new PanneauVert();
 
 			
@@ -189,6 +194,7 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 					
 					
 					ButtonGroup group = new ButtonGroup();
+					
 					JRadioButton standardButton = new BoutonRadioVert("Standard");
 					standardButton.setActionCommand("STANDARD");
 					
@@ -235,8 +241,36 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 				else {
 					imglab.setIcon(new ImageIcon("images/victory_params.png"));
 					label.setText("Conditions de victoire :");
+					
+					Font f = new Font("Dialog", Font.BOLD, 10);
+					indication.setFont(f);
+
+					
+					Font f2 = new Font("Arial", Font.BOLD, 14);
+				    nb_pts_max.setFont(f2);
+				    nb_tours_max.setFont(f2);
+				    nb_pts_max.setPreferredSize(new Dimension(40, 30));
+				    nb_tours_max.setPreferredSize(new Dimension(40, 30));
+				    nb_pts_max.setText("500");
+				    nb_tours_max.setText("0");
+				    
+				    opt_jcomponent_container.setLayout(new GridLayout(0,1));
+					opt_jcomponent_container.add(indication);
+					
+				    JPanel pan1 = new PanneauVert();
+				    pan1.add(new LabelVert("Nb points max "));
+				    pan1.add(nb_pts_max);
+				    
+				    JPanel pan2 = new PanneauVert();
+				    pan2.add(new LabelVert("Nb tours max  "));
+				    pan2.add(nb_tours_max);
+
+				    opt_jcomponent_container.add(pan1);
+				    opt_jcomponent_container.add(pan2);
 				}
-				this.setPreferredSize(new Dimension(250, 250));
+				
+				
+				this.setPreferredSize(new Dimension(250, 300));
 				this.setLayout(new BorderLayout());
 				
 				imglab.setHorizontalAlignment(JLabel.CENTER);
@@ -275,6 +309,27 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 				}
 		    }
 		}
+		
+		// Classe écoutant notre bouton
+		private class BoutonListenerVal implements ActionListener {
+			// Redéfinition de la méthode actionPerformed()
+			public void actionPerformed(ActionEvent arg0) {
+				pts_max = Integer.parseInt(nb_pts_max.getText());
+				tours_max = Integer.parseInt(nb_tours_max.getText());
+				
+				if (pts_max == 0 && tours_max == 0) {
+					indication.setText("Changez une valeur");
+					indication.setForeground(Color.RED);
+				}
+				else {
+					Partie partie = Partie.getInstance();
+					partie.setNb_pts_max(pts_max);
+					partie.setNb_manches_max(tours_max);
+					fenetre_principale.switchPan(Fenetre.TOUR);
+				}
+				
+			}
+		}
 	}
 	
 	
@@ -287,8 +342,18 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
 			controler.setNbhumains(nbhumains);
-			controler.setNbia(nbia);			
+			controler.setNbia(nbia);
 			controler.control();
+		}
+	}
+
+	
+
+	// Classe écoutant notre bouton
+	private class BoutonListenerBack implements ActionListener {
+		// Redéfinition de la méthode actionPerformed()
+		public void actionPerformed(ActionEvent arg0) {
+			cl.previous(getPan());
 		}
 	}
 	
@@ -334,6 +399,8 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		}
 	}
 
-	
+	public JPanel getPan() {
+		return this;
+	}
 	
 }

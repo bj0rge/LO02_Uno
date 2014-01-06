@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class Fenetre extends JFrame {
 	
-	public static final int DEBUT_JEU = 0, SELECTION_OPTIONS = 1;
+	public static final int DEBUT_JEU = 0, SELECTION_OPTIONS = 1, TOUR = 2;
 	private CardLayout cl = new CardLayout(); // CardLayout, permet d'afficher différents jpanels successifs
 	private JPanel container = new PanneauVert(); // JPanel principal
-	private String[] listContent = {"Accueil", "Options"};
+	private String[] listContent = {"Accueil", "Options", "Tour"};
 	private ArrayList<JPanel> cards = new ArrayList<JPanel>();
 
 	public Fenetre() {
@@ -37,6 +37,7 @@ public class Fenetre extends JFrame {
 		// On crée les conteneurs des différentes fenêtres
 		cards.add(new PanneauDebutJeu(this)); // JPanel de l'action en cours
 		cards.add(new PanneauSelectionOptions(this)); // JPanel de sélection des options
+		cards.add(new PanneauTour(this)); // JPanel de tour de jeu
 		
 		// On définit le système de positionnement avec le CardLayer
 		container.setLayout(cl);

@@ -43,7 +43,7 @@ public class CartePasserTour extends Carte {
 	 * <p>Applique l'effet de CartePasserTour : le joueur suivant passe son tour.</p>
 	 * 
 	 * @param premier_tour
-	 * 			<li> <b>Si vrai</b> : c'est le premier joueur qui passe son tour.
+	 * 			<li> Si <i>Vrai</i> : le premier joueur passe son tour.
 	 * @see Manche#passerJoueur()
 	 */
 	public void appliquerEffets(boolean premier_tour){

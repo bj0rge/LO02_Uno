@@ -41,8 +41,8 @@ public class CarteChangerSens extends Carte {
 	 * <p>Applique l'effet de CarteChangerSens : le jeu change de sens.</p>
 	 * 
 	 * @param premier_tour
-	 * 			<li> Si vrai et qu'il y a plus de 2 joueurs, c'est le joueur à gauche du donneur qui commence.
-	 * 			<li> Si faux et qu'il n'y a que 2 joueurs dans la partie, le joueur actuel rejoue.
+	 * 			<li> Si <i>Vrai</i> et qu'il y a plus de 2 joueurs, c'est le joueur à gauche du donneur qui commence.
+	 * 			<li> Si <i>Faux</i> et qu'il n'y a que 2 joueurs dans la partie, le joueur actuel rejoue.
 	 * @see Manche#changerSens()
 	 * @see Manche#passerJoueur()
 	 */

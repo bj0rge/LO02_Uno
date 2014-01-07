@@ -39,7 +39,7 @@ public class CartePlusQuatre extends CarteJoker {
 	 * <p>Applique l'effet de CartePlusQuatre : le joueur qui pose cette carte choisit la couleur qu'elle prend puis le joueur suivant pioche 4 cartes et passe son tour.</p>
 	 * 
 	 * @param premier_tour
-	 * 			<b>Si vrai</b>, on repioche une nouvelle carte.
+	 * 			Si <i>Vrai</i>, on repioche une nouvelle carte.
 	 * @see Joueur#choixCouleur()
 	 * @see Joueur#piocher()
 	 */  

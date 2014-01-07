@@ -43,7 +43,7 @@ public class CartePlusDeux extends Carte {
 	/**
 	 * Applique les effets de CartePlusDeux : le joueur suivant pioche deux cartes.
 	 * @param premier_tour
-	 * 			<b>Si vrai</b>, c'est le joueur actuel qui pioche deux cartes.
+	 * 			Si <i>Vrai</i>, c'est le joueur actuel qui pioche deux cartes.
 	 * @see Joueur#piocher()
 	 */
 	public void appliquerEffets(boolean premier_tour){

@@ -29,7 +29,7 @@ public class CarteChangerCouleur extends CarteJoker{
 	
 	/**
 	 * Renvoie que CarteChangerCouleur est toujours jouable.
-	 * @return Vrai
+	 * @return <i>Vrai</i>
 	 */
 	public boolean estJouable(Carte c) {
 		return true;
@@ -39,7 +39,7 @@ public class CarteChangerCouleur extends CarteJoker{
 	 * <p>Applique l'effet de CarteChangerCouleur : le joueur qui pose cette carte choisit la couleur qu'elle prend.</p>
 	 * 
 	 * @param premier_tour
-	 * 			Si vrai, le premier joueur peut jouer ce qu'il veut.
+	 * 			Si <i>Vrai</i>, le premier joueur peut jouer ce qu'il veut.
 	 * @see Joueur#choixCouleur()
 	 */
 	public void appliquerEffets(boolean premier_tour){

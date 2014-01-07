@@ -51,7 +51,7 @@ public class CarteNumerotee extends Carte {
 		return retour;
 	}
 	
-	// Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
+	// Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère, donc une implémentation fictive est obligatoire.
 	public void appliquerEffets(boolean premier_tour) { }
 	
 	/**

@@ -20,6 +20,7 @@ import fr.utt.isi.lo02.projet_uno.partie.Partie;
  * <li>Son score actuel</li>
  * <li>Le fait qu'il ait ou non dit "UNO" lors de son dernier tour</li>
  * <li>Le fait qu'il ait ou non déjà pioché ce tour</li>
+ * <li>Son score</li>
  * </ul>
  * </p>
  * @see Main
@@ -56,9 +57,9 @@ public class Joueur {
      * Constructeur du Joueur.
      * <p>
      * A la construction d'un objet Joueur, la Main est créée vide, elle sera remplie par
-     * la suite. Le score est également initialisé à 0, et les variables a_dit_uno et a_pioche à <i>false</i>.
-     * vide.
+     * la suite. Le score est également initialisé à 0, et les variables a_dit_uno et a_pioche à <i>faux</i>.
      * </p>
+     * @see Main
      */
 	public Joueur(String nom) {
 		this.setNom(nom);
@@ -70,7 +71,7 @@ public class Joueur {
 
 	/**
 	 * Retourne la nature du Joueur.
-	 * @return <i>true</i> si le Joueur est humain, <i>false</i> sinon.
+	 * @return <i>Vrai</i> si le Joueur est humain, <i>Faux</i> sinon.
 	 */
 	public boolean estHumain() {
 		return true;

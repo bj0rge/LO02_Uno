@@ -24,7 +24,7 @@ public abstract class Carte {
 	private int points;
 	
 	/**
-	 * La couleur portée par la carte. Peut être nul pour des Cartes Joker.
+	 * La {@link Couleur} portée par la carte. Peut être nul pour des Cartes Joker.
 	 */
 	private Couleur couleur;
 	
@@ -34,7 +34,7 @@ public abstract class Carte {
 	 * @param points
 	 * 			Le nombre de points que rapporte la Carte.
 	 * @param couleur
-	 * 			La couleur portée par la Carte. La valeur peut être égale à <i>null</i>.
+	 * 			La {@link Couleur} portée par la Carte. La valeur peut être égale à <i>null</i>.
 	 */
 	public Carte(int points, Couleur couleur){
 		this.setPoints(points);
@@ -44,9 +44,9 @@ public abstract class Carte {
 	
 	
 	/**
-	 * Retourne la possibilité ou non de jouer la Carte par rapport à la dernière posée dans la Défausse.
-	 * @return <li><b> Si jouable :</b> Vrai
-	 * <li><b> Si non jouable :</b> Faux
+	 * Retourne la possibilité ou non de jouer la Carte par rapport à la dernière posée dans la défausse.
+	 * @return <li> Si jouable : <i>Vrai</i>
+	 * <li> Si non jouable : <i>Faux</i>
 	 * @see Defausse
 	 */
 	public boolean estJouable(Carte c) {
@@ -60,7 +60,7 @@ public abstract class Carte {
 	/**
 	 * Applique les effets induits par la carte.
 	 * @param premier_tour
-	 * 			Les effets d'une carte sont légèrement modifiées si elle est retournée de la Pioche dans la Défausse au premier tour.
+	 * 			Les effets d'une carte sont légèrement modifiées si elle est retournée de la pioche dans la défausse au premier tour.
 	 * @see Pioche
 	 * @see Defausse
 	 */
@@ -77,8 +77,7 @@ public abstract class Carte {
 
 	/**
 	 * Retourne la couleur de la Carte.
-	 * @return Une instance de Couleur, qui correspond à la couleur portée par la Carte.
-	 * @see Couleur
+	 * @return Une instance de {@link Couleur}, qui correspond à la couleur portée par la Carte.
 	 */
 	public Couleur getCouleur() {
 		return couleur;
@@ -98,8 +97,7 @@ public abstract class Carte {
 	/**
 	 * Met à jour la couleur de la Carte.
 	 * @param couleur
-	 * 			La nouvelle couleur de la Carte.
-	 * @see Couleur
+	 * 			La nouvelle {@link Couleur} de la Carte.
 	 */
 	public void setCouleur(Couleur couleur) {
 		this.couleur = couleur;

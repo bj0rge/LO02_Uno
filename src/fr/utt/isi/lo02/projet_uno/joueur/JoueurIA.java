@@ -157,7 +157,7 @@ public class JoueurIA extends Joueur {
 	
 
 	/**
-	 * Retourne la {@link #stratégie} en cours.
+	 * Retourne la {@link #strategie} en cours.
 	 * @return Stratégie actuelle du JoueurIA.
 	 */
 	public Strategy getStrategie() {
@@ -165,7 +165,7 @@ public class JoueurIA extends Joueur {
 	}
 
 	/**
-	 * Met à jour la {@link #stratégie} du JoueurIA.
+	 * Met à jour la {@link #strategie} du JoueurIA.
 	 * @param strategie
 	 * 			Stratégie à remplacer.
 	 */

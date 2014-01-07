@@ -8,9 +8,9 @@ import fr.utt.isi.lo02.projet_uno.carte.CarteJoker;
 
 
 /**
- * <b>Defausse est la classe représentant la Défausse du jeu de UNO.</b>
+ * <b>Defausse est la classe représentant la défausse du jeu de UNO.</b>
  * <p>
- * La Défausse est une classe unique (singleton), et est caractérisée par :
+ * La défausse est une classe unique (singleton), et est caractérisée par :
  * <ul>
  * <li>Une instance statique d'elle-même</li>
  * <li>Une liste de Cartes</li>
@@ -21,7 +21,7 @@ import fr.utt.isi.lo02.projet_uno.carte.CarteJoker;
 public class Defausse {
 	
 	/**
-	 * L'instance de la {@link Défausse}.
+	 * L'instance de la {@link Defausse}.
 	 */
 	// L'utilisation du mot clé volatile permet, en Java version 5 et supérieur, 
 	// d'éviter le cas  où "Singleton.instance" est non-nul,
@@ -29,7 +29,7 @@ public class Defausse {
 	private static volatile Defausse instance = null;
 	
 	/**
-	 * Les Cartes contenues dans la {@link Défausse}.
+	 * Les Cartes contenues dans la {@link Defausse}.
 	 * @see Carte
 	 */
 	private ArrayList<Carte> defausse;
@@ -37,14 +37,14 @@ public class Defausse {
 	
 	
 	/**
-	 * Constructeur de la Défausse.
+	 * Constructeur de la défausse.
 	 */
 	private Defausse(){
 		super();
 	}	
 	
 	/**
-	 * Ajoute une Carte dans la pile de la Défausse, elle est donc jouée et posée sur la table. 
+	 * Ajoute une Carte dans la pile de la défausse, elle est donc jouée et posée sur la table. 
 	 * @param carte
 	 * 			Carte à défausser.
 	 */
@@ -53,7 +53,7 @@ public class Defausse {
 	}
 
 	/**
-	 * Permet de retourner "physiquement" l'ancienne Défausse afin de constituer la nouvelle Pioche.
+	 * Permet de retourner "physiquement" l'ancienne défausse afin de constituer la nouvelle Pioche.
 	 * @return La future Pioche, sous la forme d'une instance d'une ArrayList<Carte>
 	 * @see Pioche
 	 */
@@ -61,13 +61,13 @@ public class Defausse {
 		// On récupère la dernière Carte jouée
 		Carte carte_jouee = this.getDerniereCarteJouee();
 		
-		// On l'enlève de la Défausse actuelle
+		// On l'enlève de la défausse actuelle
 		this.getDefausse().remove(this.getIndexCartePosee());
 		
 		// On stocke la défausse en remettant la couleur des joker à null.
 		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().razCouleurJoker(this.getDefausse());
 		
-		// On met à jour la nouvelle Défausse
+		// On met à jour la nouvelle défausse
 		ArrayList<Carte> nouvelle_defausse = new ArrayList<Carte>();
 		nouvelle_defausse.add(carte_jouee);
 		this.setDefausse(nouvelle_defausse);
@@ -96,7 +96,7 @@ public class Defausse {
 	}
 
 	/**
-	 * Retourne l'instance de la Défausse, et la construit si elle n'existe pas.
+	 * Retourne l'instance de la Defausse, et la construit si elle n'existe pas.
 	 * @return Une instance de Defausse, qui correspond au singleton.
 	 */
 	public final static Defausse getInstance() {
@@ -118,7 +118,7 @@ public class Defausse {
 	}
 
 	/**
-	 * Retourne la liste des Cartes de la Défausse.
+	 * Retourne la liste des Cartes de la Defausse.
 	 * @return Une liste de Cartes.
 	 */
 	public ArrayList<Carte> getDefausse() {
@@ -134,25 +134,25 @@ public class Defausse {
 	}
 
 	/**
-	 * Retourne la dernière Carte posée sur le haut de la Défausse.
-	 * @return La dernière Carte posée sur le haut de la Défausse, sous la forme d'une instance de Carte.
+	 * Retourne la dernière Carte posée sur le haut de la Defausse.
+	 * @return La dernière Carte posée sur le haut de la Defausse, sous la forme d'une instance de Carte.
 	 */
 	public Carte getDerniereCarteJouee() {
 		return this.getDefausse().get(this.getIndexCartePosee());
 	}
 
 	/**
-	 * Retourne l'avant dernière Carte posée sur le haut de la Défausse.
-	 * @return L'avant dernière Carte posée sur le haut de la Défausse, sous la forme d'une instance de Carte.
+	 * Retourne l'avant dernière Carte posée sur le haut de la Defausse.
+	 * @return L'avant dernière Carte posée sur le haut de la Defausse, sous la forme d'une instance de Carte.
 	 */
 	public Carte getAvantDerniereCarteJouee() {
 		return this.getDefausse().get(this.getIndexCartePosee() -1);
 	}
 
 	/**
-	 * Met à jour la Défausse.
+	 * Met à jour la Defausse.
 	 * @param cartes
-	 * 		Liste des Cartes de la nouvelle Défausse. 
+	 * 		Liste des Cartes de la nouvelle Defausse. 
 	 */
 	public void setDefausse(ArrayList<Carte> cartes) {
 		this.defausse = cartes;

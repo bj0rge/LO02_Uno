@@ -1,1 +1,6 @@
-LO02_Uno
+fr.utt.isi.lo02.projet_uno.carte
+fr.utt.isi.lo02.projet_uno.enumeration
+fr.utt.isi.lo02.projet_uno.joueur
+fr.utt.isi.lo02.projet_uno.manche
+fr.utt.isi.lo02.projet_uno.partie
+fr.utt.isi.lo02.projet_uno.strategy

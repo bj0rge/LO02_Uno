@@ -111,7 +111,7 @@ public class Manche {
 	}
 
 	/**
-	 * Retourne la première Carte de la {@link Défausse} en début de Manche.
+	 * Retourne la première Carte de la {@link Defausse} en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
 		Carte c = Pioche.getInstance().piocher();

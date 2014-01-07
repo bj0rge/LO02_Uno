@@ -105,7 +105,7 @@ public class Pioche {
 
 	/**
 	 * Met à jour la Pioche.
-	 * @param carte
+	 * @param pioche
 	 * 		Liste des Cartes de la nouvelle Pioche. 
 	 */
 	public void setPioche(ArrayList<Carte> pioche) {

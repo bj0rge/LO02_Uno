@@ -375,7 +375,7 @@ public class Joueur {
 
 	/**
 	 * Retourne une représentation du Joueur sous forme de String.
-	 * @returns Une représentation du Joueur sous forme de String. 
+	 * @return Une représentation du Joueur sous forme de String. 
 	 */
 	public String toString() {
 		return this.getNom();

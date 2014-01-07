@@ -2,10 +2,11 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
+import fr.utt.isi.lo02.projet_uno.manche.Pioche;
 
 /**
  * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
- * <p> C'est une classe asbtraite mère de tous les cartes du jeu.
+ * <p> C'est une classe abstraite mère de tous les cartes du jeu.
  * <p>
  * Une Carte est caractérisée par les informations suivantes :
  * <ul>
@@ -107,7 +108,7 @@ public abstract class Carte {
 	
 	/**
 	 * Retourne une représentation de la Carte sous forme de String.
-	 * @returns Une représentation de la Carte sous forme de String. 
+	 * @return Une représentation de la Carte sous forme de String. 
 	 */
 	public abstract String toString();
 	

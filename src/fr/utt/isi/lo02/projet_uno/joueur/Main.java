@@ -34,7 +34,7 @@ public class Main {
 	}
 
 	/** 
-	 * Classe les Cartes de la Main par {@link #Couleur} et par Valeur.
+	 * Classe les Cartes de la Main par {@link Couleur} et par Valeur.
 	 * @see Carte#getCouleur()
 	 * @see Carte#getPoints()
 	 */
@@ -96,7 +96,7 @@ public class Main {
 	
 	/**
 	 * Retourne une représentation de la Main sous forme de String.
-	 * @returns Une représentation de la Main sous forme de String. 
+	 * @return Une représentation de la Main sous forme de String. 
 	 */
 	public String toString() {
 		

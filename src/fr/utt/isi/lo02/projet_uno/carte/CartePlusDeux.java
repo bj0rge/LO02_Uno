@@ -21,6 +21,7 @@ public class CartePlusDeux extends Carte {
 	 * Constructeur de la CartePlusDeux.
 	 * @param couleur
 	 * 			La Couleur de la Carte.
+	 * @see Carte
 	 */
 	public CartePlusDeux(Couleur couleur){
 		

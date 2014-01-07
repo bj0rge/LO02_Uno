@@ -22,13 +22,13 @@ public class CarteChangerSens extends Carte {
 	 * Constructeur de la CarteChangerSens.
 	 * @param couleur
 	 * 			La Couleur de la Carte.
+	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CarteChangerSens(Couleur couleur){
 		super(20, couleur);
 	}
 	
 	public boolean estJouable(Carte c) {
-		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
 		boolean retour = super.estJouable(c);
 		if ((this.getClass() == c.getClass())) {
 			retour = true;
@@ -36,6 +36,15 @@ public class CarteChangerSens extends Carte {
 		return retour;
 	}
 
+	/**
+	 * <p>Applique l'effet de CarteChangerSens : le jeu change de sens.</p>
+	 * 
+	 * @param premier_tour
+	 * 			<li> Si vrai et qu'il y a plus de 2 joueurs, c'est le joueur à gauche du donneur qui commence.
+	 * 			<li> Si faux et qu'il n'y a que 2 joueurs dans la partie, le joueur actuel rejoue.
+	 * @see Manche#changerSens()
+	 * @see Manche#passerJoueur()
+	 */
 	public void appliquerEffets(boolean premier_tour){
 		
 		System.out.println("Le jeu change de sens !\n");
@@ -56,6 +65,10 @@ public class CarteChangerSens extends Carte {
 		}
 	}
 	
+	/**
+	 * Retourne une représentation écrite de l'instance CarteChangerSens.
+	 * @return String : "<-> ({@link Couleur})"
+	 */
 	public String toString(){
 		
 		return ("<-> " + this.getCouleur());

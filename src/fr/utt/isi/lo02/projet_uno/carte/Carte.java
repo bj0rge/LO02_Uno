@@ -4,7 +4,7 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
 
 /**
- * <b>Carte est la classe représentant une Carte du jeu de UNO.</b>
+ * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
  * <p>
  * Une Carte est caractérisée par les informations suivantes :
  * <ul>
@@ -23,7 +23,7 @@ public abstract class Carte {
 	private int points;
 	
 	/**
-	 * La couleur portée par la carte. Peut être nul pour certaines Cartes spéciales.
+	 * La couleur portée par la carte. Peut être nul pour des Cartes Joker.
 	 */
 	private Couleur couleur;
 	
@@ -43,8 +43,9 @@ public abstract class Carte {
 	
 	
 	/**
-	 * Retourne la possibilité de jouer la Carte ou non par rapport à la dernière posée dans la Défausse.
-	 * @return Vrai si la carte est jouable, faux sinon.
+	 * Retourne la possibilité ou non de jouer la Carte par rapport à la dernière posée dans la Défausse.
+	 * @return <li><b> Si jouable :</b> Vrai
+	 * <li><b> Si non jouable :</b> Faux
 	 * @see Defausse
 	 */
 	public boolean estJouable(Carte c) {
@@ -57,6 +58,9 @@ public abstract class Carte {
 	
 	/**
 	 * Applique les effets induits par la carte.
+	 * @param premier_tour
+	 * 			Les effets d'une carte sont légèrement modifiées si elle est retournée de la Pioche dans la Défausse au premier tour.
+	 * @see Pioche
 	 * @see Defausse
 	 */
 	public abstract void appliquerEffets(boolean premier_tour);

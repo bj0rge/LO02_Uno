@@ -2,6 +2,7 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
+import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CarteChangerCouleur est la classe représentant une Carte joker du jeu de UNO.</b>
@@ -18,17 +19,28 @@ import fr.utt.isi.lo02.projet_uno.manche.Manche;
 public class CarteChangerCouleur extends CarteJoker{
 
 	/**
-	 * Constructeur de la CarteChangerCouleur.
+	 * Constructeur de CarteChangerCouleur.
+	 * @see CarteJoker#CarteJoker()
 	 */
 	public CarteChangerCouleur() {	
 		super();
 	}
 	
-	
+	/**
+	 * Renvoie que CarteChangerCouleur est toujours jouable.
+	 * @return Vrai
+	 */
 	public boolean estJouable(Carte c) {
 		return true;
 	}
 	
+	/**
+	 * <p>Applique l'effet de CarteChangerCouleur : le joueur qui pose cette carte choisit la couleur qu'elle prend.</p>
+	 * 
+	 * @param premier_tour
+	 * 			Si vrai, le premier joueur peut jouer ce qu'il veut.
+	 * @see Joueur#choixCouleur()
+	 */
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
 			System.out.println("\nJOKER ! Jouez ce que vous voulez !\n");
@@ -40,6 +52,10 @@ public class CarteChangerCouleur extends CarteJoker{
 		}
 	}
 	
+	/**
+	 * Renvoie la représentation écrite de l'instance CarteChangerCouleur.
+	 * @return String : "Joker ({@link Couleur})"
+	 */
 	public String toString(){
 		
 		StringBuffer sb = new StringBuffer();

@@ -18,17 +18,18 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 public class CarteNumerotee extends Carte {
 
 	/**
-	 * Le numéro représenté sur la CareNumérotée.
+	 * Le numéro représenté sur la CarteNumerotee.
 	 */
 	private int valeur_faciale;
 	
 	
 	/**
-	 * Constructeur de la Carte.
+	 * Constructeur de CarteNumerotee.
 	 * @param points
 	 * 			Le nombre de points que rapporte la Carte, qui sera aussi sa valeur faciale.
 	 * @param couleur
 	 * 			La couleur portée par la Carte.
+	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CarteNumerotee(int points, Couleur couleur) {
 		super(points, couleur);
@@ -50,8 +51,9 @@ public class CarteNumerotee extends Carte {
 		return retour;
 	}
 	
-	public void appliquerEffets(boolean premier_tour) { } // Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
-
+	// Inutile mais obligatoire : la méhode est abstraite pour la Carte Mère
+	public void appliquerEffets(boolean premier_tour) { }
+	
 	/**
 	 * Retourne la valeur faciale de la CarteNumerotee.
 	 * @return La valeur portée par la Carte.
@@ -69,7 +71,10 @@ public class CarteNumerotee extends Carte {
 		this.valeur_faciale = valeur_faciale;
 	}
 
-	
+	/**
+	 * Retourne la représentation écrite de l'instance CarteNumerotee.
+	 * @return String : "(Valeur) ({@link Couleur})"
+	 */
 	public String toString() {
 		return this.getValeurFaciale() + " " + this.getCouleur();
 	}

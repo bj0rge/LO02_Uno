@@ -21,6 +21,7 @@ public class CartePasserTour extends Carte {
 	 * Constructeur de la CartePasserTour.
 	 * @param couleur
 	 * 			La Couleur de la Carte.
+	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CartePasserTour(Couleur couleur){
 		
@@ -37,6 +38,12 @@ public class CartePasserTour extends Carte {
 		return retour;
 	}
 
+	/**
+	 * <p>Applique l'effet de CartePasserTour : le joueur suivant passe son tour.</p>
+	 * 
+	 * @param premier_tour
+	 * 			<li> <b>Si vrai</b> : c'est le premier joueur qui passe son tour.
+	 */
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
 			System.out.println(Manche.getInstance().getJoueurActuel() + " passe son tour dès le début !\n");
@@ -49,6 +56,10 @@ public class CartePasserTour extends Carte {
 		
 	}
 	
+	/**
+	 * Retourne une représentation écrite de l'instance CartePasserTour.
+	 * @return String : "(/) ({@link Couleur})"
+	 */
 	public String toString(){
 		
 		return ("(/) " + this.getCouleur());

@@ -70,15 +70,17 @@ public class Joueur {
 	}
 
 	/**
-	 * Retourne la nature du Joueur.
-	 * @return <i>Vrai</i> si le Joueur est humain, <i>Faux</i> sinon.
+	 * Permet d'indiquer que le joueur est humain.
+	 * @return <i>Vrai</i>
 	 */
 	public boolean estHumain() {
 		return true;
 	}
 
 	/**
-	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également a_pioche à <i>true</i>.
+	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également {@link #a_pioche} à <i>Vrai</i>.
+	 * @return Carte piochée
+	 * @see Main
 	 */
 	public Carte piocher() {
 		Carte carte_piochee = Pioche.getInstance().piocher();
@@ -89,9 +91,10 @@ public class Joueur {
 	}
 
 	/**
-	 * Poser une Carte, si elle est jouable, appliquer ses effets, et mettre fin au tour.
+	 * Pose une Carte, si elle est jouable, applique ses effets, et met fin au tour.
 	 * @param carte
-	 * 			Carte à poser.
+	 * 			Carte à poser
+	 * @see Carte#estJouable(Carte)
 	 */
 	public void poser(Carte carte) {
 		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
@@ -103,16 +106,16 @@ public class Joueur {
 	}
 
 	/**
-	 * Action de dire "UNO" : passe a_dit_uno à <i>true</i>
+	 * Action de dire "UNO" : passe {@link #a_dit_uno} à <i>Vrai</i>
 	 */
 	public void direUno() {
 		this.setADitUno(true);
 	}
 	
 	/**
-	 * Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
+	 * <p>Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
 	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
-	 * à tors qui piochera deux Cartes. 
+	 * à tors qui piochera deux Cartes.</p> 
 	 */
 	public void direContreUno() {}
 	
@@ -127,11 +130,16 @@ public class Joueur {
 	
 	/**
 	 * Met fin au tour du Joueur.
+	 * @see Manche#passerJoueur()
 	 */
 	public void terminerTour() {
 		Manche.getInstance().passerJoueur();
 	}
 	
+	/**
+	 * Permet de présenter les options de jeu au joueur actuel et de récupérer sa réponse.
+	 * @see Joueur#aPioche()
+	 */
 	public void jouer() {
 				
 		System.out.println(this + ", que voulez-vous faire ?\n");
@@ -202,7 +210,8 @@ public class Joueur {
 	}
 	
 	/**
-	 * Retourne la Couleur à jouer au prochain tour en fonction des Cartes dans la main
+	 * Permet au joueur de choisir une couleur.
+	 * @return {@link Couleur}
 	 */
 	public Couleur choixCouleur() {
 		System.out.println("\nQuelle couleur voulez-vous lancer " + Manche.getInstance().getJoueurActuel() + " ?\n");
@@ -241,11 +250,11 @@ public class Joueur {
 	
 	
 	/**
-	 * Methode permettant de savoir si le Joueur souhaite dénoncer le bluff
+	 * Methode permettant de savoir si le Joueur souhaite dénoncer le bluff.
 	 * @param j 
 	 * 			Joueur qui a joué le +4
-	 * @return <i>true</i> si le Joueur souhaite prendre le risque de dénoncer le bluff,
-	 * <i>false</i> sinon.
+	 * @return <i>Vrai</i> si le Joueur souhaite prendre le risque de dénoncer le bluff,
+	 * <i>Faux</i> sinon.
 	 */
 	public boolean direTuBluffesMartoni(Joueur j) {
 		System.out.println(this + ", " + j + " joue un +4, voulez-vous dénoncer le bluff ?\n"
@@ -269,7 +278,9 @@ public class Joueur {
 	}
 
 	/**
-	 * Réinitialise les variables nécessaires au bon fonctionnement d'un tour au commencement de celui-ci
+	 * Réinitialise les variables nécessaires au bon fonctionnement d'un tour au commencement de celui-ci.
+	 * @see Joueur#a_dit_uno
+	 * @see Joueur#a_pioche
 	 */
 	public void raz() {
 		this.setADitUno(false);
@@ -278,15 +289,15 @@ public class Joueur {
 
 	
 	/**
-	 * Retourne le nom du Joueur.
-	 * @return Le nom du Joueur, sous la forme d'une String.
+	 * Retourne le {@link #nom} du Joueur.
+	 * @return Le nom du Joueur, sous la forme d'un String.
 	 */
 	public String getNom() {
 		return nom;
 	}
 	
 	/**
-	 * Retourne la Main du Joueur.
+	 * Retourne la {@link #main} du Joueur.
 	 * @return La Main du Joueur, sous la forme d'une instance de Main.
 	 */
 	public Main getMain() {
@@ -294,23 +305,23 @@ public class Joueur {
 	}
 
 	/**
-	 * Retourne la valeur de a_dit_uno.
-	 * @return <i>true</i> si le Joueur a dit UNO depuis la fin de son tour précédent, <i>false</i> sinon.
+	 * Retourne la valeur de {@link #a_dit_uno}.
+	 * @return <i>Vrai</i> si le Joueur a dit UNO depuis la fin de son tour précédent, <i>Faux</i> sinon.
 	 */
 	public boolean aDitUno() {
 		return a_dit_uno;
 	}
 
 	/**
-	 * Retourne la valeur de a_pioche.
-	 * @return <i>true</i> si le Joueur a pioché lors de son tour actuel, <i>false</i> sinon.
+	 * Retourne la valeur de {@link #a_pioche}.
+	 * @return <i>Vrai</i> si le Joueur a pioché lors de son tour actuel, <i>Faux</i> sinon.
 	 */
 	public boolean aPioche() {
 		return a_pioche;
 	}
 
 	/**
-	 * Retourne le score du Joueur.
+	 * Retourne le {@link #score} du Joueur.
 	 * @return Le score du Joueur.
 	 */
 	public int getScore() {
@@ -318,7 +329,7 @@ public class Joueur {
 	}
 
 	/**
-	 * Met à jour le nom du Joueur.
+	 * Met à jour le {@link #nom} du Joueur.
 	 * @param nom
 	 * 			Nouveau nom du Joueur.
 	 */
@@ -327,7 +338,7 @@ public class Joueur {
 	}
 	
 	/**
-	 * Met à jour la Main du Joueur.
+	 * Met à jour la {@link #main} du Joueur.
 	 * @param main
 	 * 			Nouvelle Main à substituer à l'ancienne.
 	 */
@@ -336,7 +347,7 @@ public class Joueur {
 	}
 
 	/**
-	 * Met à jour la valeur de a_dit_uno.
+	 * Met à jour la valeur de {@link #a_dit_uno}.
 	 * @param a_dit_uno
 	 * 			Nouvelle valeur de a_dit_uno.
 	 */
@@ -345,7 +356,7 @@ public class Joueur {
 	}
 
 	/**
-	 * Met à jour la valeur de a_pioche.
+	 * Met à jour la valeur de {@link #a_pioche}.
 	 * @param a_pioche
 	 * 			Nouvelle valeur de a_pioche.
 	 */
@@ -354,7 +365,7 @@ public class Joueur {
 	}
 
 	/**
-	 * Met à jour le score du Joueur.
+	 * Met à jour le {@link #score} du Joueur.
 	 * @param score
 	 * 			Le nouveau score du joueur.
 	 */

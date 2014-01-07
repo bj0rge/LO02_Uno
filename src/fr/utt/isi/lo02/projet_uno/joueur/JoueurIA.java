@@ -28,6 +28,7 @@ public class JoueurIA extends Joueur {
 	
 	/**
 	 * Stratégie en cours d'utilisation par le JoueurIA.
+	 * @see Strategy
 	 */
 	private Strategy strategie;
 	
@@ -43,13 +44,18 @@ public class JoueurIA extends Joueur {
 		this.setStrategie(strategie);
 	}
 	
+	/**
+	 * Permet d'indiquer que le joueur n'est pas humain.
+	 * @return <i>Faux</i>
+	 */
 	public boolean estHumain() {
 		return false;
 	}
 	
 	/**
 	 * Vérifie que le JoueurIA a au moins une Carte jouable dans sa Main.
-	 * @return <i>true</i> si il peut jouer, <i>false</i> sinon.
+	 * @return <i>Vrai</i> s'il peut jouer, <i>Faux</i> sinon.
+	 * @see Carte#estJouable(Carte)
 	 */
 	public boolean peutJouer() {
 		boolean peut_jouer = false;
@@ -63,7 +69,7 @@ public class JoueurIA extends Joueur {
 	}
 	
 	/**
-	 * Choisit la Carte à jouer en fonction de la Strategy actuelle et la pose.
+	 * Choisit la carte à jouer en fonction de la {@link #strategie} actuelle, et la pose.
 	 */
 	public void jouer() {
 		boolean fin_tour = false;
@@ -126,6 +132,9 @@ public class JoueurIA extends Joueur {
 		return c_max; 
 	}
 	
+	/**
+	 * 
+	 */
 	public boolean direTuBluffesMartoni(Joueur j) {
 		boolean denoncer = false;
 		// Si le Joueur qui pose le +4 a encore au moins 3 Cartes en Main
@@ -148,7 +157,7 @@ public class JoueurIA extends Joueur {
 	
 
 	/**
-	 * Retourne la Stratégie en cours.
+	 * Retourne la {@link #stratégie} en cours.
 	 * @return Stratégie actuelle du JoueurIA.
 	 */
 	public Strategy getStrategie() {
@@ -156,7 +165,7 @@ public class JoueurIA extends Joueur {
 	}
 
 	/**
-	 * Met à jour la Stratégie du JoueurIA.
+	 * Met à jour la {@link #stratégie} du JoueurIA.
 	 * @param strategie
 	 * 			Stratégie à remplacer.
 	 */

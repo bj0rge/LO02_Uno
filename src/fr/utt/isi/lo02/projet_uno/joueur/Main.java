@@ -9,12 +9,9 @@ import fr.utt.isi.lo02.projet_uno.carte.Carte;
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 
 /**
- * <b>Main est la classe représentant la Main d'un Joueur de UNO.</b>
+ * <b>Main est la classe représentant la main d'un Joueur de UNO.</b>
  * <p>
- * La Main est caractérisée par :
- * <ul>
- * <li>Une liste de Cartes</li>
- * </ul>
+ * La Main est caractérisée par une liste de Cartes
  * </p>
  * @see Carte
  */
@@ -23,19 +20,23 @@ public class Main {
 	/**
 	 * Les Cartes contenues dans la Main.
 	 * @see Carte
+	 * @see ArrayList
 	 */
 	private ArrayList<Carte> cartes;
 	
 	
 	/**
 	 * Constructeur de la Main. 
+	 * @see ArrayList
 	 */
 	public Main() {
 		this.setCartes(new ArrayList<Carte>());
 	}
 
 	/** 
-	 * Classe les Cartes de la Main par Couleur et par Valeur.
+	 * Classe les Cartes de la Main par {@link #Couleur} et par Valeur.
+	 * @see Carte#getCouleur()
+	 * @see Carte#getPoints()
 	 */
 	public void classer() {
 		ArrayList<Carte> al = new ArrayList<Carte>();

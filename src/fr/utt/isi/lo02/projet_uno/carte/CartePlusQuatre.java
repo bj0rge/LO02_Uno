@@ -6,9 +6,11 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
+import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CartePlusCarte est la classe représentant une Carte +4 du jeu de UNO.</b>
+ * <p>C'est une classe fille de la classe abstraite {@link CarteJoker}.</p>
  * <p>
  * Une CartePlusQuatre est caractérisée par les informations suivantes :
  * <ul>
@@ -23,6 +25,7 @@ public class CartePlusQuatre extends CarteJoker {
 
 	/**
 	 * Constructeur de la CartePlusQuatre.
+	 * @see CarteJoker#CarteJoker()
 	 */
 	public CartePlusQuatre(){
 		super();
@@ -32,6 +35,14 @@ public class CartePlusQuatre extends CarteJoker {
 		return true;
 	}
 	
+	/**
+	 * <p>Applique l'effet de CartePlusQuatre : le joueur qui pose cette carte choisit la couleur qu'elle prend puis le joueur suivant pioche 4 cartes et passe son tour.</p>
+	 * 
+	 * @param premier_tour
+	 * 			<b>Si vrai</b>, on repioche une nouvelle carte.
+	 * @see Joueur#choixCouleur()
+	 * @see Joueur#piocher()
+	 */  
 	public void appliquerEffets(boolean premier_tour){
 		// Si c'est le premier tour, on repioche
 		if (premier_tour){
@@ -117,6 +128,10 @@ public class CartePlusQuatre extends CarteJoker {
 		}
 	}
 	
+	/**
+	 * Renvoie la représentation écrite de l'instance CartePlusQuatre.
+	 * @return String : "+4 ({@link Couleur})"
+	 */
 	public String toString(){
 		
 		StringBuffer sb = new StringBuffer();

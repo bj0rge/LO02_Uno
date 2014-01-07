@@ -5,6 +5,7 @@ import fr.utt.isi.lo02.projet_uno.manche.Defausse;
 
 /**
  * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
+ * <p> C'est une classe asbtraite mère de tous les cartes du jeu.
  * <p>
  * Une Carte est caractérisée par les informations suivantes :
  * <ul>

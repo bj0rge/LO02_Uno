@@ -6,6 +6,7 @@ import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 /**
  * <b>CarteChangerSens est la classe représentant une Carte Changement de sens du jeu de UNO.</b>
+ * <p>C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CarteChangerSens est caractérisée par les informations suivantes :
  * <ul>
@@ -21,7 +22,7 @@ public class CarteChangerSens extends Carte {
 	/**
 	 * Constructeur de la CarteChangerSens.
 	 * @param couleur
-	 * 			La Couleur de la Carte.
+	 * 			La {@link Couleur} de la Carte.
 	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CarteChangerSens(Couleur couleur){

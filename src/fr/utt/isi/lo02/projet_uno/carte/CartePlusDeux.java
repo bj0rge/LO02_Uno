@@ -2,9 +2,11 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
+import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CartePlusDeux est la classe représentant une Carte +2 du jeu de UNO.</b>
+ * <p>C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CartePlusDeux est caractérisée par les informations suivantes :
  * <ul>
@@ -20,8 +22,8 @@ public class CartePlusDeux extends Carte {
 	/**
 	 * Constructeur de la CartePlusDeux.
 	 * @param couleur
-	 * 			La Couleur de la Carte.
-	 * @see Carte
+	 * 			La {@link Couleur} de la Carte.
+	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CartePlusDeux(Couleur couleur){
 		
@@ -38,6 +40,12 @@ public class CartePlusDeux extends Carte {
 		return retour;
 	}
 
+	/**
+	 * Applique les effets de CartePlusDeux : le joueur suivant pioche deux cartes.
+	 * @param premier_tour
+	 * 			<b>Si vrai</b>, c'est le joueur actuel qui pioche deux cartes.
+	 * @see Joueur#piocher()
+	 */
 	public void appliquerEffets(boolean premier_tour){
 		if (premier_tour) {
 			
@@ -87,6 +95,9 @@ public class CartePlusDeux extends Carte {
 		}
 	}
 	
+	 /** Retourne la représentation écrite de l'instance CartePlusDeux.
+	 * @return String : "+2 ({@link Couleur})"
+	 */
 	public String toString() {
 		
 		return ("+2 " + this.getCouleur());

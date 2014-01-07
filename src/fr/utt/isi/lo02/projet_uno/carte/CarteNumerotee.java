@@ -4,12 +4,12 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 
 /**
  * <b>CarteNumerotee est la classe représentant une Carte simple du jeu de UNO.</b>
+ * <p> C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CarteNumérotée est caractérisée par les informations suivantes :
  * <ul>
- * <li>Le nombre de points qu'elle rapporte en fin de partie</li>
+ * <li>Le nombre de points qu'elle rapporte en fin de partie (soit sa valeur faciale)</li>
  * <li>La couleur qu'elle porte</li>
- * <li>Sa valeur faciale</li>
  * </ul>
  * Une CarteNumérotée peut être posée sur la table pour être jouée.
  * </p>
@@ -28,7 +28,7 @@ public class CarteNumerotee extends Carte {
 	 * @param points
 	 * 			Le nombre de points que rapporte la Carte, qui sera aussi sa valeur faciale.
 	 * @param couleur
-	 * 			La couleur portée par la Carte.
+	 * 			La {@link Couleur} portée par la Carte.
 	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CarteNumerotee(int points, Couleur couleur) {

@@ -37,18 +37,20 @@ public class Manche {
 	private static volatile Manche instance = null;
 	
 	/**
-	 * Le sens du Jeu en cours : horaire à true, anti-horaire à false.
+	 * Le sens du Jeu en cours : horaire à <i>Vrai</i>, anti-horaire à <i>Faux</i>.
 	 */
 	private boolean sensHoraire;
 	
 	/**
 	 * Le Joueur qui commence la Manche.
+	 * @see Joueur
 	 */
 	private Joueur joueurDebut;
 
 
 	/**
 	 * Le Joueur actuel, c'est à dire celui qui va jouer son tour.
+	 * @see Joueur
 	 */
 	private Joueur joueurActuel;
 	
@@ -60,41 +62,40 @@ public class Manche {
 	}
 
 	/**
-		 * Fait dérouler une Manche du début à la fin et retourne un tableau d'entier.
-		 * @return Un tableau d'entiers. En index [0], on a l'index du Joueur gagnant dans listeJoueurs, en index [1], le nombre de points gagnés. 
-		 */
-		public int deroulementManche() {
-			
-			// On donne pour premier joueur le JoueurDebut
-			Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
-			
-			// On distribue les cartes à chacun des joueurs
-			Manche.getInstance().distribuer();
-			
-			// On retourne la première carte de la Pioche
-			Manche.getInstance().retournerPremiereCarte();
-	//		Manche.getInstance().setPremierTour(false);
-			
-			// Tant que le JoueurActuel a encore au moins une Carte dans la Main
-			while(!Manche.getInstance().finManche()) {
-				// On fait jouer le JoueurActuel
-				Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel());
-			}
-			
-			// On récupère l'index du Joueur qui a gagné la partie, ie qui n'a plus de Carte en Main
-			int index = 0;
-			Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
-			while (it.hasNext()) {
-				Joueur j = (Joueur) it.next();
-				if (j.getMain().getCartes().size() == 0) {
-					index = Partie.getInstance().getListeJoueurs().indexOf(j); 
-				}
-			}
-			
-			// On retourne l'index du Joueur gagnant
-			int ret = index;
-			return ret;
+	 * Fait dérouler une Manche du début à la fin.
+	 * @return La position du joueur gagnant, sous forme d'entier.
+	 */
+	public int deroulementManche() {
+	
+		// On donne pour premier joueur le JoueurDebut
+		Manche.getInstance().setJoueurActuel(Manche.getInstance().getJoueurDebut());
+		
+		// On distribue les cartes à chacun des joueurs
+		Manche.getInstance().distribuer();
+		
+		// On retourne la première carte de la Pioche
+		Manche.getInstance().retournerPremiereCarte();
+		
+		// Tant que le JoueurActuel a encore au moins une Carte dans la Main
+		while(!Manche.getInstance().finManche()) {
+			// On fait jouer le JoueurActuel
+			Manche.getInstance().jouerTour(Manche.getInstance().getJoueurActuel());
 		}
+		
+		// On récupère l'index du Joueur qui a gagné la partie, ie qui n'a plus de Carte en Main
+		int index = 0;
+		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
+		while (it.hasNext()) {
+			Joueur j = (Joueur) it.next();
+			if (j.getMain().getCartes().size() == 0) {
+				index = Partie.getInstance().getListeJoueurs().indexOf(j); 
+			}
+		}
+		
+		// On retourne l'index du Joueur gagnant
+		int ret = index;
+		return ret;
+	}
 
 	/**
 	 * Distribue les cartes à chacun des joueurs. A effectuer en début de Manche.
@@ -110,7 +111,7 @@ public class Manche {
 	}
 
 	/**
-	 * Retourne la première Carte de la Défausse en début de Manche.
+	 * Retourne la première Carte de la {@link Défausse} en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
 		Carte c = Pioche.getInstance().piocher();
@@ -124,7 +125,7 @@ public class Manche {
 
 	/**
 	 * Retourne le sens de déroulement de la Manche en cours.
-	 * @return <i>true</i> pour le sens horaire, <i>false</i> pour le sens anti-horaire.
+	 * @return <i>Vrai</i> pour le sens horaire, <i>Faux</i> pour le sens anti-horaire.
 	 */
 	public boolean isSensHoraire() {
 		return sensHoraire;
@@ -144,7 +145,7 @@ public class Manche {
 	}
 	
 	/**
-	 * Passe le JoueurSuivant en JoueurActuel.
+	 * Passe le tour du Joueur actuel.
 	 */
 	public void passerJoueur() {
 		this.setJoueurActuel(this.getJoueurSuivant());
@@ -159,7 +160,7 @@ public class Manche {
 
 	/**
 	 * Retourne vrai si un Joueur a posé toutes ses Cartes.
-	 * @return <i>true</i> si un Joueur a remporté la Manche
+	 * @return <i>Vrai</i> si un Joueur a remporté la Manche, <i>Faux</i> sinon.
 	 */
 	private boolean finManche() {
 		
@@ -178,6 +179,7 @@ public class Manche {
 	/**
 	 * Compte les points dans la Main d'un Joueur
 	 * @return Le nombre de points contenu dans une Main
+	 * @see Carte#points
 	 */
 	public int compterPoints(Joueur j) {
 		int points = 0;
@@ -192,6 +194,8 @@ public class Manche {
 	
 	/**
 	 * Réinitialise les variables nécessaires au bon fonctionnement d'une manche au commencement de celle-ci
+	 * @see Manche#joueurActuel
+	 * @see Manche#sensHoraire
 	 */
 	public void razManche(){
 		
@@ -230,7 +234,7 @@ public class Manche {
 	}
 
 	/**
-	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à true.
+	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à <i>Vrai</i>.
 	 * @return Une instance de Manche, qui correspond au singleton.
 	 */
 	public final static Manche getInstance() {
@@ -332,7 +336,7 @@ public class Manche {
 	/**
 	 * Met à jour le sens de déroulement de la Manche en cours.
 	 * @param sensHoraire
-	 * 			<i>true</i> pour horaire, <i>false</i> pour anti-horaire. 
+	 * 			<i>Vrai</i> pour horaire, <i>Faux</i> pour anti-horaire. 
 	 */
 	public void setSensHoraire(boolean sensHoraire) {
 		this.sensHoraire = sensHoraire;

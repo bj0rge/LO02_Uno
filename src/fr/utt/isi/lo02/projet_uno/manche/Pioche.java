@@ -30,6 +30,7 @@ public class Pioche {
 	/**
 	 * Les Cartes contenues dans la Pioche.
 	 * @see Carte
+	 * @see ArrayList
 	 */
 	private ArrayList<Carte> pioche;
 	
@@ -42,6 +43,7 @@ public class Pioche {
 	
 	/**
 	 * Permet de mélanger la Pioche.
+	 * @see Collections#shuffle(java.util.List)
 	 */
 	public void melanger() {
 		Collections.shuffle(getPioche());
@@ -63,7 +65,7 @@ public class Pioche {
 	}
 	
 	/**
-	 * Permet de retourner la Défausse. Utilisée uniquement après que la dernière Carte de la Pioche a été piochée.
+	 * Permet de retourner la {@link Défausse}. Utilisée uniquement après que la dernière Carte de la Pioche a été piochée.
 	 */
 	private void retournerDefausse() {
 		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().retournerDefausse();

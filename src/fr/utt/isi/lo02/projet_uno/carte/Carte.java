@@ -45,8 +45,9 @@ public abstract class Carte {
 	
 	/**
 	 * Retourne la possibilité ou non de jouer la Carte par rapport à la dernière posée dans la défausse.
-	 * @return <li> Si jouable : <i>Vrai</i>
-	 * <li> Si non jouable : <i>Faux</i>
+	 * @param c
+	 * 		La carte que le joueur veut jouer
+	 * @return <i>Vrai</i> si jouable, <i>Faux</i> sinon
 	 * @see Defausse
 	 */
 	public boolean estJouable(Carte c) {

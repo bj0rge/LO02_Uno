@@ -21,7 +21,7 @@ import fr.utt.isi.lo02.projet_uno.carte.CarteJoker;
 public class Defausse {
 	
 	/**
-	 * L'instance de la Défausse.
+	 * L'instance de la {@link Défausse}.
 	 */
 	// L'utilisation du mot clé volatile permet, en Java version 5 et supérieur, 
 	// d'éviter le cas  où "Singleton.instance" est non-nul,
@@ -29,7 +29,7 @@ public class Defausse {
 	private static volatile Defausse instance = null;
 	
 	/**
-	 * Les Cartes contenues dans la Défausse.
+	 * Les Cartes contenues dans la {@link Défausse}.
 	 * @see Carte
 	 */
 	private ArrayList<Carte> defausse;
@@ -77,7 +77,7 @@ public class Defausse {
 	}
 	
 	/**
-	 * Réinitialise la couleur des CarteJoker
+	 * Réinitialise la couleur des CarteJoker.
 	 * @param liste_carte
 	 * 			Liste des Cartes à réinitialiser
 	 * @return La liste de Cartes avec les Jokers remis à zéro, sous forme d'une instance de Cartes ArrayList.
@@ -151,7 +151,7 @@ public class Defausse {
 
 	/**
 	 * Met à jour la Défausse.
-	 * @param carte
+	 * @param cartes
 	 * 		Liste des Cartes de la nouvelle Défausse. 
 	 */
 	public void setDefausse(ArrayList<Carte> cartes) {

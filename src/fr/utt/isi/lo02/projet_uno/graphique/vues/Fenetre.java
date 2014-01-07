@@ -57,7 +57,4 @@ public class Fenetre extends JFrame {
 		cl.show(container, listContent[num]);		
 	}
 
-	public static void main(String args[]) {
-		Fenetre f = new Fenetre();
-	}
 }

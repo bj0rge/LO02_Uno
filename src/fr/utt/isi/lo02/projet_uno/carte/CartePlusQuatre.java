@@ -10,7 +10,6 @@ import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CartePlusCarte est la classe représentant une Carte +4 du jeu de UNO.</b>
- * <p>C'est une classe fille de la classe abstraite {@link CarteJoker}.</p>
  * <p>
  * Une CartePlusQuatre est caractérisée par les informations suivantes :
  * <ul>
@@ -30,7 +29,10 @@ public class CartePlusQuatre extends CarteJoker {
 	public CartePlusQuatre(){
 		super();
 	}
-	
+	/**
+	 * Renvoie que CartePlusQuatre est toujours jouable.
+	 * @return <i>Vrai</i>
+	 */
 	public boolean estJouable(Carte c){
 		return true;
 	}

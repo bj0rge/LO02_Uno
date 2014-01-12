@@ -11,7 +11,7 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 /**
  * <b>Main est la classe représentant la main d'un Joueur de UNO.</b>
  * <p>
- * La Main est caractérisée par une liste de Cartes
+ * La Main est caractérisée par une liste de Cartes.
  * </p>
  * @see Carte
  */
@@ -78,7 +78,7 @@ public class Main {
 
 	/**
 	 * Retourne la liste des Cartes contenues dans la Main.
-	 * @return La liste des Cartes contenues dans la Main, sous la forme d'une instance d'ArrayList<Carte>.
+	 * @return La liste des Cartes contenues dans la Main, sous la forme d'une instance d'{@link ArrayList}.
 	 */
 	public ArrayList<Carte> getCartes() {
 		return cartes;
@@ -87,7 +87,7 @@ public class Main {
 	/**
 	 * Met à jour la Main.
 	 * @param cartes
-	 * 			Les Cartes qui vont constituer la nouvelle Main, sous la forme d'une instance d'ArrayList<Carte>.
+	 * 			Les Cartes qui vont constituer la nouvelle Main, sous la forme d'une instance d'{@link ArrayList}.
 	 */
 	public void setCartes(ArrayList<Carte> cartes) {
 		this.cartes = cartes;

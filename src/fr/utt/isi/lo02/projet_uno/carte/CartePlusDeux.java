@@ -6,7 +6,6 @@ import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CartePlusDeux est la classe représentant une Carte +2 du jeu de UNO.</b>
- * <p>C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CartePlusDeux est caractérisée par les informations suivantes :
  * <ul>

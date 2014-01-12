@@ -90,6 +90,10 @@ public class Partie
 		}
 	}
 
+	/**
+	 * Permet à l'utilisateur de choisir le nombre de joueurs (IA et Humain), et de donner leur nom.
+	 * Son choix permet d'ajouter des joueurs à {@link Partie#listeJoueurs}.
+	 */
 	public void selectionNombreJoueur(){
 		
 		int nbj = 0;
@@ -145,7 +149,10 @@ public class Partie
 			}
 		}
 	}
-
+	
+	/**
+	 * Permet à l'utilisateur de choisir le mode de jeu qu'il souhaite. Son choix modifie l'attribue {@link Partie#mode}.
+	 */
 	public void selectionMode(){
 		
 		int choixMode = -1;
@@ -223,7 +230,7 @@ public class Partie
 	}
 	
 	/**
-	 * Ajoute un Joueur à la listeJoueurs.
+	 * Ajoute un Joueur à la {@link Partie#listeJoueurs}.
 	 * @param j
 	 * 			Joueur à ajouter.
 	 * @see Joueur
@@ -232,6 +239,9 @@ public class Partie
 		this.getListeJoueurs().add(j);
 	}
 	
+	/**
+	 * Indique qui joue avec qui en mode {@link ModeDeJeu#EQUIPE}.
+	 */
 	public void constituerEquipe(){
 		
 		int x = (this.getListeJoueurs().size() / 2);
@@ -245,7 +255,8 @@ public class Partie
 	}
 	
 	/**
-	 * Construit les Cartes
+	 * Construit les Cartes.
+	 * @see Partie#construireCartes()
 	 */
 
 	public void debuterPartie(){
@@ -281,7 +292,7 @@ public class Partie
 		while (!this.isTerminee(num_manche));
 	}
 	/**
-	 * Demande un int via l'interface et retourne la valeur.
+	 * Demande un <i>int</i> via l'interface et retourne la valeur.
 	 * @return Un entier, entré par le Joueur.
 	 */
 	public int demanderInt() {
@@ -298,10 +309,10 @@ public class Partie
 	}
 	
 	/**
-	 * Retourne vrai si la Partie est terminée, en fonction du Mode de jeu
+	 * Retourne si la Partie est terminée, en fonction du Mode de jeu
 	 * @param num_tour
 	 * 			Numéro de la manche en cours.
-	 * @return <i>true</i> si la Partie est terminée, <i>false</i> sinon.
+	 * @return <i>Vrai</i> si la Partie est terminée, <i>Faux</i> sinon.
 	 */
 	private boolean isTerminee(int num_tour) {
 		
@@ -330,8 +341,8 @@ public class Partie
 	
 	/**
 	 * Calcule le résultat d'une manche.
-	 * @param resultatManche
-	 * 			Tableau : en [0] -> index du joueur qui a gagné la manche. [2]-> score à additionner.
+	 * @param index_vainqueur
+	 * 			L'inex du joueur vainqueur de la manche.
 	 */
 	private void calculScore(int index_vainqueur){
 		
@@ -454,6 +465,9 @@ public class Partie
 		}
 	}	
 	
+	/**
+	 * Affiche le score final de la partie en fonction du mode de jeu.
+	 */
 	public void afficherScoreFinal(){
 		
 		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
@@ -508,7 +522,7 @@ public class Partie
 
 	/**
 	 * Retourne la Liste des Joueurs présents dans la Partie.
-	 * @return La liste des Joueurs présents dans la Partie, sous forme d'une instance d'ArrayList<Joueur>.
+	 * @return La liste des Joueurs présents dans la Partie, sous forme d'une instance d'{@link ArrayList}.
 	 * @see Joueur
 	 */
 	public ArrayList<Joueur> getListeJoueurs(){
@@ -516,7 +530,7 @@ public class Partie
 	}
 
 	/**
-	 * Retourne un Joueur en fonction de sa position dans liste_joueurs 
+	 * Retourne un Joueur en fonction de sa position dans {@link Partie#listeJoueurs}.
 	 * @param position
 	 * 			La position du Joueur que l'on veut récupérer.
 	 * @return Le Joueur demandé.

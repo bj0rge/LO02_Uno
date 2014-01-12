@@ -95,6 +95,7 @@ public class Joueur {
 	 * @param carte
 	 * 			Carte à poser
 	 * @see Carte#estJouable(Carte)
+	 * @see Carte#appliquerEffets(boolean)
 	 */
 	public void poser(Carte carte) {
 		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
@@ -115,13 +116,13 @@ public class Joueur {
 	/**
 	 * <p>Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
 	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
-	 * à tors qui piochera deux Cartes.</p> 
+	 * à tort qui piochera deux Cartes.</p> 
 	 */
 	public void direContreUno() {}
 	
 
 	/**
-	 * Passer son tour. A un effet uniquement après avoir pioché, sinon ne fait rien.
+	 * Passer son tour, seulement après avoir pioché.
 	 */
 	public void passerTour() {
 		if (this.aPioche())

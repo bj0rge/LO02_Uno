@@ -3,13 +3,17 @@ package fr.utt.isi.lo02.projet_uno.partie;
 import java.util.Scanner;
 
 /**
- * <b>Crée la Partie et permet de jouer.</b>
- *
+ * <b>Uno sert à débuter une partie en ligne de commande.</b>
+ * <p>Il crée la Partie et permet de jouer.</p>
  */
 public class Uno {
 	
 	final static Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * Méthode principale pour lancer la partie.
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.

@@ -5,7 +5,6 @@ import fr.utt.isi.lo02.projet_uno.manche.Manche;
 
 /**
  * <b>CartePasserTour est la classe représentant une Carte Passe ton tour du jeu de UNO.</b>
- * <p>C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CartePasserTour est caractérisée par les informations suivantes :
  * <ul>
@@ -43,7 +42,7 @@ public class CartePasserTour extends Carte {
 	 * <p>Applique l'effet de CartePasserTour : le joueur suivant passe son tour.</p>
 	 * 
 	 * @param premier_tour
-	 * 			<li> Si <i>Vrai</i> : le premier joueur passe son tour.
+	 * 			Si <i>Vrai</i> : le premier joueur passe son tour.
 	 * @see Manche#passerJoueur()
 	 */
 	public void appliquerEffets(boolean premier_tour){

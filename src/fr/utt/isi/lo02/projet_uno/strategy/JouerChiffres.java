@@ -13,7 +13,11 @@ import fr.utt.isi.lo02.projet_uno.manche.Defausse;
  */
 public class JouerChiffres extends Strategy {
 
-	
+	/**
+	 * Le joueurIA joue une carte numérotée, en fonction de sa valeur. S'il ne peut pas, il joue autre chose.
+	 * @param j
+	 * 		JoueurIA en train de jouer.
+	 */
 	public void jouer(JoueurIA j) {
 		
 		

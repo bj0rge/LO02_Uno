@@ -49,8 +49,13 @@ public class Attaquer extends Strategy {
 		return nv;
 	}
 	
+	/**
+	 * Le joueurIA joue de manière offensive, en fonction du niveau de méchanceté de ses cartes.
+	 * @param j
+	 * 		JoueurIA en train de jouer.
+	 */
 	public void jouer(JoueurIA j) {
-		/* On cherche à savoir si le Joueur possède une Carte méchanceté,
+		/* On cherche à savoir si le JoueurIA possède une Carte méchanceté,
 		 * et si oui, on garde en mémoire celle qui apporte le plus grand
 		 * malus au Joueur suivant.
 		 */

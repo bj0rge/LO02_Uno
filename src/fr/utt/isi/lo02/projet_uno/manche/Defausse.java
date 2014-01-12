@@ -54,7 +54,7 @@ public class Defausse {
 
 	/**
 	 * Permet de retourner "physiquement" l'ancienne défausse afin de constituer la nouvelle Pioche.
-	 * @return La future Pioche, sous la forme d'une instance d'une ArrayList<Carte>
+	 * @return La future Pioche, sous la forme d'une instance d'une {@link ArrayList}.
 	 * @see Pioche
 	 */
 	public ArrayList<Carte> retournerDefausse() {
@@ -80,7 +80,7 @@ public class Defausse {
 	 * Réinitialise la couleur des CarteJoker.
 	 * @param liste_carte
 	 * 			Liste des Cartes à réinitialiser
-	 * @return La liste de Cartes avec les Jokers remis à zéro, sous forme d'une instance de Cartes ArrayList.
+	 * @return La liste de Cartes avec les Jokers remis à zéro, sous forme d'une instance de Cartes {@link ArrayList}.
 	 */
 	public ArrayList<Carte> razCouleurJoker(ArrayList<Carte> liste_carte){	
 		// On repasse la couleur des cartes +4 et changer couleur à null

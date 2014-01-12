@@ -6,7 +6,6 @@ import fr.utt.isi.lo02.projet_uno.manche.Pioche;
 
 /**
  * <b>Carte est la classe représentant une carte du jeu de UNO.</b>
- * <p> C'est une classe abstraite mère de tous les cartes du jeu.
  * <p>
  * Une Carte est caractérisée par les informations suivantes :
  * <ul>

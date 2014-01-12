@@ -6,7 +6,6 @@ import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 
 /**
  * <b>CarteChangerCouleur est la classe représentant une Carte joker du jeu de UNO.</b>
- * <p>C'est une classe fille de la classe abstraite {@link CarteJoker}.</p>
  * <p>
  * Une CarteChangerCouleur est caractérisée par les informations suivantes :
  * <ul>

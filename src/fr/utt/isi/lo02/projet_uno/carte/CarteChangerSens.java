@@ -6,7 +6,6 @@ import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 /**
  * <b>CarteChangerSens est la classe représentant une Carte Changement de sens du jeu de UNO.</b>
- * <p>C'est une classe fille de la classe abstraite {@link Carte}.</p>
  * <p>
  * Une CarteChangerSens est caractérisée par les informations suivantes :
  * <ul>

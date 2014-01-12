@@ -51,7 +51,7 @@ public class Pioche {
 
 	/**
 	 * Action de piocher une Carte dans la Pioche.<br>
-	 * Plus simplement : supprime la première Carte de la Pioche et la renvoie. Retourne la Défausse pour 
+	 * Supprime la première Carte de la Pioche et la renvoie. Retourne la Défausse pour 
 	 * en faire la nouvelle Pioche si besoin, en conservant la dernière Carte de la Défausse.  
 	 * @return La Carte piochée.
 	 * @see Carte
@@ -65,7 +65,7 @@ public class Pioche {
 	}
 	
 	/**
-	 * Permet de retourner la {@link Défausse}. Utilisée uniquement après que la dernière Carte de la Pioche a été piochée.
+	 * Permet de retourner la {@link Defausse}. Utilisée uniquement après que la dernière Carte de la Pioche a été piochée.
 	 */
 	private void retournerDefausse() {
 		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().retournerDefausse();
@@ -97,7 +97,7 @@ public class Pioche {
 
 	/**
 	 * Retourne la liste des Cartes de la Pioche.
-	 * @return Une liste de Cartes.
+	 * @return Une liste de Cartes, sous forme d'{@link ArrayList}.
 	 */
 	public ArrayList<Carte> getPioche() {
 		return pioche;
@@ -106,7 +106,7 @@ public class Pioche {
 	/**
 	 * Met à jour la Pioche.
 	 * @param pioche
-	 * 		Liste des Cartes de la nouvelle Pioche. 
+	 * 		Liste des Cartes de la nouvelle Pioche, sous forme d'{@link ArrayList}. 
 	 */
 	public void setPioche(ArrayList<Carte> pioche) {
 		this.pioche = pioche;

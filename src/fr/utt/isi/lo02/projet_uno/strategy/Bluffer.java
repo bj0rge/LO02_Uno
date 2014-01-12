@@ -12,6 +12,11 @@ import fr.utt.isi.lo02.projet_uno.joueur.JoueurIA;
  */
 public class Bluffer extends Strategy{
 	
+	/**
+	 * Le joueurIA pose une carte +4 s'il en possède une.
+	 * @param j
+	 * 		JoueurIA en train de jouer.
+	 */
 	public void jouer(JoueurIA j) {
 		Iterator<Carte> it = j.getMain().getCartes().iterator();
 		Carte c = null;

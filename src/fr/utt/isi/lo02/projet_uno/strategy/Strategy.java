@@ -21,6 +21,11 @@ public abstract class Strategy {
 	 */
 	public abstract void jouer(JoueurIA j);
 	
+	/**
+	 * Modifie la stratégie du JoueurIA en fonction des cartes qu'il possède.
+	 * @param j
+	 * 		JoueurIA qui est en train de jouer.
+	 */
 	public void set(JoueurIA j) {
 		boolean a_plus_quatre = false;
 		Iterator<Carte> it = j.getMain().getCartes().iterator();

@@ -25,14 +25,19 @@ public class CartePlusDeux extends Carte {
 	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CartePlusDeux(Couleur couleur){
-		
+		// On utilise le constructeur de Carte.
+		// Toutes les CartePlusDeux valent 20 points et possède une couleur dès le début
+		// d'où l'appel de constructeur avec la valeur 20 et une couleur en paramètre.
 		super(20, couleur);
 		
 	}
 	
 	public boolean estJouable(Carte c) {
-		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
+		// On vérifie si c'est la même couleur en utilisant la méthode estJouable de Carte.
 		boolean retour = super.estJouable(c);
+		
+		// On vérifie également si la carte précédente est du même type que CartePlusDeux.
+		// Si c'est le cas, alors la carte est jouable, quelque soit la couleur de la carte précédente.
 		if ((this.getClass() == c.getClass())) {
 			retour = true;
 		}
@@ -46,9 +51,13 @@ public class CartePlusDeux extends Carte {
 	 * @see Joueur#piocher()
 	 */
 	public void appliquerEffets(boolean premier_tour){
+		
+		// Si c'est le premier tour, c'est le premier joueur qui pioche.
 		if (premier_tour) {
 			
+			// S'il est humain, on fait piocher et on affiche les cartes qu'il a pioché.
 			if (Manche.getInstance().getJoueurActuel().estHumain()) {
+				// String Buffer permet d'afficher les deux cartes piochées sur une même ligne.
 				StringBuffer sb = new StringBuffer();
 				sb.append(Manche.getInstance().getJoueurActuel());
 				sb.append(" pioche : ");
@@ -56,10 +65,12 @@ public class CartePlusDeux extends Carte {
 					sb.append(Manche.getInstance().getJoueurActuel().piocher());
 					sb.append(" et ");
 				}
+				
+				// On retire les 3 derniers caractères du String Buffer, qui correspondent à "et "
 				sb.delete((sb.length() - 3), sb.length());
 				System.out.println(sb);
 			}
-			else {
+			else { // Si ce n'est pas un joueur humain, on fait piocher et on indique juste qu'il a pioché 2 cartes.
 				System.out.println(Manche.getInstance().getJoueurActuel() + " pioche 2 cartes");
 				for (int i = 0; i < 2; i++) {
 					Manche.getInstance().getJoueurActuel().piocher();
@@ -69,7 +80,7 @@ public class CartePlusDeux extends Carte {
 	
 			System.out.println("et il passe son tour.");
 		}
-		else {
+		else { // Si ce n'est pas le premier tour, c'est la même chose qu'au-dessus mais avec le joueur suivant.
 			if (Manche.getInstance().getJoueurSuivant().estHumain()) {
 				StringBuffer sb = new StringBuffer();
 				sb.append(Manche.getInstance().getJoueurSuivant());

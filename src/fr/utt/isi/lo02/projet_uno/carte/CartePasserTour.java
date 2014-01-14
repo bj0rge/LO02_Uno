@@ -24,14 +24,19 @@ public class CartePasserTour extends Carte {
 	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CartePasserTour(Couleur couleur){
-		
+		// On utilise le constructeur de Carte.
+		// Toutes les CartePasserTour valent 20 points et possède une couleur dès le début
+		// d'où l'appel de constructeur avec la valeur 20 et une couleur en
 		super(20, couleur);
 		
 	}
 	
 	public boolean estJouable(Carte c) {
-		// Si la Carte est déjà jouable, à savoir si elle a la même couleur, c'est bon
+		// On vérifie si c'est la même couleur en utilisant la méthode estJouable de Carte.
 		boolean retour = super.estJouable(c);
+		
+		// On vérifie également si la carte précédente est du même type que CartePasserTour.
+		// Si c'est le cas, alors la carte est jouable, quelque soit la couleur de la carte précédente.
 		if ((this.getClass() == c.getClass())) {
 			retour = true;
 		}
@@ -46,11 +51,12 @@ public class CartePasserTour extends Carte {
 	 * @see Manche#passerJoueur()
 	 */
 	public void appliquerEffets(boolean premier_tour){
+		// Si c'est le premier tour, c'est le premier joueur qui passe son tour.
 		if (premier_tour) {
 			System.out.println(Manche.getInstance().getJoueurActuel() + " passe son tour dès le début !\n");
 			Manche.getInstance().passerJoueur();
 		}
-		else {
+		else { // Sinon c'est le joueur suivant qui passe son tour.
 			System.out.println(Manche.getInstance().getJoueurSuivant() + " passe son tour !\n");
 			Manche.getInstance().passerJoueur();
 		}

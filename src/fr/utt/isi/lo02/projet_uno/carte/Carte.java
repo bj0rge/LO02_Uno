@@ -37,6 +37,7 @@ public abstract class Carte {
 	 * 			La {@link Couleur} portée par la Carte. La valeur peut être égale à <i>null</i>.
 	 */
 	public Carte(int points, Couleur couleur){
+		// Ce constructeur va servir pour construire les cartes filles qui ont une couleur et un nombre de points bien défini.
 		this.setPoints(points);
 		this.setCouleur(couleur);
 	}
@@ -66,6 +67,8 @@ public abstract class Carte {
 	 * @see Defausse
 	 */
 	public abstract void appliquerEffets(boolean premier_tour);
+	/* Méthode abstraite, elle va servir pour les cartes avec un effet : 
+	CartePasserTour, CarteChangerSens, CartePlusDeux et les CarteJoker (CarteChangerCouleur et CartePlusQuatre)*/
 	
 
 	/**
@@ -110,5 +113,6 @@ public abstract class Carte {
 	 * @return Une représentation de la Carte sous forme de String. 
 	 */
 	public abstract String toString();
+	// Overrides le toString de base. Cela permet un affichage spécifique pour chaque carte dans la console.
 	
 }

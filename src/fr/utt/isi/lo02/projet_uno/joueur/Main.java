@@ -108,6 +108,8 @@ public class Main {
 			sb.append(c.toString());
 			sb.append("\n");
 		}
+		
+		// On supprime le \n en trop
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 		

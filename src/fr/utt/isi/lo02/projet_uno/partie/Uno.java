@@ -16,7 +16,7 @@ public class Uno {
 	 */
 	public static void main(String[] args){
 		
-		// Création de la partie. Pas nécessaire, mais je trouve ça plus joli.
+		// Création de la partie.
 		Partie.getInstance();
 		
 		
@@ -25,7 +25,7 @@ public class Uno {
 				+ "--------------------------------------\n");
 		System.out.println("Vous allez débuter une partie.");
 		
-		// Choix du nb de joueur humain et ia
+		// Choix du nombre de joueur humain et ia
 		Partie.getInstance().selectionNombreJoueur();
 		
 		// Choix du mode de jeu et des paramètres
@@ -34,7 +34,7 @@ public class Uno {
 		// Génération des cartes
 		Partie.getInstance().debuterPartie();
 		
-		// Débute une partie
+		// Débuter une partie
 		Partie.getInstance().deroulementPartie();
 		
 		// Affiche le score de fin de partie

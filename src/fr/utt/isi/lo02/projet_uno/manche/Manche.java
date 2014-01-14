@@ -114,12 +114,16 @@ public class Manche {
 	 * Retourne la première Carte de la {@link Defausse} en début de Manche.
 	 */
 	public void retournerPremiereCarte() {
+		
+		// On récupérer la première carte de la pioche
 		Carte c = Pioche.getInstance().piocher();
 		
+		// On la pose dans la défausse
 		Defausse.getInstance().defausser(c);
 		
 		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 
+		// On applique son effet en précisant que c'est la première carte retournée de la pioche
 		c.appliquerEffets(true);
 	}
 
@@ -139,7 +143,7 @@ public class Manche {
 	 */
 	public void jouerTour(Joueur j) {
 		j.raz();
-		// syso de la dernière carte posée, via défausse, pour confirmation
+		// On affiche la dernière carte posée, via défausse, pour confirmation
 		System.out.println("\nLa première carte de la défausse est un " + Defausse.getInstance().getDerniereCarteJouee() + ".\n");
 		j.jouer();
 	}
@@ -155,6 +159,7 @@ public class Manche {
 	 * Inverse le sens de la Manche en cours.
 	 */
 	public void changerSens(){
+		// On change le sens en appliquant l'inverse du sens actuel
 		Manche.getInstance().setSensHoraire(!Manche.getInstance().isSensHoraire());
 	}
 
@@ -167,6 +172,7 @@ public class Manche {
 		boolean fin_manche = false;
 		Iterator<Joueur> it = Partie.getInstance().getListeJoueurs().iterator();
 		
+		// On vérifie s'il y a un joueur avec 0 carte dans la main
 		while (it.hasNext()){
 			Joueur j = (Joueur) it.next();
 			if (j.getMain().getCartes().size() == 0) {
@@ -184,6 +190,7 @@ public class Manche {
 	public int compterPoints(Joueur j) {
 		int points = 0;
 		
+		// On fait la somme des points de toutes les cartes d'un main d'un joueur j
 		Iterator<Carte> it = j.getMain().getCartes().iterator();
 		while (it.hasNext()){
 			points += it.next().getPoints();
@@ -199,20 +206,24 @@ public class Manche {
 	 */
 	public void razManche(){
 		
+		// On replace dans le sens horaire et on réinitialise le joueur actuel
 		Manche.getInstance().setSensHoraire(true);
 		Manche.getInstance().setJoueurActuel(null);
 		
+		// S'il n'y avait pas de premier joueur, c'est que c'est la première manche, donc le premier joueur à jouer est le premier joueur de la liste
 		if (Manche.getInstance().getJoueurDebut() == null) {
 			Manche.getInstance().setJoueurDebut(Partie.getInstance().getListeJoueurs().get(0));
 		}
-		else {
+		else { // S'il y avait un premier joueur à la manche précédente
 			ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 			int index = joueurs.indexOf(Manche.getInstance().getJoueurDebut());
 			
+			// On prend un nouveau premier joueur
 			Joueur joueur_suivant;
+			// Si on est à la fin de la liste, on prend le premier
 			if (index == joueurs.size() - 1)
 				joueur_suivant = joueurs.get(0);
-			else
+			else // Sinon on prend le suivant
 				joueur_suivant = joueurs.get(index + 1);
 			Manche.getInstance().setJoueurDebut(joueur_suivant);
 			
@@ -220,14 +231,20 @@ public class Manche {
 		
 		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 		
+		// On rassemble les cartes
 		Iterator<Joueur> itj = joueurs.iterator();
 		while (itj.hasNext()){
 			Joueur j = itj.next();
+			// On place les cartes d'un joueur dans la défausse
 			Defausse.getInstance().getDefausse().addAll(j.getMain().getCartes());
+			// On retire les cartes de sa main
 			j.getMain().getCartes().clear();			
 		}
 		
+		// On retire les couleurs des CarteJokers (CarteChangerCouleur et CartePlusQuatre)
 		Defausse.getInstance().setDefausse(Defausse.getInstance().razCouleurJoker(Defausse.getInstance().getDefausse()));
+		
+		// On met les cartes de la défausse dans la pioche
 		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
 		
 		Pioche.getInstance().melanger();
@@ -284,16 +301,18 @@ public class Manche {
 		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 		int index = joueurs.indexOf(getJoueurActuel());
 		
+		// Le joueur précédent dépend dans quel sens on joue
 		Joueur joueur_precedent;
 		if (Manche.getInstance().isSensHoraire()) {
-			if (index == 0) {
+			if (index == 0) { // Si le joueur actuel est le premier, le joueur précédent est donc le dernier
 				joueur_precedent = joueurs.get((joueurs.size())-1);
 			}
 			else {
 				joueur_precedent = joueurs.get(index - 1);
 			}
 		}
-		else {
+		else { 
+			// Dans le sens anti-horaire, le joueur précédent du dernier joueur est le premier
 			if (index == joueurs.size() - 1) {
 				joueur_precedent = joueurs.get(0);
 			}
@@ -313,8 +332,10 @@ public class Manche {
 		ArrayList<Joueur> joueurs = Partie.getInstance().getListeJoueurs();
 		int index = joueurs.indexOf(getJoueurActuel());
 		
+		// Le joueur suivant dépend dans quel sens on joue
 		Joueur joueur_suivant;
 		if (Manche.getInstance().isSensHoraire()) {
+			// Dans le sens horaire, si le joueur actuel est le dernier joueur de la liste alors le joueur suivant est le premier de la liste
 			if (index == joueurs.size() - 1) {
 				joueur_suivant = joueurs.get(0);
 			}
@@ -323,6 +344,7 @@ public class Manche {
 			}
 		}
 		else {
+			// Dans le sens anti-horaire, le joueur suivant du premier joueur de la liste est le dernier joueur de la liste
 			if (index == 0) {
 				joueur_suivant = joueurs.get((joueurs.size()-1));
 			}

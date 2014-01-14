@@ -27,6 +27,7 @@ public class CartePlusQuatre extends CarteJoker {
 	 * @see CarteJoker#CarteJoker()
 	 */
 	public CartePlusQuatre(){
+		// On utilise le constructeur de CarteJoker.
 		super();
 	}
 	/**
@@ -34,6 +35,7 @@ public class CartePlusQuatre extends CarteJoker {
 	 * @return <i>Vrai</i>
 	 */
 	public boolean estJouable(Carte c){
+		// Qu'elle que soit la carte précédente, la CartePlusQuatre est toujours jouable.
 		return true;
 	}
 	
@@ -135,10 +137,10 @@ public class CartePlusQuatre extends CarteJoker {
 	 * @return String : "+4 ({@link Couleur})"
 	 */
 	public String toString(){
-		
+		// On utilise un String Buffer pour dissocier le cas où une CartePlusQuatre possède une couleur du cas où il n'en a pas.
 		StringBuffer sb = new StringBuffer();
 		sb.append("+4");
-		if (this.getCouleur() != null){
+		if (this.getCouleur() != null){ // Si la carte a une couleur alors on la rajoute au StringBuffer.
 			sb.append(" " + this.getCouleur());
 		}
 		

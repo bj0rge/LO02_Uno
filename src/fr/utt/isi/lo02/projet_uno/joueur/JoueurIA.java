@@ -40,6 +40,7 @@ public class JoueurIA extends Joueur {
 	 * 			Strategy initiale du JoueurIA.
 	 */
 	public JoueurIA(String nom, Strategy strategie) {
+		// On utilise le même constructeur que Joueur, avec pour différence la stratégie de jeu
 		super(nom);
 		this.setStrategie(strategie);
 	}
@@ -58,6 +59,8 @@ public class JoueurIA extends Joueur {
 	 * @see Carte#estJouable(Carte)
 	 */
 	public boolean peutJouer() {
+		
+		// On compare toutes les cartes de la main à la dernière carte jouée
 		boolean peut_jouer = false;
 		Iterator<Carte> it = this.getMain().getCartes().iterator();
 		while (it.hasNext()) {
@@ -74,6 +77,7 @@ public class JoueurIA extends Joueur {
 	public void jouer() {
 		boolean fin_tour = false;
 		do {
+			// Si le joueurIA peut jouer, on applique sa stratégie et il joue une carte en fonction de celle-ci
 			if (this.peutJouer()) {
 				this.getStrategie().set(this);
 				this.getStrategie().jouer(this);
@@ -84,7 +88,7 @@ public class JoueurIA extends Joueur {
 				}
 				
 			}
-			else {
+			else { // S'il ne peut pas jouer, on lui fait piocher, et s'il a déjà pioché on termine son tour
 				if (this.aPioche()) {
 					this.passerTour();
 					System.out.println(this + " passe son tour.\n");
@@ -102,10 +106,13 @@ public class JoueurIA extends Joueur {
 	
 
 	public Couleur choixCouleur() {
+		
+		
 		Iterator<Carte> it;
 		int val_max = 0;
 		Couleur c_max = null;
 		
+		// On fait la somme des points des cartes de chaque couleur
 		for (Couleur coul : Couleur.values()) {
 			
 			int tmp = 0;
@@ -116,12 +123,14 @@ public class JoueurIA extends Joueur {
 					tmp += c.getPoints();
 				}
 			}
+			// On choisit la couleur si c'est la somme de ses points est la plus grande
 			if (tmp > val_max) {
 				val_max = tmp;
 				c_max = coul;
 			}
 		}
 		
+		// S'il n'y a pas de valeurs max, on choisit une couleur au hasard
 		if (c_max == null) {
 			ArrayList<Couleur> random_couleur = new ArrayList<Couleur>();
 			for (Couleur c : Couleur.values()) {

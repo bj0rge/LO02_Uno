@@ -18,6 +18,8 @@ public class Bluffer extends Strategy{
 	 * 		JoueurIA en train de jouer.
 	 */
 	public void jouer(JoueurIA j) {
+		
+		// On parcourt les cartes pour savoir si le joueur IA possède une carte +4
 		Iterator<Carte> it = j.getMain().getCartes().iterator();
 		Carte c = null;
 		while (it.hasNext()) {

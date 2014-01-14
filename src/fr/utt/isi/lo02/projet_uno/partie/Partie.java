@@ -71,19 +71,27 @@ public class Partie
 	 * @see Pioche
 	 */
 	private void construireCartes() {
+		// On construit les cartes en fonction des quatre couleurs
 		for (Couleur couleur : Couleur.values()) {
+			
+			// Les cartes numérotées qui sont au nombre de deux vont de 1 à 9
 			for (int val = 1; val <= 9; val++) {
 				for (int i = 0; i < 2; i++) {
 					Pioche.getInstance().getPioche().add(new CarteNumerotee(val, couleur));
 				}
 			}
+			// Il n'y a qu'une carte 0 par couleur
 			Pioche.getInstance().getPioche().add(new CarteNumerotee(0, couleur));
+			
+			// Il y a deux cartes spéciales par couleur
 			for (int i = 0; i < 2; i++) {
 				Pioche.getInstance().getPioche().add(new CartePlusDeux(couleur));
 				Pioche.getInstance().getPioche().add(new CarteChangerSens(couleur));
 				Pioche.getInstance().getPioche().add(new CartePasserTour(couleur));
 			}
 		}
+		
+		// Il y a quatre CarteChangeCouleur et quatre CartePlusQuatre
 		for (int i = 0; i < 4; i++) {
 			Pioche.getInstance().getPioche().add(new CarteChangerCouleur());
 			Pioche.getInstance().getPioche().add(new CartePlusQuatre());
@@ -99,6 +107,7 @@ public class Partie
 		int nbj = 0;
 		int nbia = 0;
 		
+		// Le UNO se joue au moins à 2 joueurs et à 10 joueurs maximum
 		while (nbj <= 1 || nbj > 10) {
 			System.out.println("Combien de joueurs voulez-vous ?");
 			nbj = this.demanderInt();
@@ -109,6 +118,7 @@ public class Partie
 				
 				int reponse = 0;
 				
+				// On propose de changer le mode de jeu à 2 joueurs s'il n'y a que deux joueurs
 				while (reponse != 1 && reponse != 2) {
 					System.out.println("Si vous n'êtes que deux joueurs, le mode de jeu sera DEUX_JOUEURS. Acceptez-vous ?");
 					System.out.println("[1] Oui");
@@ -138,6 +148,7 @@ public class Partie
 			nbia = Partie.getInstance().demanderInt();
 		}
 		
+		// On récupère les noms des joueurs et on ajoute dans la liste de joueurs au fur et à mesure
 		for (int i = 1; i <= nbj; i++) {
 			System.out.println("\nQuel est le nom du joueur " + i + " ?");
 			String nom = sc.next();
@@ -157,6 +168,7 @@ public class Partie
 		
 		int choixMode = -1;
 		
+		// Si le mode deux joueurs a déjà été indiqué, il est inutile de proposer un mode de jeu
 		if (Partie.getInstance().getMode() != ModeDeJeu.DEUX_JOUEURS){
 			while (choixMode == -1) {
 				System.out.println("Quel mode de jeu voulez-vous ?");
@@ -190,7 +202,7 @@ public class Partie
 			if (this.getMode() != ModeDeJeu.CHALLENGE){
 				System.out.println("[1] Changer le nombre de points avant de gagner la partie.");
 				System.out.println("[2] Changer le nombre de manches maximum.");
-			} else {
+			} else { // Il ne peux pas y avoir de manches maximum en mode Challenge
 				System.out.println("[1] Changer le nombre de points avant qu'un joueur ne soit éliminé.");
 			}
 
@@ -199,8 +211,9 @@ public class Partie
 			int val = 0;
 		
 			if (choixParam == 0){
+				// Au UNO, par défaut le nombre de points max à atteindre est 500
 				this.setNb_pts_max(500);
-			} else if (choixParam == 1){
+			} else if (choixParam == 1){ // Le joueur veut changer le nombre de points
 				while (val == 0){
 					System.out.println("Combien de points ?");
 					val = this.demanderInt();
@@ -244,6 +257,8 @@ public class Partie
 	 */
 	public void constituerEquipe(){
 		
+		// Les équipes sont des binomes, et sont formées pour faire en sorte que chaque équipe joue les uns à la suite des autres
+		// Pour cela, une équipe joue toutes les X fois, X étant la moitié du nombre de joueurs présents, soit le nombre d'équipe
 		int x = (this.getListeJoueurs().size() / 2);
 		
 		System.out.println("\n");
@@ -261,7 +276,7 @@ public class Partie
 
 	public void debuterPartie(){
 		
-		// On construit les Cartes, et on les envoie dans la Pioche =)
+		// On construit les Cartes, et on les envoie dans la Pioche.
 		Partie.getInstance().construireCartes();
 	}
 
@@ -319,7 +334,9 @@ public class Partie
 		ModeDeJeu mode = this.getMode();
 		boolean est_fini = false;
 		
-		// if (mode == ModeDeJeu.STANDARD || mode == ModeDeJeu.DEUX_JOUEURS) {
+		// En-dehors du mode Challenge, une partie est terminée soit ; 
+		// - quand on a atteint/dépassé le nombre de points max
+		// - quand on atteint le nombre de manche max
 		if (mode != ModeDeJeu.CHALLENGE) {
 			Iterator<Joueur> it = this.getListeJoueurs().iterator();
 			while (it.hasNext()) {
@@ -330,7 +347,7 @@ public class Partie
 					est_fini = true;	
 				}
 			}
-		} else /*if (mode == ModeDeJeu.CHALLENGE)*/ {
+		} else { // En mode Challenge, la partie est terminée lorsqu'il ne reste plus qu'un joueur
 			
 			if (this.getListeJoueurs().size() == 1){
 				est_fini = true;
@@ -350,6 +367,7 @@ public class Partie
 		ArrayList<Joueur> joueurs = this.getListeJoueurs();
 		Iterator<Joueur> it = joueurs.iterator();
 		
+		// En mode Standard ou Deux Joueurs, l'affichage est le même : 1 joueur = 1 score
 		if (this.getMode() == ModeDeJeu.STANDARD || this.getMode() == ModeDeJeu.DEUX_JOUEURS){
 			
 			while (it.hasNext()) {
@@ -361,6 +379,7 @@ public class Partie
 			
 			it = joueurs.iterator();
 			
+			// On affiche sous la forme : score précédent + points gagnés = nouveau score
 			while (it.hasNext()){
 				Joueur j = it.next();
 				StringBuffer sb = new StringBuffer();
@@ -370,6 +389,7 @@ public class Partie
 				sb.append(j.getScore());
 				sb.append(" + ");
 				
+				// Seul le joueur vainqueur gagne des points
 				if (joueurs.indexOf(j) == index_vainqueur){
 					sb.append(points);
 					j.ajouterPoints(points);
@@ -389,6 +409,7 @@ public class Partie
 			
 			ArrayList<Joueur> joueurs_elimines = new ArrayList<>();
 			
+			// On affiche sous la forme : score précédent + points gagnés = nouveau score
 			while (it.hasNext()){
 				Joueur j = it.next();
 				StringBuffer sb = new StringBuffer();
@@ -397,7 +418,8 @@ public class Partie
 				sb.append(" : ");
 				sb.append(j.getScore());
 				sb.append(" + ");
-			
+				
+				// En mode Challenge, seul le joueur vainqueur ne gagne PAS de points
 				if (joueurs.indexOf(j) != index_vainqueur){
 					sb.append(Manche.getInstance().compterPoints(j));
 					j.ajouterPoints(Manche.getInstance().compterPoints(j));
@@ -409,29 +431,37 @@ public class Partie
 				sb.append(" = ");
 				sb.append(j.getScore());
 				sb.append(" points");
+				
+				// Si le score d'un joueur dépasse la limite de points autorisé, il est éliminé
 				if (j.getScore() >= this.nb_pts_max){
 					sb.append(" => Eliminé !");
+					// On crée une liste fictive dans le cas où il y a plusieurs joueurs éliminés en même temps
 					joueurs_elimines.add(j);
 				}
 				System.out.println(sb.toString());
 			}
 			
+			// Si la liste fictive contient des joueurs éliminés, on retire ces joueurs de la liste principale
 			if (joueurs_elimines.isEmpty() == false){
 				joueurs.removeAll(joueurs_elimines);
 			}			
-		} else if (this.getMode() == ModeDeJeu.EQUIPE) {
+		} else if (this.getMode() == ModeDeJeu.EQUIPE) { // En mode Equipe, l'affichage est de la forme X joueurs = 1 score
 			
 			System.out.println("\n" + joueurs.get(index_vainqueur) + " a gagné la manche !");
 			
+			// Les équipes sont des binomes et sont formées pour faire en sorte que chaque équipe joue les uns à la suite des autres
+			// Pour cela, une équipe joue toutes les X fois, X étant la moitié du nombre de joueurs présents, soit le nombre d'équipe
 			int x = (this.getListeJoueurs().size() / 2);
 			int index_vainqueur2;
 			
+			// On récupère l'index du deuxième binome qui a gagné
 			if (index_vainqueur < x){
 				index_vainqueur2 = index_vainqueur + x;
 			} else {
 				index_vainqueur2 = index_vainqueur - x;
 			}
 			
+			// On compte les points des joueurs perdants
 			while (it.hasNext()) {
 				Joueur j = it.next();
 				if (joueurs.indexOf(j) != index_vainqueur && joueurs.indexOf(j) != index_vainqueur2){
@@ -439,6 +469,7 @@ public class Partie
 				}
 			}
 			
+			// On affiche sous la forme : score précédent + points gagnés = nouveau score
 			for (int i = 0; i < x; i++){
 				StringBuffer sb = new StringBuffer();
 				sb.append("Score de ");
@@ -449,6 +480,7 @@ public class Partie
 				sb.append(joueurs.get(i).getScore());
 				sb.append(" + ");
 				
+				// Seul les joueurs vainqueurs gagne des points
 				if (i == index_vainqueur || i == index_vainqueur2){
 					sb.append(points);
 					joueurs.get(i).ajouterPoints(points);
@@ -480,12 +512,15 @@ public class Partie
 			}
 		} else if (this.getMode() == ModeDeJeu.CHALLENGE){
 			
+			// A la fin d'un mode Challenge, le dernier joueur en jeu est le vainqueur
 			Joueur vainqueur = this.getListeJoueurs().get(0);
 			
 			System.out.println("\nLe jeu est terminé ! Le vainqueur est " + vainqueur + ".");
 		} else if (this.getMode() == ModeDeJeu.EQUIPE){
 			System.out.println("\nLe jeu est terminé ! Voici les scores :\n");
 			
+			// Les équipes sont des binomes et sont formées pour faire en sorte que chaque équipe joue les uns à la suite des autres
+			// Pour cela, une équipe joue toutes les X fois, X étant la moitié du nombre de joueurs présents, soit le nombre d'équipe
 			int x = (this.getListeJoueurs().size() / 2);
 			
 			for (int i = 0; i < x; i++){

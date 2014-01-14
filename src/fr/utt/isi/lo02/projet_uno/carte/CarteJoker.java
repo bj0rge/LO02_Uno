@@ -11,6 +11,9 @@ public abstract class CarteJoker extends Carte {
 	 * @see Carte#Carte(int, Couleur)
 	 */
 	public CarteJoker() {
+		// On utilise le constructeur de Carte
+		// CarteChangerCouleur et CartePlusQuatre valent 50 points et n'ont pas de couleur de base
+		// d'où l'appel de constructeur avec 50 en paramètre.
 		super(50, null);
 	}
 	

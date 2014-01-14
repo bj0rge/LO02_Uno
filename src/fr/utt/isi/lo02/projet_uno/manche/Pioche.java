@@ -59,6 +59,8 @@ public class Pioche {
 	public Carte piocher() {
 		Carte carte_piochee = this.getPioche().get(0);
 		this.getPioche().remove(0);
+		
+		// S'il n'y a plus de cartes dans la pioche, la défausse doit être retournée pour former une nouvelle pioche
 		if (this.getPioche().size() == 0)
 			retournerDefausse();
 		return carte_piochee;

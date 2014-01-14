@@ -98,11 +98,12 @@ public class Joueur {
 	 * @see Carte#appliquerEffets(boolean)
 	 */
 	public void poser(Carte carte) {
+		// On pose que si on vérifie d'abord si la carte est jouable
 		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-			this.getMain().getCartes().remove(carte);
-			Defausse.getInstance().defausser(carte);
-			carte.appliquerEffets(false);
-			this.terminerTour();
+			this.getMain().getCartes().remove(carte); // On retire de la main
+			Defausse.getInstance().defausser(carte); // On la pose dans la défausse
+			carte.appliquerEffets(false); // On applique l'effet en précisant que la première carte retournée de la pioche
+			this.terminerTour(); // On termine le tour
 		}
 	}
 
@@ -118,14 +119,14 @@ public class Joueur {
 	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
 	 * à tort qui piochera deux Cartes.</p> 
 	 */
-	public void direContreUno() {}
+	public void direContreUno() {} // Non implémenté à cause de l'interface en ligne de commande
 	
 
 	/**
 	 * Passer son tour, seulement après avoir pioché.
 	 */
 	public void passerTour() {
-		if (this.aPioche())
+		if (this.aPioche()) // On passe le tour seulement quand on a pioché
 			this.terminerTour();	
 	}
 	
@@ -134,7 +135,7 @@ public class Joueur {
 	 * @see Manche#passerJoueur()
 	 */
 	public void terminerTour() {
-		Manche.getInstance().passerJoueur();
+		Manche.getInstance().passerJoueur(); // Terminer le tour correspond à passer au joueur suivant
 	}
 	
 	/**
@@ -150,11 +151,13 @@ public class Joueur {
 		do {
 			int ret = -1;
 			do {
+				// La première option dépend de s'il a déjà pioché ou non
 				if (this.aPioche())
 					System.out.println("[0] Passer son tour");
 				else
 					System.out.println("[0] Piocher");
 				
+				// On lui présente toute les options qu'il a dans la main
 				int i = 0;
 				Iterator<Carte> it = this.getMain().getCartes().iterator();
 				while (it.hasNext()){
@@ -162,8 +165,10 @@ public class Joueur {
 					i += 1;
 				}
 				
+				// On récupére ce que le joueur a choisi
 				ret = Partie.getInstance().demanderInt();
 				
+				// Si ce n'est pas dans la liste, on affiche une erreur
 				if (ret < 0 || ret > this.getMain().getCartes().size()){
 					System.out.println("Valeur incorrecte : veuillez entrer un choix possible.");
 				}
@@ -215,9 +220,11 @@ public class Joueur {
 	 * @return {@link Couleur}
 	 */
 	public Couleur choixCouleur() {
+		
 		System.out.println("\nQuelle couleur voulez-vous lancer " + Manche.getInstance().getJoueurActuel() + " ?\n");
 		int i = 1;
 		
+		// On présente toutes les couleurs possibles
 		for (Couleur couleur : Couleur.values()){
 			System.out.println("[" + i + "] " + couleur);
 			i++;
@@ -226,10 +233,13 @@ public class Joueur {
 		
 		Couleur c = null;
 		int val = 0;
+		
+		// On demande la valeur jusqu'à ce le joueur rentre une valeur possible
 		while (val < 1 || val > 4) {
 			val = Partie.getInstance().demanderInt();
 		}
 		
+		// On choisit une couleur en fonction de la valeur entrée
 		switch (val)
 		{
 		case 1:
@@ -258,6 +268,8 @@ public class Joueur {
 	 * <i>Faux</i> sinon.
 	 */
 	public boolean direTuBluffesMartoni(Joueur j) {
+		
+		// On demande au joueur s'il veut dénoncer un bluff et on recommande tant que la valeur entrée est différente des valeurs possibles
 		System.out.println(this + ", " + j + " joue un +4, voulez-vous dénoncer le bluff ?\n"
 				+ "[1] Dénoncer le bluff\n"
 				+ "[2] Piocher 4 cartes");
@@ -284,6 +296,8 @@ public class Joueur {
 	 * @see Joueur#a_pioche
 	 */
 	public void raz() {
+		
+		// Au début d'un nouveau tour d'un joueur, il n'a pas encore pioché et il n'a pas encore dit (ou re-dit) UNO
 		this.setADitUno(false);
 		this.setAPioche(false);
 	}

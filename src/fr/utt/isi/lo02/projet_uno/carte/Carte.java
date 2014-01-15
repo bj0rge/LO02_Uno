@@ -2,7 +2,10 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
+<<<<<<< HEAD:src/fr/utt/isi/lo02/projet_uno/carte/Carte.java
 import fr.utt.isi.lo02.projet_uno.manche.Pioche;
+=======
+>>>>>>> interface_graphique2:src/fr/utt/isi/lo02/projet_uno/carte/Carte.java
 
 /**
  * <b>Carte est la classe représentant une carte du jeu de UNO.</b>

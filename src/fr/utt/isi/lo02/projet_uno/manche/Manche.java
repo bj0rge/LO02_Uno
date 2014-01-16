@@ -62,6 +62,30 @@ public class Manche {
 	}
 
 	/**
+	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à <i>Vrai</i>.
+	 * @return Une instance de Manche, qui correspond au singleton.
+	 */
+	public final static Manche getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Manche.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Manche.class) {
+				if (Manche.instance == null) {
+					Manche.instance = new Manche();
+					Manche.instance.setSensHoraire(true);
+					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
+					Manche.instance.setJoueurDebut(null);
+					}
+				}
+			}
+		return Manche.instance;
+	}
+
+	/**
 	 * Fait dérouler une Manche du début à la fin.
 	 * @return La position du joueur gagnant, sous forme d'entier.
 	 */
@@ -248,30 +272,6 @@ public class Manche {
 		Pioche.getInstance().getPioche().addAll(Defausse.getInstance().getDefausse());
 		
 		Pioche.getInstance().melanger();
-	}
-
-	/**
-	 * Retourne l'instance de la Manche, et la construit si elle n'existe pas. Par défaut, le sens horaire est à <i>Vrai</i>.
-	 * @return Une instance de Manche, qui correspond au singleton.
-	 */
-	public final static Manche getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Manche.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Manche.class) {
-				if (Manche.instance == null) {
-					Manche.instance = new Manche();
-					Manche.instance.setSensHoraire(true);
-					Manche.instance.setJoueurActuel(Partie.getInstance().getListeJoueurs().get(0));
-					Manche.instance.setJoueurDebut(null);
-					}
-				}
-			}
-		return Manche.instance;
 	}
 
 	/**

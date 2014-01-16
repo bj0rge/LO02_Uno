@@ -44,6 +44,28 @@ public class Defausse {
 	}	
 	
 	/**
+	 * Retourne l'instance de la Defausse, et la construit si elle n'existe pas.
+	 * @return Une instance de Defausse, qui correspond au singleton.
+	 */
+	public final static Defausse getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Defausse.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Defausse.class) {
+				if (Defausse.instance == null) {
+					Defausse.instance = new Defausse();
+					Defausse.getInstance().setDefausse(new ArrayList<Carte>());
+					}
+				}
+			}
+		return Defausse.instance;
+	}
+
+	/**
 	 * Ajoute une Carte dans la pile de la défausse, elle est donc jouée et posée sur la table. 
 	 * @param carte
 	 * 			Carte à défausser.
@@ -93,28 +115,6 @@ public class Defausse {
 			}
 		}
 		return liste_carte;
-	}
-
-	/**
-	 * Retourne l'instance de la Defausse, et la construit si elle n'existe pas.
-	 * @return Une instance de Defausse, qui correspond au singleton.
-	 */
-	public final static Defausse getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Defausse.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Defausse.class) {
-				if (Defausse.instance == null) {
-					Defausse.instance = new Defausse();
-					Defausse.getInstance().setDefausse(new ArrayList<Carte>());
-					}
-				}
-			}
-		return Defausse.instance;
 	}
 
 	/**

@@ -42,6 +42,28 @@ public class Pioche {
 	}
 	
 	/**
+	 * Retourne l'instance de la Pioche, et la construit si elle n'existe pas.
+	 * @return Une instance de Pioche, qui correspond au singleton.
+	 */
+	public final static Pioche getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Pioche.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Pioche.class) {
+				if (Pioche.instance == null) {
+					Pioche.instance = new Pioche();
+					Pioche.getInstance().setPioche(new ArrayList<Carte>());
+					}
+				}
+			}
+		return Pioche.instance;
+	}
+
+	/**
 	 * Permet de mélanger la Pioche.
 	 * @see Collections#shuffle(java.util.List)
 	 */
@@ -73,28 +95,6 @@ public class Pioche {
 		ArrayList<Carte> nouvelle_pioche = Defausse.getInstance().retournerDefausse();
 		this.setPioche(nouvelle_pioche);
 		this.melanger();
-	}
-
-	/**
-	 * Retourne l'instance de la Pioche, et la construit si elle n'existe pas.
-	 * @return Une instance de Pioche, qui correspond au singleton.
-	 */
-	public final static Pioche getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Pioche.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Pioche.class) {
-				if (Pioche.instance == null) {
-					Pioche.instance = new Pioche();
-					Pioche.getInstance().setPioche(new ArrayList<Carte>());
-					}
-				}
-			}
-		return Pioche.instance;
 	}
 
 	/**

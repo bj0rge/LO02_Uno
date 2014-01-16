@@ -54,24 +54,6 @@ public class JoueurIA extends Joueur {
 	}
 	
 	/**
-	 * Vérifie que le JoueurIA a au moins une Carte jouable dans sa Main.
-	 * @return <i>Vrai</i> s'il peut jouer, <i>Faux</i> sinon.
-	 * @see Carte#estJouable(Carte)
-	 */
-	public boolean peutJouer() {
-		
-		// On compare toutes les cartes de la main à la dernière carte jouée
-		boolean peut_jouer = false;
-		Iterator<Carte> it = this.getMain().getCartes().iterator();
-		while (it.hasNext()) {
-			if (it.next().estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-				peut_jouer = true;
-			}
-		}
-		return peut_jouer;
-	}
-	
-	/**
 	 * Choisit la carte à jouer en fonction de la {@link #strategie} actuelle, et la pose.
 	 */
 	public void jouer() {
@@ -103,8 +85,25 @@ public class JoueurIA extends Joueur {
 		}
 		while (!fin_tour);		
 	}
-	
 
+	/**
+	 * Vérifie que le JoueurIA a au moins une Carte jouable dans sa Main.
+	 * @return <i>Vrai</i> s'il peut jouer, <i>Faux</i> sinon.
+	 * @see Carte#estJouable(Carte)
+	 */
+	public boolean peutJouer() {
+		
+		// On compare toutes les cartes de la main à la dernière carte jouée
+		boolean peut_jouer = false;
+		Iterator<Carte> it = this.getMain().getCartes().iterator();
+		while (it.hasNext()) {
+			if (it.next().estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+				peut_jouer = true;
+			}
+		}
+		return peut_jouer;
+	}
+	
 	public Couleur choixCouleur() {
 		
 		

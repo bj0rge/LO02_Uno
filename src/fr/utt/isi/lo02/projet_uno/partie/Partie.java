@@ -67,6 +67,31 @@ public class Partie
 	private int nb_pts_max;
 	
 	/**
+	 * Retourne l'instance du Partie, et la construit si elle n'existe pas.
+	 * @return Une instance de Partie, qui correspond au singleton.
+	 */
+	public final static Partie getInstance() {
+		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
+		// d'éviter un appel coûteux à synchronized (qui est lourd), 
+		// une fois que l'instanciation est faite.
+		if (Partie.instance == null) {
+			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
+			// multiple même par différents "threads".
+			// Il est TRES important.
+			synchronized(Manche.class) {
+				if (Partie.instance == null) {
+					Partie.instance = new Partie();
+					Partie.instance.setMode(ModeDeJeu.STANDARD);
+					Partie.instance.setNb_pts_max(500);
+					Partie.instance.setNb_manches_max(0);
+					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
+				}
+			}
+		}
+		return Partie.instance;
+	}
+
+	/**
 	 * Génère les Cartes, et les envoie dans la Pioche. 
 	 * @see Pioche
 	 */
@@ -530,31 +555,6 @@ public class Partie
 		}
 	}	
 	
-	/**
-	 * Retourne l'instance du Partie, et la construit si elle n'existe pas.
-	 * @return Une instance de Partie, qui correspond au singleton.
-	 */
-	public final static Partie getInstance() {
-		// Le "Double-Checked Singleton"/"Singleton doublement vérifié" permet 
-		// d'éviter un appel coûteux à synchronized (qui est lourd), 
-		// une fois que l'instanciation est faite.
-		if (Partie.instance == null) {
-			// Le mot-clé synchronized sur ce bloc empêche toute instanciation
-			// multiple même par différents "threads".
-			// Il est TRES important.
-			synchronized(Manche.class) {
-				if (Partie.instance == null) {
-					Partie.instance = new Partie();
-					Partie.instance.setMode(ModeDeJeu.STANDARD);
-					Partie.instance.setNb_pts_max(500);
-					Partie.instance.setNb_manches_max(0);
-					Partie.instance.setListeJoueurs(new ArrayList<Joueur>());
-				}
-			}
-		}
-		return Partie.instance;
-	}
-
 	/**
 	 * Retourne la Liste des Joueurs présents dans la Partie.
 	 * @return La liste des Joueurs présents dans la Partie, sous forme d'une instance d'{@link ArrayList}.

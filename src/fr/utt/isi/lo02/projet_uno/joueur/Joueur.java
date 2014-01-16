@@ -78,67 +78,6 @@ public class Joueur {
 	}
 
 	/**
-	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également {@link #a_pioche} à <i>Vrai</i>.
-	 * @return Carte piochée
-	 * @see Main
-	 */
-	public Carte piocher() {
-		Carte carte_piochee = Pioche.getInstance().piocher();
-		this.getMain().getCartes().add(carte_piochee);
-		this.setAPioche(true);
-		this.getMain().classer();
-		return carte_piochee;
-	}
-
-	/**
-	 * Pose une Carte, si elle est jouable, applique ses effets, et met fin au tour.
-	 * @param carte
-	 * 			Carte à poser
-	 * @see Carte#estJouable(Carte)
-	 * @see Carte#appliquerEffets(boolean)
-	 */
-	public void poser(Carte carte) {
-		// On pose que si on vérifie d'abord si la carte est jouable
-		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
-			this.getMain().getCartes().remove(carte); // On retire de la main
-			Defausse.getInstance().defausser(carte); // On la pose dans la défausse
-			carte.appliquerEffets(false); // On applique l'effet en précisant que la première carte retournée de la pioche
-			this.terminerTour(); // On termine le tour
-		}
-	}
-
-	/**
-	 * Action de dire "UNO" : passe {@link #a_dit_uno} à <i>Vrai</i>
-	 */
-	public void direUno() {
-		this.setADitUno(true);
-	}
-	
-	/**
-	 * <p>Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
-	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
-	 * à tort qui piochera deux Cartes.</p> 
-	 */
-	public void direContreUno() {} // Non implémenté à cause de l'interface en ligne de commande
-	
-
-	/**
-	 * Passer son tour, seulement après avoir pioché.
-	 */
-	public void passerTour() {
-		if (this.aPioche()) // On passe le tour seulement quand on a pioché
-			this.terminerTour();	
-	}
-	
-	/**
-	 * Met fin au tour du Joueur.
-	 * @see Manche#passerJoueur()
-	 */
-	public void terminerTour() {
-		Manche.getInstance().passerJoueur(); // Terminer le tour correspond à passer au joueur suivant
-	}
-	
-	/**
 	 * Permet de présenter les options de jeu au joueur actuel et de récupérer sa réponse.
 	 * @see Joueur#aPioche()
 	 */
@@ -213,6 +152,67 @@ public class Joueur {
 			System.out.println(this + " annonce UNO !\n");
 		}
 		
+	}
+
+	/**
+	 * Fait piocher une Carte et l'ajoute dans la Main. Passe également {@link #a_pioche} à <i>Vrai</i>.
+	 * @return Carte piochée
+	 * @see Main
+	 */
+	public Carte piocher() {
+		Carte carte_piochee = Pioche.getInstance().piocher();
+		this.getMain().getCartes().add(carte_piochee);
+		this.setAPioche(true);
+		this.getMain().classer();
+		return carte_piochee;
+	}
+
+	/**
+	 * Pose une Carte, si elle est jouable, applique ses effets, et met fin au tour.
+	 * @param carte
+	 * 			Carte à poser
+	 * @see Carte#estJouable(Carte)
+	 * @see Carte#appliquerEffets(boolean)
+	 */
+	public void poser(Carte carte) {
+		// On pose que si on vérifie d'abord si la carte est jouable
+		if (carte.estJouable(Defausse.getInstance().getDerniereCarteJouee())) {
+			this.getMain().getCartes().remove(carte); // On retire de la main
+			Defausse.getInstance().defausser(carte); // On la pose dans la défausse
+			carte.appliquerEffets(false); // On applique l'effet en précisant que la première carte retournée de la pioche
+			this.terminerTour(); // On termine le tour
+		}
+	}
+
+	/**
+	 * Action de dire "UNO" : passe {@link #a_dit_uno} à <i>Vrai</i>
+	 */
+	public void direUno() {
+		this.setADitUno(true);
+	}
+	
+	/**
+	 * <p>Faire remarquer à un Joueur qu'il n'a pas dit "UNO". Si c'est le cas, le(s) Joueur(s) en question pioche(nt) 
+	 * deux Cartes, si en revanche aucun Joueur n'a oublié de dire "UNO", c'est celui qui annoncera le "Contre-Uno"
+	 * à tort qui piochera deux Cartes.</p> 
+	 */
+	public void direContreUno() {} // Non implémenté à cause de l'interface en ligne de commande
+	
+
+	/**
+	 * Passer son tour, seulement après avoir pioché.
+	 */
+	public void passerTour() {
+		if (this.aPioche()) // On passe le tour seulement quand on a pioché
+			this.terminerTour();	
+	}
+	
+	/**
+	 * Met fin au tour du Joueur.
+	 * @see Manche#passerJoueur()
+	 */
+	public void terminerTour() {
+		Manche.getInstance().passerJoueur(); // Terminer le tour correspond à passer au joueur suivant
 	}
 	
 	/**

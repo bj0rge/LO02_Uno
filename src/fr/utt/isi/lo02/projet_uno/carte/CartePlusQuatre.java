@@ -6,10 +6,7 @@ import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
 import fr.utt.isi.lo02.projet_uno.manche.Defausse;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
-<<<<<<< HEAD:src/fr/utt/isi/lo02/projet_uno/carte/CartePlusQuatre.java
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
-=======
->>>>>>> interface_graphique2:src/fr/utt/isi/lo02/projet_uno/carte/CartePlusQuatre.java
 
 /**
  * <b>CartePlusCarte est la classe représentant une Carte +4 du jeu de UNO.</b>

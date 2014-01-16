@@ -2,10 +2,7 @@ package fr.utt.isi.lo02.projet_uno.carte;
 
 import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
 import fr.utt.isi.lo02.projet_uno.manche.Manche;
-<<<<<<< HEAD:src/fr/utt/isi/lo02/projet_uno/carte/CartePlusDeux.java
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
-=======
->>>>>>> interface_graphique2:src/fr/utt/isi/lo02/projet_uno/carte/CartePlusDeux.java
 
 /**
  * <b>CartePlusDeux est la classe représentant une Carte +2 du jeu de UNO.</b>

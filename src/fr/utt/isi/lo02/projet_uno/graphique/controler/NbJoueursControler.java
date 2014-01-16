@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import fr.utt.isi.lo02.projet_uno.enumeration.Couleur;
+import fr.utt.isi.lo02.projet_uno.enumeration.ModeDeJeu;
 import fr.utt.isi.lo02.projet_uno.graphique.observer.Observable;
 import fr.utt.isi.lo02.projet_uno.graphique.observer.Observer;
 import fr.utt.isi.lo02.projet_uno.joueur.Joueur;
@@ -15,17 +17,32 @@ import fr.utt.isi.lo02.projet_uno.joueur.JoueurIA;
 import fr.utt.isi.lo02.projet_uno.partie.Partie;
 import fr.utt.isi.lo02.projet_uno.strategy.JouerChiffres;
 
+/**
+ * <b>NbJoueursControler est la classe contrôlant l'option du nombre de joueurs. Mais elle doit être codée avec les pieds.</b>
+ * <p>
+ * Le controler est caractérisé par :
+ * <ul>
+ * <li>Le nombre de joueurs humains à implémenter</li>
+ * <li>Le nombre de joueurs ia à implémenter</li>
+ * <li>Une liste des Observers qui observent</li>
+ * <li>L'instance de Partie</li>
+ * </ul>
+ * </p>
+ * @see Partie
+ */
 public class NbJoueursControler implements Observable {
 
 	private int nbhumains = 1, nbia = 3;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private Partie partie = Partie.getInstance();
 
+	
 	// Implémentation du pattern observer
 	public void addObserver(Observer obs) {
 		this.listObserver.add(obs);
 	}
-
+	
+	
 	public void notifyObserver(String str) {
 		boolean update_ok = (str.compareTo("ok") == 0) ? true : false;
 		for (Observer obs : listObserver)
@@ -37,6 +54,10 @@ public class NbJoueursControler implements Observable {
 		listObserver = new ArrayList<Observer>();
 	}
 	
+	/**
+	 * Action de contrôle qui permet de faire clignoter le message en cas
+	 * d'erreur de nombre, et qui crée les joueurs le cas échéant. 
+	 */
 	public void control() {
 		if (!(nbhumains + nbia > 10 || nbhumains + nbia < 2)) {
 			// Remise à 0 de la liste si le lanceur s'est planté et veut recommencer
@@ -80,19 +101,36 @@ public class NbJoueursControler implements Observable {
 	}
 	
 	
-
+	/**
+	 * Retourne le nombre de joueurs humains.
+	 * @return Un entier, qui correspond au nombre de joueurs humains.
+	 */
 	public int getNbhumains() {
 		return nbhumains;
 	}
 
+	/**
+	 * Met à jour le nombre de joueurs humains.
+	 * @param nbhumains
+	 * 			Le nouveau nombre de joueurs.
+	 */
 	public void setNbhumains(int nbhumains) {
 		this.nbhumains = nbhumains;
 	}
-
+	
+	/**
+	 * Retourne le nombre de joueurs ia.
+	 * @return Un entier, qui correspond au nombre de joueurs ia.
+	 */
 	public int getNbia() {
 		return nbia;
 	}
 
+	/**
+	 * Met à jour le nombre de joueurs ia.
+	 * @param nbia
+	 * 			Le nouveau nombre de joueurs ia.
+	 */
 	public void setNbia(int nbia) {
 		this.nbia = nbia;
 	}

@@ -9,15 +9,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
+/**
+ * <b>Fenetre est la classe personnalisée d'une JFrame.</b>
+ * <p>C'est aussi elle qui va construire le mode graphique de jeu.</p>
+ */
 public class Fenetre extends JFrame {
 	
+	/**
+	 * Constantes permettant de définir des valeurs par défaut pour l'écran à afficher
+	 */
 	public static final int DEBUT_JEU = 0, SELECTION_OPTIONS = 1, TOUR = 2;
 	private CardLayout cl = new CardLayout(); // CardLayout, permet d'afficher différents jpanels successifs
 	private JPanel container = new PanneauVert(); // JPanel principal
 	private String[] listContent = {"Accueil", "Options", "Tour"};
 	private ArrayList<JPanel> cards = new ArrayList<JPanel>();
 
+	/**
+	 * Constructeur de la classe Fenetre
+	 */
 	public Fenetre() {
 		this.setTitle("UNO");
 		this.setLocationRelativeTo(null); // Pour centrer la JFrame
@@ -53,6 +62,11 @@ public class Fenetre extends JFrame {
 
 	}
 	
+	/**
+	 * Permet de changer le JPanel courant vers le JPanel passé en paramètres.
+	 * @param num
+	 * 			Numéro du Panneau à afficher
+	 */
 	public void switchPan(int num) {		
 		cl.show(container, listContent[num]);		
 	}

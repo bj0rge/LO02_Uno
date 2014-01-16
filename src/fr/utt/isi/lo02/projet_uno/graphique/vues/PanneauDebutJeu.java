@@ -17,13 +17,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
+/**
+ * Panneau initial
+ *
+ */
 public class PanneauDebutJeu extends PanneauVert {
 	private JButton bouton = new JButton("Jouer");
 	private JPanel pan_acc = new PanneauAccueil();
 	private JLabel lab = new LabelVert("Bienvenue dans le jeu de UNO développé par Bastien Jorge et Alexander Proux", JLabel.CENTER);
 	private Fenetre fenetre_principale;
 
+	/**
+	 * Constructeur du PanneauDebutJeu
+	 * @param fen
+	 * 			Fenetre principale
+	 */
 	public PanneauDebutJeu(Fenetre fen) {
 		this.fenetre_principale = fen;
 		this.setLayout(new BorderLayout()); // On définit le système de positionnement en BorderLayout

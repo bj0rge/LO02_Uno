@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 
 import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
+/**
+ * Panneau du tour de jeu<br>
+ * <b>Attention, classe non terminée à l'heure actuelle !</b> Elle lance le jeu de Uno en mode graphique pour la suite.
+ */
 public class PanneauTour extends PanneauVert {
 	private Fenetre fenetre_principale;
 	private JLabel lab = new LabelVert("Déroulement", JLabel.CENTER);

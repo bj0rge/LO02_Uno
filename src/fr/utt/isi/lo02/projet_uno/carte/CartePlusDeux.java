@@ -32,6 +32,7 @@ public class CartePlusDeux extends Carte {
 		
 	}
 	
+
 	public boolean estJouable(Carte c) {
 		// On vérifie si c'est la même couleur en utilisant la méthode estJouable de Carte.
 		boolean retour = super.estJouable(c);

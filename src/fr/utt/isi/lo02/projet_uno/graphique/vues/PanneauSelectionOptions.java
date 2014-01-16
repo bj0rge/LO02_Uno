@@ -30,6 +30,9 @@ import fr.utt.isi.lo02.projet_uno.graphique.observer.Observer;
 import fr.utt.isi.lo02.projet_uno.partie.Partie;
 
 
+/**
+ * Panneau de gestion des options
+ */
 public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	private CardLayout cl = new CardLayout();
 	private String[] listContent = {"Nbj", "Modes"};
@@ -43,6 +46,12 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 	// L'instance de l'objet controleur
 	private NbJoueursControler controler = new NbJoueursControler();
 	
+	
+	/**
+	 * Constructeur du PanneauSelectionOptions
+	 * @param fen
+	 * 			Fenetre principale
+	 */
 	public PanneauSelectionOptions(Fenetre fen) {
 		// On ajoute l'observer au controler
 		controler.addObserver(this);
@@ -61,6 +70,10 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		
 	}
 
+	/**
+	 * Méthode permettant de récupérer le {@link Controler}
+	 * @return le Controler
+	 */
 	public Observable getControler() {
 		return controler;
 	}
@@ -399,6 +412,10 @@ public class PanneauSelectionOptions extends PanneauVert implements Observer {
 		}
 	}
 
+	/**
+	 * Méthode retournant le panneau
+	 * @return Le PanneauSelectionOptions
+	 */
 	public JPanel getPan() {
 		return this;
 	}

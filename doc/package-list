@@ -1,5 +1,9 @@
 fr.utt.isi.lo02.projet_uno.carte
 fr.utt.isi.lo02.projet_uno.enumeration
+fr.utt.isi.lo02.projet_uno.graphique
+fr.utt.isi.lo02.projet_uno.graphique.controler
+fr.utt.isi.lo02.projet_uno.graphique.observer
+fr.utt.isi.lo02.projet_uno.graphique.vues
 fr.utt.isi.lo02.projet_uno.joueur
 fr.utt.isi.lo02.projet_uno.manche
 fr.utt.isi.lo02.projet_uno.partie

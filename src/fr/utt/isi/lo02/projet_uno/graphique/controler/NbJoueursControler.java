@@ -32,8 +32,19 @@ import fr.utt.isi.lo02.projet_uno.strategy.JouerChiffres;
  */
 public class NbJoueursControler implements Observable {
 
+	/**
+	 * Représente un nombre de joueurs (humain ou artificiel).
+	 */
 	private int nbhumains = 1, nbia = 3;
+	
+	/**
+	 * Liste d'observateurs, sous forme d'ArrayList.
+	 */
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
+	
+	/**
+	 * L'instance de la partie.
+	 */
 	private Partie partie = Partie.getInstance();
 
 	
@@ -75,8 +86,8 @@ public class NbJoueursControler implements Observable {
 	}
 
 	private class DialogBoxUsername {
+		
 		ImageIcon icon;
-		// JPanel panIcon = new JPanel();
 		String nom;
 
 		public DialogBoxUsername(boolean est_humain, int num) {
@@ -90,8 +101,7 @@ public class NbJoueursControler implements Observable {
 					icon, 
 					null,
 					null);
-			// panIcon.setLayout(new BorderLayout());
-			// panIcon.add(icon);
+
 			this.nom = nouveau_nom;
 		}
 
